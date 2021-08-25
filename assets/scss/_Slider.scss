@@ -1,0 +1,204 @@
+.swiper-slide {
+    box-shadow: 0 0 0 rgb(255, 255, 255) !important;
+}
+
+#bannerSlider {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+
+
+    .swiper-slide {
+        .swiper-image {
+            width: 100%;
+            height: 100vh;
+            max-height: 100vh;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(50%)
+        }
+    }
+
+    .swiper-slide-overlay {
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        z-index: 997;
+        height: auto;
+        width: auto;
+        max-width: 100%;
+
+        p, h1 {
+            color: white;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        p {
+            font-weight: 600;
+            line-height: 14px;
+        }
+
+        h1 {
+            font-size: 16vh;
+            line-height: 16vh;
+        }
+
+        .slider-hero-button {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+    }
+
+    .swiper-slide-active {
+        .swiper-slide-overlay {
+            p {
+                animation: slideIn 1s ease-in-out forwards;
+            }
+
+            h1 {
+                animation: slideIn 1s ease-in-out forwards;
+                animation-delay: 500ms;
+            }
+
+            .slider-hero-button {
+                animation: slideIn 1s ease-in-out forwards;
+                animation-delay: 1000ms;
+            }
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        padding: 30px;
+        cursor: pointer;
+        border-radius: 50%;
+        color: white !important;
+        @include transition(400ms);
+
+        &:hover {
+            background: rgb(#1b2437, 0.4);
+            transform: scale(1.2);
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+.banner-overflow-content {
+    padding: 0 6%;
+    width: 100%;
+    position: absolute;
+    bottom: 60px;
+    z-index: 997;
+
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+
+    .course-types {
+        flex: 1;
+        background: rgb(0, 0, 0, 0.6);
+        padding: 24px 10px 24px 10px;
+        border-radius: 2px;
+
+        @include transition(400ms);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: left !important;
+
+        .icon {
+            margin: 0 20px 0 10px;
+
+            svg {
+                fill: $themeColorYellow;
+            }
+        }
+
+        h3 {
+            color: white;
+            text-transform: uppercase;
+        }
+
+        a {
+            font-size: 12px;
+            text-transform: uppercase;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        svg {
+            @include transition(400ms);
+        }
+
+        &:hover {
+            background: rgb(20, 20, 20, 1);
+
+            svg {
+                transform: scale(1.2);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .banner-overflow-content {
+        padding: 20px 2%;
+        position: relative;
+        top: 0;
+        display: block;
+
+        .course-types {
+            margin: 20px 0;
+            padding: 30px 20px;
+            background: rgb(0, 0, 0, 1);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+    }
+    .swiper-slide-overlay {
+        h1 {
+            font-size: 66px;
+            line-height: 66px;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #bannerSlider {
+        .swiper-slide-overlay {
+            top: 40%;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            display: none;
+        }
+
+        .swiper-slide-overlay {
+            h1 {
+                font-size: 60px;
+                line-height: 60px;
+            }
+        }
+    }
+}

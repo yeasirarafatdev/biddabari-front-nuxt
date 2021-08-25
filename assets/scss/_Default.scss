@@ -1,0 +1,152 @@
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+body,
+html {
+    min-height: 100vh;
+    min-width: 100%;
+    position: relative;
+    font-family: 'Baloo Da 2', cursive;
+    font-smoothing: auto;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Baloo Da 2', cursive;
+    font-weight: bold;
+}
+
+p {
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+}
+
+.font-roboto-slab {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+.border-left-yellow {
+    border-left: 4px solid #ffbf3f;
+}
+
+a {
+    @include transition(200ms);
+    text-decoration: none;
+}
+
+section {
+    padding: 40px calc(4% + 6px) 40px 4%;
+}
+
+.content {
+    height: 200vh;
+    width: 100%;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 998;
+    background: rgb(#1b2437, 0.4);
+}
+
+.vH-100 {
+    min-height: 100vh;
+}
+
+.vW-100 {
+    width: 100%;
+}
+
+.max-width- {
+    max-width: 1200px;
+    margin: auto !important;
+}
+.theme-text{
+    color: $themeColorYellow;
+}
+.theme-bg{
+    background-color: $themeColorYellow;
+}
+.px-4percent {
+    padding: 0 calc(4% + 6px) 0 4%;
+}
+
+
+.relative {
+    position: relative;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.gap-10 {
+    column-gap: 10px;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.no-m-p {
+    margin: 0;
+    padding: 0;
+}
+
+.text-12 {
+    font-size: 12px !important;
+}
+
+.text-14 {
+    font-size: 14px !important;
+}
+
+.line-height-24 {
+    line-height: 24px !important;
+}
+
+.color-yellow {
+    color: $themeColorYellow;
+}
+
+.bg-yellow {
+    background-color: $themeColorYellow;
+}
+
+.text-muted {
+    color: #8a8a8a;
+}
+
+.color-orange {
+    color: #ff7529;
+}
+
+.color-success {
+    color: #42b72e;
+}
+
+.btn-blue {
+    padding: 8px 14px;
+    background-color: dodgerblue;
+    border-radius: 4px;
+    color: white !important;
+    font-size: 14px;
+    @include transition(200ms);
+
+    &:hover {
+        background-color: #43a3ff;
+    }
+}
+

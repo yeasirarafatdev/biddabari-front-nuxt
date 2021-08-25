@@ -1,0 +1,47 @@
+.slide-show-card {
+    min-height: 120px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 0 14px rgb(20, 20, 20, .1);
+    padding: 6px;
+    @include transition(400ms);
+
+    &:hover {
+        box-shadow: 0 0 14px rgb(20, 20, 20, .4);
+
+        img {
+            transform: scale(1.1);
+        }
+    }
+
+    .image-container, img {
+        @include transition(400ms);
+        max-height: 320px;
+        height: auto;
+        width: 100%;
+        border-radius: 6px;
+    }
+
+    .image-container {
+        overflow: hidden;
+
+    }
+
+    .card-title {
+        text-align: center;
+        font-size: 14px !important;
+        line-height: 16px;
+        padding-top: 16px;
+        color: black;
+        @include transition(400ms);
+
+        &:hover {
+            color: $themeColorYellow;
+        }
+    }
+
+    p.price {
+        text-align: center;
+        margin-top: 10px;
+    }
+}

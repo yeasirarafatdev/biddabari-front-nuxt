@@ -1,0 +1,12 @@
+$scrollbar-width: 8px;
+
+$themeColorYellow: #F06345;
+// $themeColorBlack: rgb(20, 20, 20);
+
+@mixin transition($Time) {
+    -webkit-transition: all $Time ease-in-out 0s !important;
+    -moz-transition: all $Time ease-in-out 0s !important;
+    -ms-transition: all $Time ease-in-out 0s !important;
+    -o-transition: all $Time ease-in-out 0s !important;
+    transition: all $Time ease-in-out 0s !important;
+}
