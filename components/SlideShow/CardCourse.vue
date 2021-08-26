@@ -17,7 +17,6 @@
                 </strong>
                 <hr>
                 <div class='d-flex flex-wrap justify-space-between align-center mt-2'>
-                    <div class='text-muted'><i class='fas fa-users'></i> {{ data.users_count }}</div>
                     <div v-if='myCoursesIds.length && myCoursesIds.includes(data.id)'>
                         <strong class='color-success'>Enrolled</strong>
                     </div>

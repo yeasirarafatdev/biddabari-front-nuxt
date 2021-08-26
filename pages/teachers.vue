@@ -1,5 +1,5 @@
 <template>
-    <section class='vH-100 vW-100 mt-16 max-width-'>
+    <section class='vH-100 vW-100 max-width-'>
         <the-breadcrum :items-push="[{text: 'Teachers',disabled: true,href: '/teachers'}]" />
 
         <div class='mt-8'>
@@ -26,8 +26,8 @@
                     </v-alert>
                 </template>
                 <template v-else>
-                    <v-col v-for='teacher in teachers' cols='6' lg='2' md='3' sm='4'>
-                        <v-card elevation='4'>
+                    <v-col v-for='teacher in teachers' cols='6' lg='3' md='3' sm='4'>
+                        <v-card elevation='6'>
                             <div class='card-round'>
                                 <v-avatar height='150' width='150' class='shadow-dark'>
                                     <v-img

@@ -1,5 +1,5 @@
 <template>
-    <section class='vH-100 vW-100 max-width-' style='margin-top: 80px !important;'>
+    <section class='vH-100 vW-100 max-width-'>
         <!-- Breadcrum -->
         <lazy-the-breadcrum
             v-if='courseInfo && Object.keys(courseInfo).length'

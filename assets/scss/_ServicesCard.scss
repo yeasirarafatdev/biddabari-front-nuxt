@@ -33,9 +33,11 @@
         align-items: center;
         justify-content: center;
 
-        svg {
-            height: 50px !important;
-            width: 50px !important;
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
         }
     }
 
@@ -54,10 +56,8 @@
         }
 
         .icon-yellow {
-            svg {
-                fill: white;
-                height: 30px;
-                width: 30px;
+            img {
+                border-radius: 50%;
             }
 
             box-shadow: 0 6px 10px rgba(#1b2437, 0.1);
@@ -76,13 +76,6 @@
 
         h3 {
             font-size: 16px;
-        }
-
-        .icon-yellow {
-            svg {
-                height: 20px;
-                width: 20px;
-            }
         }
     }
 }

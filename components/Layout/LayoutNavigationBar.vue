@@ -11,7 +11,9 @@
             <div class='search-option'>
                 <form>
                     <input type='search' class='search-input' placeholder='Search'>
-                    <button type='submit'><v-icon color='white'>mdi-search-web</v-icon></button>
+                    <button type='submit'>
+                        <v-icon color='white'>mdi-search-web</v-icon>
+                    </button>
                 </form>
             </div>
         </div>
@@ -34,15 +36,31 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li v-if='$auth.loggedIn'>
+                        <v-menu offset-y>
+                            <template v-slot:activator='{ on, attrs }'>
+                                <v-btn
+                                    color='primary'
+                                    dark
+                                    v-bind='attrs'
+                                    v-on='on'
+                                >
+                                    <v-icon class='mr-2'>mdi-account</v-icon>
+                                    {{ $auth.user.name }}
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item @click='logout()'>
+                                    <v-list-item-title>Logout</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </li>
+                    <li v-else>
                         <nuxt-link to='/auth/login' exact>
-                            <div class='wrapper-btn'>
-                                <div class='card'>
-                                    <div class='ppp'>
-                                        <span class='enclosed'>Log</span><span>In</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <v-btn dark color='blue' class='mx-auto btn-theme-btn'>
+                                Login
+                            </v-btn>
                         </nuxt-link>
                     </li>
                 </ul>
@@ -63,6 +81,11 @@ export default {
             type: Array,
             default: () => [],
             required: true
+        }
+    },
+    methods: {
+        async logout() {
+            await this.$auth.logout()
         }
     }
 }

@@ -98,7 +98,7 @@ export default {
             this.myCourses = await this.$axios.$get(myCoursesUrl)
         }
     },
-    fetchOnServer: true,
+    fetchOnServer: false,
     head() {
         return {
             title: 'Courses',

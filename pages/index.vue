@@ -40,38 +40,14 @@
         </section>
 
         <!-- Services -->
-        <section class='max-width-'>
+        <section class='max-width-' v-if='categories && Object.keys(categories).length'>
             <div class='services-container'>
-                <nuxt-link to='/courses' class='services-card'>
+                <nuxt-link to='/courses' class='services-card' v-for='category in categories'>
                     <div class='icon-yellow'>
-                        <icons-online-learning />
+                        <img :src='category.photo' alt='' height='50px' width='50px'>
                     </div>
                     <div>
-                        <h3>Course</h3>
-                    </div>
-                </nuxt-link>
-                <nuxt-link to='/books' class='services-card'>
-                    <div class='icon-yellow'>
-                        <icons-book-stack />
-                    </div>
-                    <div>
-                        <h3>Books</h3>
-                    </div>
-                </nuxt-link>
-                <nuxt-link to='/todays-exam' class='services-card'>
-                    <div class='icon-yellow'>
-                        <icons-exam />
-                    </div>
-                    <div>
-                        <h3>Today's Exam</h3>
-                    </div>
-                </nuxt-link>
-                <nuxt-link to='/routine' class='services-card'>
-                    <div class='icon-yellow'>
-                        <icons-time />
-                    </div>
-                    <div>
-                        <h3>Routine</h3>
+                        <h3>{{ category.name }}</h3>
                     </div>
                 </nuxt-link>
             </div>
@@ -90,12 +66,11 @@
                     </v-col>
                     <v-col cols='12' sm='6'>
                         <p class='text-14 line-height-24 text-muted'>
-                            এখন বিসিএস প্রস্তুতির সুবর্ণ সময়। ৩টি বিসিএস প্রিলিমিনারির পরীক্ষার তারিখ হয়েছে। ৪২তম বিসিএস (বিশেষ) ২৬ ফেব্রুয়ারি, ৪১তম বিসিএস প্রিলিমিনারি ১৯ মার্চ ও ৪৩তম বিসিএস প্রিলিমিনারি ৬ অগাস্ট। এর মধ্যে ৪১/৪২তম বিসিএস প্রিলিমিনারি শেষ পর্যায়ে। আমাদের ৪১তম বিসিএস প্রিলিমিনারি মডেল টেস্ট শুরু ০৫ই মার্চ বর্তমানে রিভিউ টেস্ট চলছে। ফি ছাড়াই কিংবা মাত্র ২০০ টাকা দিয়ে পরীক্ষাগুলোতে অংশ নেওয়া যাবে। ৪১তম বিসিএসের ১০০টি ক্লাস শেষ হবে ২৮ ফেব্রুয়ারি। বর্তমানে ৪৩তম বিসিএস প্রিলিমিনারি + ৪১তম বিসিএস লিখিত + ৪০তম বিসিএস ভাইভা কোর্সের রেজিস্ট্রেশন চলছে! সবগুলো কোর্সে পিডিএফ কপি দেওয়া হয় এবং সাথে বিভিন্ন ধরনের পরীক্ষা মডিউল। আমরা দৃঢ়ভাবে বিশ্বাস করি আমাদের কোর্স করলে, শীট পড়লে ও গাইডলাইন অনুসরণ করলে আপনি সফল হবেন ইনশাআল্লাহ।
+                            এখন বিসিএস প্রস্তুতির সুবর্ণ সময়। ৩টি বিসিএস প্রিলিমিনারির পরীক্ষার তারিখ হয়েছে। ৪২তম বিসিএস (বিশেষ) ২৬ ফেব্রুয়ারি, ৪১তম বিসিএস প্রিলিমিনারি ১৯ মার্চ ও ৪৩তম বিসিএস প্রিলিমিনারি ৬ অগাস্ট। এর মধ্যে ৪১/৪২তম বিসিএস প্রিলিমিনারি শেষ পর্যায়ে। আমাদের ৪১তম বিসিএস প্রিলিমিনারি মডেল টেস্ট শুরু ০৫ই মার্চ বর্তমানে রিভিউ টেস্ট চলছে। ফি ছাড়াই কিংবা মাত্র ২০০ টাকা দিয়ে পরীক্ষাগুলোতে অংশ নেওয়া যাবে। ৪১তম বিসিএসের ১০০টি ক্লাস শেষ হবে ২৮ ফেব্রুয়ারি। বর্তমানে ৪৩তম বিসিএস প্রিলিমিনারি + ৪১তম বিসিএস লিখিত + ৪০তম বিসিএস ভাইভা কোর্সের রেজিস্ট্রেশন চলছে! সবগুলো কোর্সে পিডিএফ কপি দেওয়া হয় এবং সাথে বিভিন্ন ধরনের পরীক্ষা মডিউল।
                         </p>
-                        <p class='text-14 line-height-24 text-muted'>আসুন মায়া ছড়াই।</p>
                         <div class='text-center'>
                             <nuxt-link to='/about'>
-                                <v-btn dark color='blue' class='mx-auto'>Want to know more ?
+                                <v-btn dark color='blue' class='mx-auto btn-theme-btn'>Want to know more ?
                                     <v-icon class='ml-2'>mdi-arrow-right-bold-circle-outline</v-icon>
                                 </v-btn>
                             </nuxt-link>
@@ -119,14 +94,8 @@
             </v-row>
             <div class='my-10 text-center'>
                 <div style='width: 86px;margin: 0 auto;'>
-                    <nuxt-link to='/auth/login' exact>
-                        <div class='wrapper-btn'>
-                            <div class='card' style='width: 110px'>
-                                <div class='ppp'>
-                                    All Courses
-                                </div>
-                            </div>
-                        </div>
+                    <nuxt-link to='/courses' exact class='btn-theme-btn'>
+                        All Courses
                     </nuxt-link>
                 </div>
             </div>
@@ -156,15 +125,8 @@
                 </lazy-slide-show>
                 <div class='mt-4 text-center'>
                     <div style='width: 86px;margin: 0 auto;'>
-                        <nuxt-link to='/auth/login' exact>
-                            <div class='wrapper-btn'>
-                                <div class='card' style='width: 86px; background: -moz-linear-gradient(left, #CCCCCC 0%, #EEEEEE 50%, #EEEEEE 50%, #CCCCCC 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#CCCCCC),color-stop(50%,#EEEEEE), color-stop(50%,#EEEEEE), color-stop(100%,#CCCCCC));'>
-                                    <div class='ppp'>
-                                        Show all
-                                    </div>
-                                </div>
-                            </div>
+                        <nuxt-link to='/teachers' exact class='btn-theme-btn'>
+                            Show All
                         </nuxt-link>
                     </div>
                 </div>
@@ -181,13 +143,15 @@
                 <div slot='card' slot-scope='{data}' class='card-round'>
                     <div class='notice-board'>
                         <div>
-                            <p>{{ data.message }}</p>
-                            <strong>{{ data.name }}</strong>
+                            <p>{{ data.review }}</p>
                         </div>
-                        <div>
-                            <img :src='data.avatar' alt='' loading='lazy'
+                        <div class='text-center'>
+                            <img :src='data.photo' alt='' loading='lazy'
                                  class='swiper-lazy swiper-image'
                                  style='height: 100px; width: 100px; object-fit: cover; object-position: center; border-radius: 50%'>
+                            <div>
+                            <strong>{{ data.name }}</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,15 +183,8 @@
             </lazy-slide-show>
             <div class='mt-4 text-center'>
                 <div style='width: 86px;margin: 0 auto;'>
-                    <nuxt-link to='/auth/login' exact>
-                        <div class='wrapper-btn'>
-                            <div class='card' style='width: 86px; background: -moz-linear-gradient(left, #CCCCCC 0%, #EEEEEE 50%, #EEEEEE 50%, #CCCCCC 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#CCCCCC),color-stop(50%,#EEEEEE), color-stop(50%,#EEEEEE), color-stop(100%,#CCCCCC));'>
-                                <div class='ppp'>
-                                    Show all
-                                </div>
-                            </div>
-                        </div>
+                    <nuxt-link to='/founders' exact class='btn-theme-btn'>
+                        Show all
                     </nuxt-link>
                 </div>
             </div>
@@ -241,15 +198,12 @@ export default {
         return {
             books: [],
             courses: [],
+            categories: [],
             allNotice: {},
 
             teachers: [],
             founders: [],
-            testimonial: [
-                { id: 2, name: 'Student name', message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab animi asperiores consectetur consequuntur eum explicabo fuga, id in magni minus, perspiciatis possimus quibusdam quis, quos ratione ut veritatis! Assumenda.', avatar: require('~/assets/images/photos/1.jpg') },
-                { id: 1, name: 'Student name', message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab animi asperiores consectetur consequuntur eum explicabo fuga, id in magni minus, perspiciatis possimus quibusdam quis, quos ratione ut veritatis! Assumenda.', avatar: require('~/assets/images/photos/4.jpg') },
-                { id: 3, name: 'Student name', message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab animi asperiores consectetur consequuntur eum explicabo fuga, id in magni minus, perspiciatis possimus quibusdam quis, quos ratione ut veritatis! Assumenda.', avatar: require('~/assets/images/photos/3.jpg') }
-            ],
+            testimonial: [],
             founderSliderBreakPoints: {
                 1366: { slidesPerView: 3, spaceBetween: 30 },
                 1024: { slidesPerView: 3, spaceBetween: 30 },
@@ -284,6 +238,11 @@ export default {
         const coursesUrl = 'api/courses-welcome'
         this.courses = await this.$axios.$get(coursesUrl)
 
+        const categoriesUrl = 'api/categories'
+        this.categories = await this.$axios.$get(categoriesUrl)
+
+        this.testimonial = await this.$axios.$get('api/preview-reviews')
+
         const noticeUrl = 'api/notices'
         const allNotice = await this.$axios.$get(noticeUrl)
         this.allNotice = allNotice.data
@@ -310,12 +269,6 @@ export default {
             const hr = await this.$axios.$get(hrUrl)
             this.teachers = hr.filter(obj => {
                 return obj.hr_type === 'teacher'
-            })
-            this.guests = hr.filter(obj => {
-                return obj.hr_type === 'guest'
-            })
-            this.advisors = hr.filter(obj => {
-                return obj.hr_type === 'advisor'
             })
             this.founders = hr.filter(obj => {
                 return obj.hr_type === 'founder'

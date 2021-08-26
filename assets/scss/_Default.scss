@@ -73,16 +73,23 @@ section {
     max-width: 1200px;
     margin: auto !important;
 }
-.theme-text{
+
+.theme-text {
     color: $themeColorYellow;
 }
-.theme-bg{
+
+.theme-bg {
     background-color: $themeColorYellow;
 }
+
 .px-4percent {
     padding: 0 calc(4% + 6px) 0 4%;
 }
 
+.themeBtn {
+    background-color: $themeColorYellow !important;
+    color: white !important;
+}
 
 .relative {
     position: relative;

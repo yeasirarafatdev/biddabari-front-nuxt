@@ -187,73 +187,16 @@
 
 ////////////////
 
-.wrapper-btn {
-    position: relative;
-    perspective: 10em;
-    display: grid;
-    transform-style: preserve-3d;
-    border-radius: 4px;
-}
-
-.card {
-    grid-area: 1 / 1;
-    height: 40px;
-    width: 80px;
-    transform: translateX(6px) rotateY(30deg) rotateX(10deg);
+.btn-theme-btn {
+    color: white !important;
+    padding: 10px 16px;
+    border-radius: 40px;
     background: $themeColorYellow;
     background: -moz-linear-gradient(20deg, #f54721 0%, #E77B64FF 50%, #E77B64FF 50%, #f54721 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f54721), color-stop(50%, #E77B64FF), color-stop(50%, #E77B64FF), color-stop(100%, #f54721));
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px;
-    color: #000;
-    // text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 500;
-    backface-visibility: hidden;
-    box-shadow: 0 4px 16px -3px rgba(0, 0, 0, .1);
-}
-
-.card .enclosed {
-    background: #212121;
-    line-height: 1;
-    color: $themeColorYellow;
-    padding: 2px 5px;
-    margin-right: 2px;
-    display: inline-block;
-    // transform: translate(-1px, 1px) scale(0.75);
-    transform-origin: right center;
-}
-
-.wrapper-btn:before {
-    --bw: 2px;
-    border-radius: 4px;
-    grid-area: 1 / 1;
-    content: '';
-    backface-visibility: hidden;
-    height: 100%;
-    width: 100%;
-    margin-top: calc(-1 * var(--bw));
-    margin-left: calc(-1 * var(--bw));
-    background: transparent;
-    transform: translateX(-10px) rotateY(-30deg) rotateX(15deg) scale(1.03);
-    pointer-events: none;
-    border: var(--bw) solid #000;
-    box-sizing: content-box;
-}
-
-
-.wrapper-btn:hover > div,
-.wrapper-btn:hover:before {
-    transform: none;
-}
-
-
-.wrapper-btn > div,
-.wrapper-btn:before {
-    will-change: transform;
-    transition: .3s transform cubic-bezier(.25, .46, .45, 1);
+    white-space: nowrap;
+    min-width: 80px;
+    display: inline !important;
 }
 
 .search-option {
@@ -264,10 +207,11 @@
     .search-input {
         padding: 4px 10px;
     }
-    button{
+
+    button {
         background-color: $themeColorYellow;
         border-radius: 50%;
-        color:white;
+        color: white;
         padding: 4px;
     }
 }

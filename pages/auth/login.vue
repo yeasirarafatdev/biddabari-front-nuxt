@@ -1,125 +1,138 @@
 <template>
     <section class='vH-100 vW-100'>
-        <v-card
-            elevation='4'
-            :loading='submittingForm'
-            class='mx-auto my-12 py-6 px-6'
-            max-width='400'
-            max-height='100vh'
-            min-height='400px'
-            rounded
-        >
+        <v-row class='mt-10'>
+            <v-col col='12' lg='6' md='6' sm='6'>
+                <v-card
+                    elevation='1'
+                    :loading='submittingForm'
+                    class='mx-auto py-6 px-6'
+                    max-width='400'
+                    max-height='100vh'
+                    min-height='400px'
+                    rounded
+                >
 
-            <div style='display: flex; justify-content: center; align-content: center; align-items: center;'>
-                <div class='mt-10 flex1'>
-                    <!--<v-card-title>Login</v-card-title>-->
-                    <h2 class='mb-2'>Login / Register</h2>
-                    <validation-observer
-                        ref='observer'>
-                        <v-form ref='form'>
-                            <template v-if='login_errors && Object.keys(login_errors).length'>
-                                <template v-for='(error, err) in login_errors'>
-                                    <v-alert :key='err' type='error' style='max-width: 100%'>
-                                        {{ error }}
-                                    </v-alert>
-                                </template>
-                            </template>
-                            <v-row>
-                                <!-- Phone number Field-->
-                                <v-col v-show='!showPasswordField' cols='12'>
-                                    <validation-provider
-                                        v-slot='{ errors }'
-                                        name='Phone number'
-                                        :rules='phoneNumberRules'
-                                    >
-                                        <v-text-field
-                                            v-model='formData.phone'
-                                            :counter='11'
-                                            label='Phone Number'
-                                            :error-messages='errors'
-                                            :disabled='submittingForm'
-                                            required
-                                        ></v-text-field>
-                                    </validation-provider>
-                                </v-col>
+                    <div style='display: flex; justify-content: center; align-content: center; align-items: center;'>
+                        <div class='mt-10 flex1'>
+                            <!--<v-card-title>Login</v-card-title>-->
+                            <h2 class='mb-2'>Login / Register</h2>
+                            <validation-observer
+                                ref='observer'>
+                                <v-form ref='form'>
+                                    <template v-if='login_errors && Object.keys(login_errors).length'>
+                                        <template v-for='(error, err) in login_errors'>
+                                            <v-alert :key='err' type='error' style='max-width: 100%'>
+                                                {{ error }}
+                                            </v-alert>
+                                        </template>
+                                    </template>
+                                    <v-row>
+                                        <!-- Phone number Field-->
+                                        <v-col v-show='!showPasswordField' cols='12'>
+                                            <validation-provider
+                                                v-slot='{ errors }'
+                                                name='Phone number'
+                                                :rules='phoneNumberRules'
+                                            >
+                                                <v-text-field
+                                                    v-model='formData.phone'
+                                                    :counter='11'
+                                                    label='Phone Number'
+                                                    :error-messages='errors'
+                                                    :disabled='submittingForm'
+                                                    required
+                                                ></v-text-field>
+                                            </validation-provider>
+                                        </v-col>
 
-                                <!-- Name Field-->
-                                <v-col v-if='showNameField' cols='12'>
-                                    <validation-provider
-                                        v-slot='{ errors }'
-                                        name='Name'
-                                        :rules='nameRule'
-                                    >
-                                        <v-text-field
-                                            v-model='formData.name'
-                                            label='Name'
-                                            :error-messages='errors'
-                                            :disabled='submittingForm'
-                                            required
-                                        ></v-text-field>
-                                    </validation-provider>
-                                </v-col>
+                                        <!-- Name Field-->
+                                        <v-col v-if='showNameField' cols='12'>
+                                            <validation-provider
+                                                v-slot='{ errors }'
+                                                name='Name'
+                                                :rules='nameRule'
+                                            >
+                                                <v-text-field
+                                                    v-model='formData.name'
+                                                    label='Name'
+                                                    :error-messages='errors'
+                                                    :disabled='submittingForm'
+                                                    required
+                                                ></v-text-field>
+                                            </validation-provider>
+                                        </v-col>
 
-                                <!-- Password Field-->
-                                <v-col v-if='showPasswordField' cols='12'>
-                                    <validation-provider
-                                        v-slot='{ errors }'
-                                        name='Password'
-                                        rules='required'
+                                        <!-- Password Field-->
+                                        <v-col v-if='showPasswordField' cols='12'>
+                                            <validation-provider
+                                                v-slot='{ errors }'
+                                                name='Password'
+                                                rules='required'
+                                            >
+                                                <v-text-field
+                                                    v-model='formData.password'
+                                                    label='Password'
+                                                    hint='At least 4 characters'
+                                                    :error-messages='errors'
+                                                    :disabled='submittingForm'
+                                                    :type="'password'"
+                                                    required
+                                                ></v-text-field>
+                                            </validation-provider>
+                                        </v-col>
+                                    </v-row>
+                                    <div class='text-center mt-2'>
+                                        <!-- Create OR Get User -->
+                                        <v-btn
+                                            v-if='!showPasswordField'
+                                            class='mx-auto'
+                                            type='submit'
+                                            color='warning'
+                                            elevation='14'
+                                            rounded
+                                            :loading='submittingForm'
+                                            @click.prevent='createOrGetUser()'>
+                                            Continue
+                                        </v-btn>
+                                        <v-btn
+                                            v-else
+                                            class='mx-auto'
+                                            type='submit'
+                                            color='warning'
+                                            elevation='14'
+                                            rounded
+                                            :loading='submittingForm'
+                                            @click.prevent='loginUser()'>
+                                            Login
+                                        </v-btn>
+                                    </div>
+                                </v-form>
+                            </validation-observer>
+                            <div class='text-center'>
+                                <nuxt-link to='/auth/recover-password'>
+                                    <v-btn
+                                        class='mt-6'
+                                        x-small
+                                        link
                                     >
-                                        <v-text-field
-                                            v-model='formData.password'
-                                            label='Password'
-                                            hint='At least 4 characters'
-                                            :error-messages='errors'
-                                            :disabled='submittingForm'
-                                            :type="'password'"
-                                            required
-                                        ></v-text-field>
-                                    </validation-provider>
-                                </v-col>
-                            </v-row>
-                            <div class='text-center mt-2'>
-                                <!-- Create OR Get User -->
-                                <v-btn
-                                    v-if='!showPasswordField'
-                                    class='mx-auto'
-                                    type='submit'
-                                    color='warning'
-                                    elevation='14'
-                                    rounded
-                                    :loading='submittingForm'
-                                    @click.prevent='createOrGetUser()'>
-                                    Continue
-                                </v-btn>
-                                <v-btn
-                                    v-else
-                                    class='mx-auto'
-                                    type='submit'
-                                    color='warning'
-                                    elevation='14'
-                                    rounded
-                                    :loading='submittingForm'
-                                    @click.prevent='loginUser()'>
-                                    Login
-                                </v-btn>
+                                        Forgot password ?
+                                    </v-btn>
+                                </nuxt-link>
                             </div>
-                        </v-form>
-                    </validation-observer>
-                    <div class='text-center'>
-                        <nuxt-link to='/auth/recover-password'>
-                            <v-btn
-                                class='mt-6'
-                                x-small
-                                link
-                            >
-                                Forgot password ?
-                            </v-btn>
-                        </nuxt-link>
+                        </div>
                     </div>
+                </v-card>
+
+            </v-col>
+            <v-col col='12' lg='6' md='6' sm='6' order-lg="first" order-md='first' order-sm='first'>
+                <div class='text-center mt-6'>
+                    <img :src='require("~/assets/images/biddiabari/LoginIng.png")' alt='' height='300px'>
                 </div>
-            </div>
-        </v-card>
+                <div class='text-center mt-10'>
+                    Enjoy Your new learning experience <strong class='theme-text'>LOGIN NOW</strong>
+                </div>
+            </v-col>
+        </v-row>
     </section>
 </template>
 

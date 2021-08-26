@@ -41,7 +41,7 @@
                                 <nuxt-link to='/about'>About Us</nuxt-link>
                             </li>
                             <li>
-                                <nuxt-link to='/contact'>Contact</nuxt-link>
+                                <nuxt-link to='/contact'>Contact Us</nuxt-link>
                             </li>
                             <li>
                                 <nuxt-link to='/teachers'>Teachers</nuxt-link>
@@ -53,9 +53,6 @@
                         <ul>
                             <li>
                                 <nuxt-link to='/courses'>Course</nuxt-link>
-                            </li>
-                            <li>
-                                <nuxt-link to='/books'>Books</nuxt-link>
                             </li>
                             <li>
                                 <nuxt-link to='/notice'>Notices</nuxt-link>

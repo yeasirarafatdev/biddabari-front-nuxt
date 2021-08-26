@@ -41,18 +41,19 @@
 
             <v-row class='mt-16'>
                 <v-col cols='12' lg='6' md='6' sm='6'>
-                    <h4 class='border-left-yellow text-uppercase py-2 px-4 mb-2'>Who we aRe</h4>
-                    <p class='text-14'>Who we are: 'March Forward is a Free Education, Coaching Training and career mentoring platform for all Bangladeshi young people.</p>
+                    <div class='text-center'>
+                        <img :src='require("~/assets/images/biddiabari/MIsir.jpg")' alt=''
+                             style='width: 180px; height: 180px; object-fit: cover; object-position: top center; border-radius: 50%'>
+                    </div>
                 </v-col>
                 <v-col cols='12' lg='6' md='6' sm='6'>
-                    <h4 class='border-left-yellow text-uppercase py-2 px-4 mb-2'>WhAt we dO</h4>
-                    <p class='text-14'>We want sincere and honest Civil Servants in Bangladesh. Dedicated and smart corporate professionals are also in our Agenda. We will also work for English and other language proficiency as a means communication for our young people. Supporting New Entrepreneurs is also one of our concerns. We do not want just successful careerists but righteous people. We want to ensure level playing field of quality education, consultancy and training for the students all over the country specially who live in remote areas. Now only the students of mega cities are getting these privileges, we want to break this monopoly of education and training. Our slogan is "Let us Spread Kindness".</p>
+                    <div class='my-10'>
+                        <h4 class='border-left-yellow text-uppercase py-2 px-4 mb-2'>Who we aRe</h4>
+                        <p class='text-14'>A living guide for your Career and BCS/JOB Preparation.</p>
+                    </div>
                 </v-col>
             </v-row>
         </section>
-
-        <div style='height: 300px; width: 100%; background-repeat: no-repeat; background-origin: border-box; background-position: center;background-size:cover;'
-             :style="{ backgroundImage: `url(${require('~/assets/images/about-bg.jpg')})`}"></div>
 
         <section>
             <div class='text-center my-16'>
