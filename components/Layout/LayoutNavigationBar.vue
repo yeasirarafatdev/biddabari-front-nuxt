@@ -17,19 +17,21 @@
                     <button type='submit' @click='search()'>
                         <v-icon color='white'>mdi-search-web</v-icon>
                     </button>
-                    <div v-show='searchResult'>
-                        <div v-if='searchedCourses' style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
-                            <template v-for='(searchedCourse, i) in searchedCourses'>
-                                <nuxt-link :to='"/courses/"+searchedCourse.slug' class='px-2 my-0'>
-                                    <v-card class='d-flex justify-start align-center my-0' elevation='1'>
-                                        <div>
-                                            <img :src='searchedCourse.photo' alt='' height='40px'>
-                                        </div>
-                                        <div v-text='searchedCourse.title' class='py-2 text-14'></div>
-                                    </v-card>
-                                </nuxt-link>
-                            </template>
-                        </div>
+                    <div v-show='searchResult' @blur='searchResult=false' @focusout='searchResult=false'>
+                        <template v-if='searchedCourses'>
+                            <div style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
+                                <template v-for='(searchedCourse, i) in searchedCourses'>
+                                    <nuxt-link :to='"/courses/"+searchedCourse.slug' class='px-2 my-0'>
+                                        <v-card class='d-flex justify-start align-center my-0' elevation='1'>
+                                            <div>
+                                                <img :src='searchedCourse.photo' alt='' height='40px'>
+                                            </div>
+                                            <div v-text='searchedCourse.title' class='py-2 text-14'></div>
+                                        </v-card>
+                                    </nuxt-link>
+                                </template>
+                            </div>
+                        </template>
                         <div v-if='searching' style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
                             <div class='text-center'>
                                 <v-progress-circular
@@ -114,8 +116,8 @@ export default {
         },
         searchText: '',
         searching: false,
-        notFound: false,
         searchResult: false,
+        notFound: false,
         searchedCourses: {}
     },
     watch: {
@@ -126,6 +128,7 @@ export default {
                 } else {
                     this.searchedCourses = {}
                     this.notFound = false
+                    this.searching = false
                 }
             }, 500), deep: true
         },
@@ -140,8 +143,8 @@ export default {
         },
         async search() {
             this.notFound = false
-            this.searching = true
             this.searchResult = true
+            this.searching = true
             await this.$axios.$get(`api/search/courses?query=${this.searchText}`)
                 .then((response) => {
                     this.searchedCourses = response
