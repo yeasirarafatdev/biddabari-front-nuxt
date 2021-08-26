@@ -168,5 +168,8 @@ export default {
     },
     env: {
         API_URL: process.env.API_URL
+    },
+    server: {
+        port: process.env.APP_PORT
     }
 }
