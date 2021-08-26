@@ -129,7 +129,7 @@
                     <img :src='require("~/assets/images/biddiabari/LoginIng.png")' alt='' height='300px'>
                 </div>
                 <div class='text-center mt-10'>
-                    Enjoy Your new learning experience <strong class='theme-text'>LOGIN NOW</strong>
+                    Enjoy your new learning experience with us <strong class='theme-text'>LOGIN</strong> now
                 </div>
             </v-col>
         </v-row>
