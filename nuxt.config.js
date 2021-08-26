@@ -6,12 +6,12 @@ export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         titleTemplate: '%s - Biddabari',
-        title: 'March Forward BD',
+        title: 'Biddabari',
         htmlAttrs: { lang: 'en', amp: true },
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'March Forward is a Free Education, Coaching Training and career mentoring platform for all Bangladeshi young people.' },
+            { hid: 'description', name: 'description', content: 'Biddabari' },
             { name: 'format-detection', content: 'telephone=no' }
         ],
         link: [

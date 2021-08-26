@@ -23,7 +23,9 @@
                 </li>
                 <li>
                     <nuxt-link to='/auth/login' exact>
-                        Login
+                        <v-btn dark color='blue' class='mx-auto btn-theme-btn'>
+                            Login
+                        </v-btn>
                     </nuxt-link>
                 </li>
             </ul>

@@ -16,7 +16,7 @@
                     </v-col>
                     <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='7' lg='7' md='7' sm='6' xs='12'>
 
-                        <payment-instructions :settings='settings' :instructions='instructions'/>
+                        <payment-instructions :settings='settings' :instructions='instructions' />
 
                         <div class='d-flex flex-wrap justify-space-between align-center py-2'>
                             <div>Price</div>
@@ -239,7 +239,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: 'March Forward is a Free Education, Coaching Training and career mentoring platform for all Bangladeshi young people.'
+                    content: 'Biddabari'
                 }
             ]
         }

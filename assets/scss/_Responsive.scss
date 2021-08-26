@@ -10,7 +10,9 @@
 @media (hover) {
 
 }
-
+.small-logo{
+    display: none;
+}
 // Mobile device ... style ...
 @media only screen and (hover: none) and (pointer: coarse) {
 
@@ -53,6 +55,12 @@
 @media only screen and (max-width: 640px) {
     .hide-on-mobile {
         display: none;
+    }
+    .large-logo{
+        display: none;
+    }
+    .small-logo{
+        display: block;
     }
 }
 

@@ -197,7 +197,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: this.book && Object.keys(this.book).length ? this.book.title + '. ' : '' + 'March Forward is a Free Education, Coaching Training and career mentoring platform for all Bangladeshi young people.'
+                    content: this.book && Object.keys(this.book).length ? this.book.title + '. ' : '' + 'Biddabari'
                 }
             ]
         }

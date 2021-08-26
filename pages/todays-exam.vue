@@ -63,7 +63,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: 'Today`s exam routine for March Forward.'
+                    content: 'Today`s exam routine for Biddabari.'
                 }
             ]
         }

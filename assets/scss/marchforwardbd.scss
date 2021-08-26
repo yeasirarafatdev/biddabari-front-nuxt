@@ -191,9 +191,7 @@
     color: white !important;
     padding: 10px 16px;
     border-radius: 40px;
-    background: $themeColorYellow;
-    background: -moz-linear-gradient(20deg, #f54721 0%, #E77B64FF 50%, #E77B64FF 50%, #f54721 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f54721), color-stop(50%, #E77B64FF), color-stop(50%, #E77B64FF), color-stop(100%, #f54721));
+    background: $themeColorYellow !important;
     white-space: nowrap;
     min-width: 80px;
     display: inline !important;

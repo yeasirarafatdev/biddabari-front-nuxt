@@ -66,7 +66,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: 'March Forward is a Free Education, Coaching Training and career mentoring platform for all Bangladeshi young people.'
+                    content: 'Biddabari'
                 }
             ]
         }

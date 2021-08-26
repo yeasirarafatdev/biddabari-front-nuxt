@@ -1,19 +1,47 @@
 <template>
     <div id='navigation-bar' class='max-width-'>
         <div class='d-flex justify-start align-center flex-wrap gap-10'>
-            <div class='logo mt-2'>
+            <div class='logo'>
                 <nuxt-link to='/'>
                     <img :src="require('~/assets/images/biddiabari/biddabari.png')" alt='March  Forward' loading='lazy'
-                         class='swiper-lazy mt-1'
+                         class='swiper-lazy mt-1 large-logo'
                          width='140px'>
+                    <img :src="require('~/assets/images/biddiabari/biddabari_logo 512x512.png')" alt='March  Forward' loading='lazy'
+                         class='swiper-lazy mt-1 small-logo'
+                         width='60px'>
                 </nuxt-link>
             </div>
-            <div class='search-option'>
-                <form>
-                    <input type='search' class='search-input' placeholder='Search'>
-                    <button type='submit'>
+            <div class='search-option' style='position:relative;'>
+                <form @submit='search()'>
+                    <input type='search' class='search-input' placeholder='Search' v-model='searchText'>
+                    <button type='submit' @click='search()'>
                         <v-icon color='white'>mdi-search-web</v-icon>
                     </button>
+                    <div v-show='searchResult'>
+                        <div v-if='searchedCourses' style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
+                            <template v-for='(searchedCourse, i) in searchedCourses'>
+                                <nuxt-link :to='"/courses/"+searchedCourse.slug' class='px-2 my-0'>
+                                    <v-card class='d-flex justify-start align-center my-0' elevation='1'>
+                                        <div>
+                                            <img :src='searchedCourse.photo' alt='' height='40px'>
+                                        </div>
+                                        <div v-text='searchedCourse.title' class='py-2 text-14'></div>
+                                    </v-card>
+                                </nuxt-link>
+                            </template>
+                        </div>
+                        <div v-if='searching' style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
+                            <div class='text-center'>
+                                <v-progress-circular
+                                    indeterminate
+                                    color='purple'
+                                ></v-progress-circular>
+                            </div>
+                        </div>
+                        <div v-if='notFound' style='background-color:white; margin-top:6px; padding:10px; position: absolute; max-height: 400px; width:100%; max-width: 100%; box-shadow: 0 0 6px rgba(27, 36, 55, 0.6); border-radius: 6px'>
+                            <div class='error--text text-center'>Not Found!</div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -40,8 +68,8 @@
                         <v-menu offset-y>
                             <template v-slot:activator='{ on, attrs }'>
                                 <v-btn
-                                    color='primary'
                                     dark
+                                    class='btn-theme-btn'
                                     v-bind='attrs'
                                     v-on='on'
                                 >
@@ -74,6 +102,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
     props: {
         // eslint-disable-next-line vue/require-default-prop
@@ -81,11 +111,45 @@ export default {
             type: Array,
             default: () => [],
             required: true
+        },
+        searchText: '',
+        searching: false,
+        notFound: false,
+        searchResult: false,
+        searchedCourses: {}
+    },
+    watch: {
+        searchText: {
+            handler: _.debounce(function(newVal, oldVal) {
+                if (newVal.length > 1) {
+                    this.search()
+                } else {
+                    this.searchedCourses = {}
+                    this.notFound = false
+                }
+            }, 500), deep: true
+        },
+        $route() {
+            this.searchedCourses = {}
+            this.notFound = false
         }
     },
     methods: {
         async logout() {
             await this.$auth.logout()
+        },
+        async search() {
+            this.notFound = false
+            this.searching = true
+            this.searchResult = true
+            await this.$axios.$get(`api/search/courses?query=${this.searchText}`)
+                .then((response) => {
+                    this.searchedCourses = response
+                    this.notFound = this.searchedCourses.length < 1
+                })
+                .finally(() => {
+                    this.searching = false
+                })
         }
     }
 }

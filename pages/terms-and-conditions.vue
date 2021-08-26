@@ -108,7 +108,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: 'March Forward terms and condition details.'
+                    content: 'Biddabari terms and condition details.'
                 }
             ]
         }
