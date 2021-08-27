@@ -35,7 +35,7 @@
                 </div>
             </lazy-slide-show>
             <div class='text-center'>
-                <nuxt-link to='/notice' class='btn-blue'>All Notice</nuxt-link>
+                <nuxt-link to='/notice' class='btn-theme-btn'>All Notice</nuxt-link>
             </div>
         </section>
 
@@ -70,7 +70,7 @@
                         </p>
                         <div class='text-center'>
                             <nuxt-link to='/about'>
-                                <v-btn dark color='blue' class='mx-auto btn-theme-btn'>Want to know more ?
+                                <v-btn dark class='mx-auto btn-theme-btn'>Want to know more ?
                                     <v-icon class='ml-2'>mdi-arrow-right-bold-circle-outline</v-icon>
                                 </v-btn>
                             </nuxt-link>

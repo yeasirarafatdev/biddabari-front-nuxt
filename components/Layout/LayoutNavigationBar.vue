@@ -88,7 +88,7 @@
                     </li>
                     <li v-else>
                         <nuxt-link to='/auth/login' exact>
-                            <v-btn dark color='blue' class='mx-auto btn-theme-btn'>
+                            <v-btn dark class='mx-auto btn-theme-btn'>
                                 Login
                             </v-btn>
                         </nuxt-link>
@@ -114,12 +114,14 @@ export default {
             default: () => [],
             required: true
         },
+    },
+    data:()=>({
         searchText: '',
         searching: false,
         searchResult: false,
         notFound: false,
         searchedCourses: {}
-    },
+    }),
     watch: {
         searchText: {
             handler: _.debounce(function(newVal, oldVal) {

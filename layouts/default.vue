@@ -1,5 +1,6 @@
 <template>
     <v-app style='background: transparent !important;'>
+
         <layout-the-header :links='links' />
         <layout-the-mobile-nav :links='links' />
         <div>
