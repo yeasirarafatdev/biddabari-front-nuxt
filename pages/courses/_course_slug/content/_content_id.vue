@@ -9,8 +9,7 @@
             </iframe>
         </div>
         <div v-else-if='courseTopicContent.note'>
-            <!-- Incomplete -->
-            Note ...
+            <div v-html="courseTopicContent.note.body"/>
         </div>
         <div v-else-if='courseTopicContent.exam'>
             <exam
