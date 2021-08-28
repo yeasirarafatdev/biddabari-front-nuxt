@@ -8,12 +8,6 @@
                             <div>You need to attend an exam to continue watching this video.</div>
                             <v-btn color='primary' class='mt-2' @click='proceedToExam=true'>Proceed</v-btn>
                         </div>
-                        <exam-for-video
-                            v-if='proceedToExam'
-                            :course-content='courseTopicContent'
-                            :exam-id='courseTopicContent.video.exam_id'
-                            @examCompleted='reloadVideo($event)'
-                        />
                     </div>
                     <div v-else>
                         <div>You need to attend an exam to continue watching this video. Please
@@ -25,6 +19,14 @@
             </template>
             <template v-else>
                 <video-embed css='embed-responsive-16by9' :src='courseTopicContent.video.link'></video-embed>
+            </template>
+            <template v-if='courseTopicContent.video.exam_id && $auth.loggedIn'>
+                <exam-for-video
+                    v-if='proceedToExam'
+                    :course-content='courseTopicContent'
+                    :exam-id='courseTopicContent.video.exam_id'
+                    @examCompleted='reloadVideo($event)'
+                />
             </template>
         </div>
         <div v-else-if='courseTopicContent.pdf'>

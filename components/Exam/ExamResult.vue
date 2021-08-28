@@ -7,7 +7,7 @@
             flat
             :elevation='0'
         >
-            <div class='text-12 text-center'>
+            <div class='text-12 text-center pb-4'>
                 <div v-if='examReport'>
                     <span v-if='examReport.obtained_marks'>Your marks: <strong>{{ examReport.obtained_marks.toFixed(2) }}</strong> </span>
                     <span v-if='examReport.total_marks'> out of  <strong>{{ examReport.total_marks }}</strong></span>
@@ -16,8 +16,8 @@
                     <span v-if='examReport.position'>Your Position: <strong>{{ examReport.position }}</strong> </span>
                     <span v-if='examReport.total_students'>out of <strong>{{ examReport.total_students }}</strong></span>
                 </div>
-                <nuxt-link :to='`/exam/${examId}/ranking`'>
-                    See ranking
+                <nuxt-link :to='`/exam/${exam_id}/ranking`' class='text-14'>
+                    <v-btn color='blue' dark>See ranking</v-btn>
                 </nuxt-link>
                 <div v-if='!isAnswerAvailable' class='overline mb-4 text-center' style='border-bottom: 2px solid dodgerblue;'>
                     Answer will be available {{ answerAvailableAt }}
@@ -30,7 +30,7 @@
 <script>
 export default {
     // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
-    props: ['examReport', 'isAnswerAvailable', 'answerAvailableAt', 'examId', 'showResult'],
+    props: ['examReport', 'isAnswerAvailable', 'answerAvailableAt', 'exam_id', 'showResult'],
     methods: {
         retry() {
             this.$emit('retry')
