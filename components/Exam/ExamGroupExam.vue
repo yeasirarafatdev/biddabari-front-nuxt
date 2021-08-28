@@ -140,6 +140,10 @@ export default {
         exam: {
             type: Object,
             required: true
+        },
+        videoExam: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -275,8 +279,10 @@ export default {
             } else {
                 this.mode = 'group_exam'
             }
-            if (this.exam.mode === 'group_exam' && !this.expired && !finalSubmit) {
-                this.submitAnswerSilently()
+            if (!this.videoExam) {
+                if (this.exam.mode === 'group_exam' && !this.expired && !finalSubmit) {
+                    this.submitAnswerSilently()
+                }
             }
         },
         submitAnswer() {

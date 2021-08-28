@@ -42,14 +42,16 @@
         <!-- Services -->
         <section class='max-width-' v-if='categories && Object.keys(categories).length'>
             <div class='services-container'>
-                <nuxt-link to='/courses' class='services-card' v-for='category in categories'>
-                    <div class='icon-yellow'>
-                        <img :src='category.photo' alt='' height='50px' width='50px'>
-                    </div>
-                    <div>
-                        <h3>{{ category.name }}</h3>
-                    </div>
-                </nuxt-link>
+                <template v-for='category in categories'>
+                    <nuxt-link :to='"/courses/category/"+category.id' class='services-card' :key='category.id'>
+                        <div class='icon-yellow'>
+                            <img :src='category.photo' alt='' height='50px' width='50px'>
+                        </div>
+                        <div>
+                            <h3>{{ category.name }}</h3>
+                        </div>
+                    </nuxt-link>
+                </template>
             </div>
         </section>
 
@@ -88,7 +90,7 @@
                 <img :src='require("~/assets/images/biddiabari/our-courses.png")' alt='' width='300'>
             </div>
             <v-row>
-                <v-col v-for='course in courses' cols='12' lg='3' md='3' sm='4'>
+                <v-col v-for='course in courses' cols='12' lg='3' md='3' sm='4' :key='course.id'>
                     <lazy-slide-show-card-course :data='course' display-name='title' :display-price-label='true' />
                 </v-col>
             </v-row>
@@ -150,7 +152,7 @@
                                  class='swiper-lazy swiper-image'
                                  style='height: 100px; width: 100px; object-fit: cover; object-position: center; border-radius: 50%'>
                             <div>
-                            <strong>{{ data.name }}</strong>
+                                <strong>{{ data.name }}</strong>
                             </div>
                         </div>
                     </div>

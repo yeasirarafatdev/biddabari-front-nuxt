@@ -1,10 +1,13 @@
 <template>
     <section class='vH-100 vW-100 max-width-'>
-        <the-breadcrum :items-push="[{text: 'All Course',disabled: true,href: '/courses'}]" />
+        <the-breadcrum :items-push="[
+            {text: 'All Course',disabled: false,href: '/courses'},
+        {text: category.name,disabled: true,href: '/courses'}
+        ]" />
 
 
         <div class='mt-8'>
-            <h1 class='my-6 text-center'>All Courses</h1>
+<!--            <h1 class='my-6 text-center' v-if='category && Object.keys(category).length'>{{ category.name }}</h1>-->
             <hr class='mb-4'>
             <div v-if='$fetchState.pending'>
                 <v-sheet class='pa-3'>
@@ -25,14 +28,14 @@
                 </v-alert>
             </div>
             <div v-else>
-                <template v-if='courses && Object.keys(courses).length'>
-                    <div v-for='(data, d) in  courses' :key='d' class='mb-16'>
+                <template v-if=' category.courses && Object.keys( category.courses).length'>
+                    <div class='mb-16'>
                         <h3 class='mb-6 bg-yellow px-4 py-2'
                             style='color: #09153A; border-radius: 4px;'>
-                            <i class='fas fa-crosshairs mr-2'></i> {{ data.name }}
+                            <i class='fas fa-crosshairs mr-2'></i> {{ category.name }}
                         </h3>
                         <v-row>
-                            <v-col v-for='(course, c) in data.courses' :key='c' cols='12' lg='3' md='4' sm='6' xs='12'>
+                            <v-col v-for='(course, c) in category.courses' :key='c' cols='12' lg='3' md='4' sm='6' xs='12'>
                                 <lazy-slide-show-card-course
                                     :data='course'
                                     :show-subtitle='true'
@@ -61,14 +64,14 @@
 export default {
     data() {
         return {
-            courses: [],
+            category: []
         }
     },
     async fetch() {
-        const coursesUrl = 'api/courses?type=' + this.$route.params.category_id
-        this.courses = await this.$axios.$get(coursesUrl)
+        const coursesUrl = 'api/categories/' + this.$route.params.category_id
+        this.category = await this.$axios.$get(coursesUrl)
     },
-    fetchOnServer: true,
+    fetchOnServer: false,
     head() {
         return {
             title: 'Courses',

@@ -40,6 +40,10 @@ export default {
         exam: {
             type: Object,
             required: true
+        },
+        videoExam:{
+            type: Boolean,
+            default: false
         }
     },
     data() {

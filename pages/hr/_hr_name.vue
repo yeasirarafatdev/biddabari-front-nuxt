@@ -25,7 +25,7 @@
                     </v-alert>
                 </template>
                 <template v-else>
-                    <v-col v-for='hr in hrs' cols='6' lg='2' md='3' sm='4'>
+                    <v-col v-for='hr in hrs' cols='6' lg='2' md='3' sm='4' :key='hr.id'>
                         <v-card elevation='4'>
                             <div class='card-round'>
                                 <v-avatar height='150' width='150' class='shadow-dark'>

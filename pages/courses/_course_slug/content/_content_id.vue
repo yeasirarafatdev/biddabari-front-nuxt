@@ -1,7 +1,31 @@
 <template>
     <v-col cols='12' lg='8' md='8' sm='12' xs='12'>
         <div v-if='courseTopicContent.video'>
-            <video-embed css='embed-responsive-16by9' :src='courseTopicContent.video.link'></video-embed>
+            <template v-if='courseTopicContent.video.exam_id && !courseTopicContent.video.passed_exam'>
+                <div class='text-center'>
+                    <div v-if='$auth.loggedIn'>
+                        <div v-if='!proceedToExam'>
+                            <div>You need to attend an exam to continue watching this video.</div>
+                            <v-btn color='primary' class='mt-2' @click='proceedToExam=true'>Proceed</v-btn>
+                        </div>
+                        <exam-for-video
+                            v-if='proceedToExam'
+                            :course-content='courseTopicContent'
+                            :exam-id='courseTopicContent.video.exam_id'
+                            @examCompleted='reloadVideo($event)'
+                        />
+                    </div>
+                    <div v-else>
+                        <div>You need to attend an exam to continue watching this video. Please
+                            <nuxt-link to='/auth/login'>Login</nuxt-link>
+                            first.
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <video-embed css='embed-responsive-16by9' :src='courseTopicContent.video.link'></video-embed>
+            </template>
         </div>
         <div v-else-if='courseTopicContent.pdf'>
             <iframe height='100%' width='100%' :src='courseTopicContent.pdf.link'
@@ -9,7 +33,7 @@
             </iframe>
         </div>
         <div v-else-if='courseTopicContent.note'>
-            <div v-html="courseTopicContent.note.body"/>
+            <div v-html='courseTopicContent.note.body' />
         </div>
         <div v-else-if='courseTopicContent.exam'>
             <exam
@@ -57,7 +81,8 @@ export default {
     data() {
         return {
             courseTopicContent: {},
-            loading: true
+            loading: true,
+            proceedToExam: false
         }
     },
     watch: {
@@ -76,6 +101,12 @@ export default {
                 this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl).finally(() => {
                     this.loading = false
                 })
+            }
+        },
+        reloadVideo(event) {
+            console.log(event)
+            if (event.attended) {
+                this.fetchContent()
             }
         }
     }

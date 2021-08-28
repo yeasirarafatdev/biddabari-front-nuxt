@@ -77,14 +77,14 @@
                                                     <v-list-item-title>{{ resourceCount.pdf }} PDF Books</v-list-item-title>
                                                 </v-list-item-content>
                                             </v-list-item>
-<!--                                            <v-list-item>
+                                            <v-list-item>
                                                 <v-list-item-icon>
                                                     <v-icon v-text="'mdi-clipboard-edit-outline'"></v-icon>
                                                 </v-list-item-icon>
                                                 <v-list-item-content>
                                                     <v-list-item-title>{{ resourceCount.exam }} Exams</v-list-item-title>
                                                 </v-list-item-content>
-                                            </v-list-item>-->
+                                            </v-list-item>
                                         </v-list-item-group>
                                     </v-list>
                                 </v-col>
@@ -220,7 +220,7 @@ export default {
                 video: 0,
                 pdf: 0,
                 note: 0,
-                // exam: 0
+                exam: 0
             },
             dialog: false
         }
@@ -275,7 +275,7 @@ export default {
                     if (topic.contents && Object.keys(topic.contents).length) {
                         _this.resourceCount.video = _this.resourceCount.video + topic.total_video_count
                         _this.resourceCount.note = _this.resourceCount.note + topic.total_note_count
-                        // _this.resourceCount.exam = _this.resourceCount.exam + topic.total_exam_count
+                        _this.resourceCount.exam = _this.resourceCount.exam + topic.total_exam_count
                         _this.resourceCount.pdf = _this.resourceCount.pdf + topic.total_pdf_count
                     }
                 })

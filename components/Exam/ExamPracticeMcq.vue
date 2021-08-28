@@ -154,7 +154,7 @@
 <script>
 export default {
     // eslint-disable-next-line vue/require-prop-types
-    props: ['mcq', 'mode', 'index', 'isAnswerAvailable'],
+    props: ['mcq', 'mode', 'index', 'isAnswerAvailable', 'videoExam'],
     data() {
         return {
             comment: '',

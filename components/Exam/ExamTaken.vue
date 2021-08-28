@@ -85,7 +85,16 @@ import moment from 'moment'
 
 export default {
     // eslint-disable-next-line vue/require-prop-types
-    props: ['exam'],
+    props: {
+        exam: {
+            type: Object,
+            required: true
+        },
+        videoExam: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             tab: null,
@@ -201,8 +210,10 @@ export default {
             } else {
                 this.mode = 'exam'
             }
-            if (this.exam.mode === 'exam' && !this.expired && !finalSubmit) {
-                this.submitAnswerSilently()
+            if (!this.videoExam) {
+                if (this.exam.mode === 'exam' && !this.expired && !finalSubmit) {
+                    this.submitAnswerSilently()
+                }
             }
         },
         submitAnswer() {
