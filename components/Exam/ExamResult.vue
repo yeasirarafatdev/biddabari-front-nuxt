@@ -17,7 +17,7 @@
                     <span v-if='examReport.total_students'>out of <strong>{{ examReport.total_students }}</strong></span>
                 </div>
                 <nuxt-link :to='`/exam/${exam_id}/ranking`' class='text-14'>
-                    <v-btn color='blue' dark>See ranking</v-btn>
+                    <v-btn color='blue' dark>See Result</v-btn>
                 </nuxt-link>
                 <div v-if='!isAnswerAvailable' class='overline mb-4 text-center' style='border-bottom: 2px solid dodgerblue;'>
                     Answer will be available {{ answerAvailableAt }}
