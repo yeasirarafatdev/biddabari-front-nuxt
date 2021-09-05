@@ -6,7 +6,7 @@
                     <v-list-item
                         v-for='(content, i) in topicContents'
                         :key='i'
-                        :disabled='!content.allow || !isAccessible'
+                        :disabled='((content.exam || content.written_exam) && !$auth.loggedIn) || (!content.allow || !isAccessible)'
                         @click.stop.prevent='displayContent(content.id)'>
                         <course-topic-item :content='content'></course-topic-item>
                     </v-list-item>
