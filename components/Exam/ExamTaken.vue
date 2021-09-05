@@ -41,6 +41,10 @@
                             </div>
                         </div>
                         <v-progress-linear height='5' rounded :value='bar'></v-progress-linear>
+
+                        <div v-if='timerMessage' class='text-center' style='color: red; margin-top: 6px;'>
+                            {{ timerMessage }}
+                        </div>
                     </div>
                     <v-btn
                         v-if="mode === 'exam'"
@@ -109,7 +113,11 @@ export default {
             timer: 1,
             token: '',
             start_time: '',
-            end_time: ''
+            end_time: '',
+            alertTime: '',
+            timerMessage: '',
+            currentTime: moment(),
+            showTimerNotification: true
         }
     },
     computed: {
@@ -191,19 +199,34 @@ export default {
                 } else this.mode = 'exam'
             },
             deep: true
+        },
+        currentTime(newVal) {
+            if (moment(newVal).isAfter(this.alertTime) && moment(newVal).isBefore(this.end_time)) {
+                let left = moment(this.end_time).subtract(newVal).format('mm:ss')
+                this.timerMessage = 'You have  ' + left + ' minutes left to complete the exam.'
+                if (this.showTimerNotification) {
+                    this.displayTimerNotification()
+                }
+            }
         }
     },
     mounted() {
         this.initialize()
         setInterval(() => {
+            this.currentTime = moment()
             this.timer++
         }, 1000)
     },
     methods: {
+        displayTimerNotification() {
+            this.showTimerNotification = false
+            this.$notifier.showMessage({ content: 'You Have 5 minutes to complete the exam', color: 'error' })
+        },
         initialize() {
             this.disabled = false
             this.start_time = moment()
             this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
+            this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
             if (this.expired || finalSubmit) {
                 this.mode = 'result'

@@ -106,11 +106,25 @@ export default {
             timer: 1,
             start_time: '',
             end_time: '',
-            mode: ''
+            mode: '',
+            alertTime: '',
+            timerMessage: '',
+            currentTime: moment(),
+            showTimerNotification: true
         }
-    }, watch: {
+    },
+    watch: {
         courseExam(val, oldVal) {
             this.getExamData()
+        },
+        currentTime(newVal) {
+            if (moment(newVal).isAfter(this.alertTime) && moment(newVal).isBefore(this.end_time)) {
+                let left = moment(this.end_time).subtract(newVal).format('mm:ss')
+                this.timerMessage = 'You have  ' + left + ' minutes left to complete the exam.'
+                if (this.showTimerNotification) {
+                    this.displayTimerNotification()
+                }
+            }
         }
     },
     computed: {
@@ -137,6 +151,7 @@ export default {
     mounted() {
         this.getExamData()
         setInterval(() => {
+            this.currentTime = moment()
             this.timer++
         }, 1000)
     },
@@ -150,7 +165,7 @@ export default {
             this.end_time = this.strict ? moment(this.exam.ends_at).toDate()
                 : this.examReport ? moment(this.examReport.started_at).add(this.exam.duration, 'm')
                     : moment().add(this.exam.duration, 'm')
-
+            this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
             if (this.expired || finalSubmit) {
                 this.mode = 'result'
