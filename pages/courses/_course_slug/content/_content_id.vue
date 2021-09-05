@@ -35,7 +35,11 @@
             </iframe>
         </div>
         <div v-else-if='courseTopicContent.note'>
+			<!-- Incomplete -->
+            <h3>{{ courseTopicContent.note.title }}</h3>
             <div v-html='courseTopicContent.note.body' />
+            <a v-if='courseTopicContent.note.source' :href='courseTopicContent.note.source' target='_blank'>Source</a>
+            <img :src='courseTopicContent.note.photo' alt='' width='100%'>
         </div>
         <div v-else-if='courseTopicContent.exam'>
             <exam
