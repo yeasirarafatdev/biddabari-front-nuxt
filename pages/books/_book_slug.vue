@@ -42,28 +42,42 @@
                         </v-col>
                         <v-col cols='12' lg='5' md='6' sm='7'>
                             <h1>{{ book.title }}</h1>
-                            <p class='color-success text-12'>
-                                <strong class='text-muted'>Status: </strong> {{ book.status }}
-                            </p>
-                            <div title='price'>
-                                <div class='mt-2'>
-                                    <div v-if='book.price'>
-                                        <div v-if='book.discount'>
-                                            <strong>
-                                                <del class='text-muted'>৳ {{ book.price }}</del>
-                                                <br>
-                                                <span class='color-orange'>৳ {{ book.price - book.discount }} </span>
-                                            </strong>
-                                            <span class='text-12'>You save ৳ {{ book.price - (book.price - book.discount) }}</span>
+                            <v-card v-if='book.description' elevation='2' class='px-4 py-4 mb-10'>
+                                <v-row>
+                                    <v-col cols='12' lg='12' md='12' sm='12' xs='12'>
+                                        <h3>About:</h3>
+                                        <div class='book-description max-height-200' v-html=book.description></div>
+                                        <div class='text-center mt-4'>
+                                            <v-btn color='primary' small @click.stop.prevent='expandDescription()'>
+                                                <span v-if='!isBookDescriptionExpanded'>Read more <i class='fas fa-caret-down'></i></span>
+                                                <span v-else><i class='fas fa-caret-up'></i></span>
+                                            </v-btn>
                                         </div>
-                                        <strong v-else class='color-orange'>৳ {{ book.price }}</strong>
-                                    </div>
-                                    <div v-else class='color-success'><strong> Free </strong></div>
-                                </div>
-                            </div>
+                                    </v-col>
+                                </v-row>
+                            </v-card>
+                            <!--                            <p class='color-success text-12'>
+                                                            <strong class='text-muted'>Status: </strong> {{ book.status }}
+                                                        </p>
+                                                        <div title='price'>
+                                                            <div class='mt-2'>
+                                                                <div v-if='book.price'>
+                                                                    <div v-if='book.discount'>
+                                                                        <strong>
+                                                                            <del class='text-muted'>৳ {{ book.price }}</del>
+                                                                            <br>
+                                                                            <span class='color-orange'>৳ {{ book.price - book.discount }} </span>
+                                                                        </strong>
+                                                                        <span class='text-12'>You save ৳ {{ book.price - (book.price - book.discount) }}</span>
+                                                                    </div>
+                                                                    <strong v-else class='color-orange'>৳ {{ book.price }}</strong>
+                                                                </div>
+                                                                <div v-else class='color-success'><strong> Free </strong></div>
+                                                            </div>
+                                                        </div>-->
 
-                            <div v-if=' itemIdsInCart.includes(book.id)' class='mt-2'>
-                                <div class='text-12 orange--text'>Product Already Added To Cart</div>
+<!--                            <div v-if=' itemIdsInCart.includes(book.id)' class='mt-2'>
+                                <div class='text-12 orange&#45;&#45;text'>Product Already Added To Cart</div>
                             </div>
                             <div class='d-flex flex-wrap justify-start align-center gap-10'>
                                 <div>Quantity:</div>
@@ -76,7 +90,7 @@
                                         <v-icon>mdi-plus</v-icon>
                                     </button>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class='d-flex flex-wrap justify-start align-center gap-10'>
                                 <v-btn class='mt-2' outlined color='primary' @click='showBookDialogue=true'>
@@ -97,21 +111,6 @@
                         </v-col>
                     </v-row>
                 </template>
-            </v-card>
-
-            <v-card v-if='book.description' elevation='2' class='px-4 py-4 mb-10'>
-                <v-row>
-                    <v-col cols='12' lg='12' md='12' sm='12' xs='12'>
-                        <h3>About:</h3>
-                        <div class='book-description max-height-200' v-html=book.description></div>
-                        <div class='text-center mt-4'>
-                            <v-btn color='primary' small @click.stop.prevent='expandDescription()'>
-                                <span v-if='!isBookDescriptionExpanded'>Read more <i class='fas fa-caret-down'></i></span>
-                                <span v-else><i class='fas fa-caret-up'></i></span>
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
             </v-card>
         </div>
 

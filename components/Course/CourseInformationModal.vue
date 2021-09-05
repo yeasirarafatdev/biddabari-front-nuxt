@@ -13,11 +13,10 @@
             </v-col>
             <v-dialog
                 v-model='dialog'
-                fullscreen
-                hide-overlay
                 transition='dialog-bottom-transition'
                 scrollable
-                style='z-index: 1001'
+                fullscreen
+                style='z-index: 1001; height: 100%'
             >
                 <v-card tile>
                     <v-toolbar
@@ -40,12 +39,13 @@
                         <div class='text-center'>
                             <img :src='courseInfo.photo' alt='' style='max-width: 100%; width: 800px'>
                         </div>
-                        <div class='px-2'>
+                    </div>
+                    <div class='ma-4'>
+                        <div class='px-2 max-width-' style='background-color: white'>
                             <h3 v-text='courseInfo.title'></h3>
                             <div v-html='courseInfo.description'></div>
                         </div>
                     </div>
-
                     <div style='flex: 1 1 auto;'></div>
                 </v-card>
             </v-dialog>
