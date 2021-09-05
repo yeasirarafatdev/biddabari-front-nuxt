@@ -35,25 +35,49 @@
             </iframe>
         </div>
         <div v-else-if='courseTopicContent.note'>
-			<!-- Incomplete -->
+            <!-- Incomplete -->
             <h3>{{ courseTopicContent.note.title }}</h3>
             <div v-html='courseTopicContent.note.body' />
             <a v-if='courseTopicContent.note.source' :href='courseTopicContent.note.source' target='_blank'>Source</a>
             <img :src='courseTopicContent.note.photo' alt='' width='100%'>
         </div>
         <div v-else-if='courseTopicContent.exam'>
-            <exam
-                v-if='courseTopicContent.exam'
+            <lazy-exam
+                v-if='courseTopicContent.exam && $auth.loggedIn'
                 :course-content='courseTopicContent'
                 :course-exam='courseTopicContent.exam'
             />
+            <div v-else>
+                <v-alert
+                    v-if='!$auth.loggedIn'
+                    border='left'
+                    color='error'
+                    dark
+                >
+                    You must
+                    <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
+                    to view this content.
+                </v-alert>
+            </div>
         </div>
         <div v-else-if='courseTopicContent.written_exam'>
-            <exam-written
-                v-if='courseTopicContent.written_exam'
+            <lazy-exam-written
+                v-if='courseTopicContent.written_exam  && $auth.loggedIn'
                 :course-content='courseTopicContent'
                 :course-exam='courseTopicContent.written_exam'
             />
+            <div v-else>
+                <v-alert
+                    v-if='!$auth.loggedIn'
+                    border='left'
+                    color='error lighten-2'
+                    dark
+                >
+                    You must
+                    <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
+                    to view this content.
+                </v-alert>
+            </div>
         </div>
         <div v-else>
             <v-alert
@@ -66,6 +90,7 @@
             </v-alert>
             <div v-else class='text-center my-14'>
                 <v-progress-circular
+                    v-if='this.$route.params.content_id'
                     :size='50'
                     :width='5'
                     color='purple'
