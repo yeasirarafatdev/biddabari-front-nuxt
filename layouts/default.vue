@@ -51,6 +51,7 @@ export default {
                 },
                 { to: '/books', label: 'Books' },
                 { to: '/notice', label: 'Notice' },
+                { to: '/job-news', label: 'Job News' },
                 {
                     to: '#', label: 'About',
                     subLinks: [

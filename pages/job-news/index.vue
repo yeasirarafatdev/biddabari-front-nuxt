@@ -6,7 +6,7 @@
         <div class='mt-8'>
             <v-row>
                 <v-col cols='12'>
-                    <h3 class='mb-6 bg-yellow px-4 py-2' style='color: #09153A; border-radius: 4px;'>Notice Board</h3>
+                    <h3 class='mb-6 bg-yellow px-4 py-2' style='color: #09153A; border-radius: 4px;'>Job News</h3>
                 </v-col>
 
                 <v-col cols='12' lg='8' md='8' sm='7' xs='12'>
@@ -54,7 +54,7 @@ export default {
         }
     },
     async fetch() {
-        const url = 'api/notices?filter=notice'
+        const url = 'api/notices?filter=job'
         const allNotice = await this.$axios.$get(url)
         this.allNotice = allNotice.data
         this.findingFirstContent()
@@ -84,7 +84,7 @@ export default {
             if (!this.$route.params.slug) {
                 if (this.allNotice && Object.keys(this.allNotice).length) {
                     const noticeId = this.allNotice[0].slug
-                    this.$router.push(`/notice/${noticeId}`)
+                    this.$router.push(`/job-news/${noticeId}`)
                 }
             }
         }
