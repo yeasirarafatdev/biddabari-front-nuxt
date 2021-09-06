@@ -83,7 +83,7 @@
         </section>
 
 
-        <!-- Job Courses section -->
+        <!-- Courses section -->
         <section v-if='courses && Object.keys(courses).length' id='courses' class='max-width-'>
             <div class='d-flex justify-lg-space-between align-center flex-wrap mb-10 justify-md-space-between justify-sm-space-between justify-space-around'>
                 <h1 class='theme-text mb-4' style='font-size: 50px; border-bottom: 2px solid #1b2437;'>Our Courses</h1>
@@ -100,6 +100,19 @@
                         All Courses
                     </nuxt-link>
                 </div>
+            </div>
+        </section>
+
+        <!-- Books section -->
+        <section v-if='books && Object.keys(books).length' id='books' class='max-width-'>
+            <lazy-slide-show
+                :data-array='books'
+                display-name='title'
+                heading='Books'
+                :breakpoints='bookSliderBreakPoints'
+                slide-show-type='books' />
+            <div class='mt-4 text-center'>
+                <nuxt-link to='/books' class='btn-blue'>All Books</nuxt-link>
             </div>
         </section>
 
@@ -234,8 +247,8 @@ export default {
         }
     },
     async fetch() {
-        // const booksUrl = 'api/books?filter=welcome'
-        // this.books = await this.$axios.$get(booksUrl)
+        const booksUrl = 'api/books?filter=welcome'
+        this.books = await this.$axios.$get(booksUrl)
 
         const coursesUrl = 'api/courses-welcome'
         this.courses = await this.$axios.$get(coursesUrl)

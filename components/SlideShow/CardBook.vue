@@ -12,7 +12,7 @@
                 </strong>
             </nuxt-link>
 
-            <div class='text-center text-14 mt-2'>
+<!--            <div class='text-center text-14 mt-2'>
                 <div v-if='data.price'>
                     <strong v-if='data.discount'>
                         <del class='text-muted'>৳ {{ data.price }}</del>
@@ -21,8 +21,10 @@
                     <strong v-else class='color-orange'>৳ {{ data.price }}</strong>
                 </div>
                 <div v-else class='color-success'><strong> Free </strong></div>
-            </div>
-            <!--            <strong class='color-orange text-center mt-2 mb-0'> ৳ {{ data.price }}</strong>-->
+            </div>-->
+
+
+            <!-- Commented all time --><!--            <strong class='color-orange text-center mt-2 mb-0'> ৳ {{ data.price }}</strong>-->
         </div>
     </div>
 </template>

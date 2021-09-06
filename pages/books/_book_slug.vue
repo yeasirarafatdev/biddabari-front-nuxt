@@ -76,21 +76,21 @@
                                                             </div>
                                                         </div>-->
 
-<!--                            <div v-if=' itemIdsInCart.includes(book.id)' class='mt-2'>
-                                <div class='text-12 orange&#45;&#45;text'>Product Already Added To Cart</div>
-                            </div>
-                            <div class='d-flex flex-wrap justify-start align-center gap-10'>
-                                <div>Quantity:</div>
-                                <div class='cart-quantity-btn'>
-                                    <button :disabled='quantity<=1 || itemIdsInCart.includes(book.id)' @click.stop.prevent='decreaseQuantity()'>
-                                        <v-icon>mdi-minus</v-icon>
-                                    </button>
-                                    <strong class='quantity-value'>{{ quantity }}</strong>
-                                    <button :disabled='itemIdsInCart.includes(book.id)' @click.stop.prevent='increaseQuantity()'>
-                                        <v-icon>mdi-plus</v-icon>
-                                    </button>
-                                </div>
-                            </div>-->
+                            <!--                            <div v-if=' itemIdsInCart.includes(book.id)' class='mt-2'>
+                                                            <div class='text-12 orange&#45;&#45;text'>Product Already Added To Cart</div>
+                                                        </div>
+                                                        <div class='d-flex flex-wrap justify-start align-center gap-10'>
+                                                            <div>Quantity:</div>
+                                                            <div class='cart-quantity-btn'>
+                                                                <button :disabled='quantity<=1 || itemIdsInCart.includes(book.id)' @click.stop.prevent='decreaseQuantity()'>
+                                                                    <v-icon>mdi-minus</v-icon>
+                                                                </button>
+                                                                <strong class='quantity-value'>{{ quantity }}</strong>
+                                                                <button :disabled='itemIdsInCart.includes(book.id)' @click.stop.prevent='increaseQuantity()'>
+                                                                    <v-icon>mdi-plus</v-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>-->
 
                             <div class='d-flex flex-wrap justify-start align-center gap-10'>
                                 <v-btn class='mt-2' outlined color='primary' @click='showBookDialogue=true'>
@@ -98,7 +98,7 @@
                                     Preview
                                 </v-btn>
                                 <!-- Add to cart button component -->
-                                <cart-add-to-cart v-if='book' :product-object='book' :quantity='quantity' :item-ids-in-cart='itemIdsInCart' />
+                                <!--                                <cart-add-to-cart v-if='book' :product-object='book' :quantity='quantity' :item-ids-in-cart='itemIdsInCart' />-->
                             </div>
                             <nuxt-link to='/books'>
                                 <v-btn class='mt-10 primary horizontal-btn'>
