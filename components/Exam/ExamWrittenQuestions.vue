@@ -5,6 +5,8 @@
                 <div class='d-flex'>
                     <div class='subtitle-1 font-weight-bold mr-2'>{{ index + 1 }}.</div>
                     <div v-katex:auto class='subtitle-1 text-12 mcq-card' v-html='question.question'></div>
+					 <img v-if='question.photo' :src='question.photo'
+                         style='max-width: 100% !important; width: 100%'>
                 </div>
             </div>
 
@@ -16,7 +18,8 @@
             <div v-if='previewImages.length && submittedAnswer' class='mt-1'>
                 <div class='d-flex flex-wrap'>
                     <div v-for='(image, im) in previewImages' :key='im' class='formImageContainer'>
-                        <img :src='image.src' alt='image' height='50px' class='rounded' style='margin: 2px 6px 2px 0;'>
+                         <img :src='image.src' alt='image' height='50px' class='rounded'
+                             style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
                         <!-- <v-icon class='imageCloseButton' color='error' @click.stop.prevent='removeImageFromCollection(im)'>
                                                     mdi-close-circle
                                                 </v-icon> -->
@@ -29,7 +32,8 @@
                 <draggable v-model='previewImages' @end='rearrange'>
                     <transition-group>
                         <div v-for='(image, im) in previewImages' :key='im' class='formImageContainer'>
-                            <img :src='image.src' alt='image' height='50px' class='rounded' style='margin: 2px 6px 2px 0;'>
+							 <img :src='image.src' alt='image' height='50px' class='rounded'
+                                 style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
                             <v-icon class='imageCloseButton' color='error' @click.stop.prevent='removeImageFromCollection(im)'
                                     v-if='!uploadingAnswer'
                                     :disabled='uploadingAnswer'>
