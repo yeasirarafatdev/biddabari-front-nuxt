@@ -46,7 +46,7 @@ export default {
                 {
                     to: '#', label: 'Courses',
                     subLinks: [
-                        { to: '/courses', label: 'All Course' },
+                        { to: '/courses', label: 'All Course' }
                     ]
                 },
                 { to: '/books', label: 'Books' },
@@ -140,14 +140,21 @@ export default {
 
 .notification-holder {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .notification {
         position: relative;
         min-width: 280px;
-        max-width: 400px;
+        width: 100%;
+        max-width: 500px;
         max-height: 500px;
         background-color: white;
         border-radius: 10px;
@@ -173,8 +180,8 @@ export default {
             margin-right: 10px;
             border-radius: 10px;
             box-shadow: 0 0 4px rgba(20, 20, 20, 0.4);
-            max-height: 80px;
-            max-width: 80px;
+            max-height: 160px;
+            max-width: 160px;
         }
 
         .notification-close-btn {
