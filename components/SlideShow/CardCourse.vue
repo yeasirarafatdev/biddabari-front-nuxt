@@ -72,11 +72,11 @@ export default {
     mounted() {
         if (this.myCoursesIds && this.myCoursesIds.length) {
             if (this.myCoursesIds.includes(this.data.id)) {
-                this.courseUrl = '/courses/' + this.data.id + '/content'
+                this.courseUrl = '/courses/' + this.data.slug + '/content'
             }
         }
         if (this.enrolled) {
-            this.courseUrl = '/courses/' + this.data.id + '/content'
+            this.courseUrl = '/courses/' + this.data.slug + '/content'
         }
     }
 }
