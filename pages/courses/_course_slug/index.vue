@@ -234,7 +234,7 @@ export default {
         this.courseTopics = await this.$axios.$get(courseTopicsUrl)
         this.calculateCourseResource()
     },
-    fetchOnServer: true,
+    fetchOnServer: false,
     head() {
         return {
             title: this.courseInfo && Object.keys(this.courseInfo).length ? this.courseInfo.title : 'Course',
