@@ -57,6 +57,7 @@ export default {
                     subLinks: [
                         { to: '/about', label: 'Who We Are' },
                         { to: '/teachers', label: 'Teachers' },
+                        { to: '/founders', label: 'Founders' },
                         { to: '/contact', label: 'Contact' }
                     ]
                 }
@@ -78,7 +79,6 @@ export default {
             })
         }
     },
-    fetchOnServer: true,
     mounted() {
         this.$store.dispatch('cart/getDBCart')
         this.$axios.get('api/popup').then((response) => {

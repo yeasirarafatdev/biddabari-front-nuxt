@@ -5,9 +5,8 @@
         {text: category.name,disabled: true,href: '/courses'}
         ]" />
 
-
         <div class='mt-8'>
-<!--            <h1 class='my-6 text-center' v-if='category && Object.keys(category).length'>{{ category.name }}</h1>-->
+            <!--            <h1 class='my-6 text-center' v-if='category && Object.keys(category).length'>{{ category.name }}</h1>-->
             <hr class='mb-4'>
             <div v-if='$fetchState.pending'>
                 <v-sheet class='pa-3'>
@@ -44,17 +43,17 @@
                         </v-row>
                     </div>
                 </template>
-                <template v-else>
-                    <v-col cols='12'>
-                        <v-alert
-                            border='left'
-                            color='indigo'
-                            dark
-                        >
-                            No Courses Found.
-                        </v-alert>
-                    </v-col>
-                </template>
+                <!--                <template v-else>
+                                    <v-col cols='12'>
+                                        <v-alert
+                                            border='left'
+                                            color='indigo'
+                                            dark
+                                        >
+                                            No Category Found.
+                                        </v-alert>
+                                    </v-col>
+                                </template>-->
             </div>
         </div>
     </section>
@@ -64,11 +63,12 @@
 export default {
     data() {
         return {
+            subCategory: [],
             category: []
         }
     },
     async fetch() {
-        const coursesUrl = 'api/categories/' + this.$route.params.category_id
+        const coursesUrl = 'api/courses?filter=sub-category&id=' + this.$route.params.category_id
         this.category = await this.$axios.$get(coursesUrl)
     },
     fetchOnServer: false,
