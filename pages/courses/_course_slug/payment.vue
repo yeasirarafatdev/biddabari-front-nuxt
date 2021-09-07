@@ -44,7 +44,7 @@
                                 </template>
                             </template>
 
-                            <template v-if='!requestFreeAccess'>
+                            <template>
                                 <validation-provider
                                     v-slot='{ errors }'
                                     name='Phone'
@@ -74,22 +74,6 @@
                                     ></v-text-field>
                                 </validation-provider>
                             </template>
-                            <template v-else>
-                                <validation-provider
-                                    v-slot='{ errors }'
-                                    name='Transaction Id'
-                                    :rules='rules.commonRule'
-                                >
-                                    <v-textarea
-                                        v-model='reasonForFreeAccess'
-                                        label='Tell us why you want free access'
-                                        hint='Wright valid reason in details. We will review and let you know.'
-                                        required
-                                        :error-messages='errors'
-                                        :disabled='submittingForm'
-                                    ></v-textarea>
-                                </validation-provider>
-                            </template>
 
                             <div v-if='!$auth.loggedIn' class='text-center'>
                                 <p class='error--text'>Please
@@ -100,7 +84,6 @@
 
                             <div class='text-center mb-6'>
                                 <v-btn
-                                    v-if='!requestFreeAccess'
                                     class='mt-2'
                                     type='submit'
                                     color='primary'
@@ -111,27 +94,6 @@
                                     @click.prevent='placeOrder()'>
                                     Place Order
                                 </v-btn>
-                                <v-btn
-                                    v-else
-                                    class='mt-2'
-                                    type='submit'
-                                    color='primary'
-                                    elevation='14'
-                                    rounded
-                                    :loading='submittingForm'
-                                    :disabled='submittingForm || !$auth.loggedIn'
-                                    @click.prevent='requestFreeAccessSubmit()'>
-                                    Submit
-                                </v-btn>
-
-                                <div>
-                                    <v-btn v-if='!requestFreeAccess' link plain class='mt-2' @click.stop.prevent='requestFreeAccess = true'>
-                                        Request free access ?
-                                    </v-btn>
-                                    <v-btn v-else link plain class='mt-2' @click.stop.prevent='requestFreeAccess = false'>
-                                        Proceed by paying ?
-                                    </v-btn>
-                                </div>
                             </div>
                         </validation-observer>
 
@@ -191,7 +153,6 @@ export default {
             courseInfo: '',
             formErrors: '',
             submittingForm: false,
-            requestFreeAccess: false,
             formData: {
                 phone: '',
                 amount: '',
@@ -244,18 +205,7 @@ export default {
             ]
         }
     },
-    watch: {
-        requestFreeAccess(val, oldVal) {
-            this.formData = {
-                phone: '',
-                amount: '',
-                transaction_id: '',
-                course_id: '',
-                coupon: ''
-            }
-            this.reasonForFreeAccess = ''
-        }
-    },
+    watch: {},
     methods: {
         async placeOrder() {
             this.submittingForm = true
@@ -286,35 +236,6 @@ export default {
                 }
             }
         },
-        async requestFreeAccessSubmit() {
-            this.submittingForm = true
-            const valid = await this.$refs.observer.validate()
-            if (!valid) {
-                this.submittingForm = false
-            } else {
-                try {
-                    const data = {
-                        details: this.reasonForFreeAccess,
-                        course_id: this.courseInfo.id
-                    }
-                    await this.$axios.$post('api/free-access', data)
-                        .then((response) => {
-                            this.showSuccessAlert = true
-                            this.successAlertMessage = 'We have accepted your request. Please wait for the confirmation.'
-                            this.$notifier.showMessage({ content: 'Request successfully placed.', color: 'success' })
-                        })
-                        .catch(() => {
-                            this.$notifier.showMessage({ content: 'Failed to place your course request!', color: 'error' })
-                        })
-                        .finally(() => {
-                            this.submittingForm = false
-                        })
-                } catch (err) {
-                    this.submittingForm = false
-                    this.formErrors = err
-                }
-            }
-        }
     }
 }
 </script>
