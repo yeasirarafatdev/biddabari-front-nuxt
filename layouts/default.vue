@@ -67,17 +67,18 @@ export default {
         }
     },
     async fetch() {
-        await this.$axios.$get('api/categories').then((response) => {
-            this.courseCategories = response
-            this.generateCourseSubLinks()
-        })
-
         if (this.$auth.loggedIn) {
             const myCoursesUrl = 'api/courses?filter=my-course'
             await this.$axios.$get(myCoursesUrl).then((response) => {
                 this.$store.commit('userData/setEnrolledCourses', response)
             })
+            this.links[1].subLinks.push({ to: '/my-courses', label: 'My Courses' })
         }
+
+        await this.$axios.$get('api/categories').then((response) => {
+            this.courseCategories = response
+            this.generateCourseSubLinks()
+        })
     },
     fetchOnServer: false,
     mounted() {

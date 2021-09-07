@@ -81,6 +81,11 @@
                                 </v-btn>
                             </template>
                             <v-list>
+                                <v-list-item>
+                                    <nuxt-link to='/my-courses'>
+                                        <v-list-item-title>My Courses</v-list-item-title>
+                                    </nuxt-link>
+                                </v-list-item>
                                 <v-list-item @click='logout()'>
                                     <v-list-item-title>Logout</v-list-item-title>
                                 </v-list-item>
