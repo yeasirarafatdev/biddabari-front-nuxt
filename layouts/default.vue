@@ -24,7 +24,7 @@
                     </a>
                     <div v-else><strong>{{ notification.title }}</strong></div>
                     <div style='overflow-y: auto'>
-                    <div class='text-14' v-html='notification.body'></div>
+                        <div class='text-14' v-html='notification.body'></div>
                     </div>
                 </div>
                 <div class='notification-close-btn' @click.stop.prevent='closeNotification(notification.id)'>
@@ -46,7 +46,7 @@ export default {
                 {
                     to: '#', label: 'Courses',
                     subLinks: [
-                        { to: '/courses', label: 'All Course' }
+                        { to: '/courses', label: 'All Course' },
                     ]
                 },
                 { to: '/books', label: 'Books' },
@@ -79,6 +79,7 @@ export default {
             })
         }
     },
+    fetchOnServer: false,
     mounted() {
         this.$store.dispatch('cart/getDBCart')
         this.$axios.get('api/popup').then((response) => {
@@ -97,6 +98,11 @@ export default {
             if (this.courseCategories && Object.keys(this.courseCategories).length) {
                 this.courseCategories.forEach((e) => {
                     _this.links[1].subLinks.push({ to: '/courses/category/' + e.id, label: e.name })
+                    if (e.sub_categories) {
+                        e.sub_categories.forEach((x) => {
+                            _this.links[1].subLinks.push({ to: '/courses/category/' + x.id, label: x.name, sub: true })
+                        }, e)
+                    }
                 })
             }
         },

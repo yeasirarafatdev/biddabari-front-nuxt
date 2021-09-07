@@ -61,8 +61,9 @@
                         </nuxt-link>
 
                         <ul v-if='link.subLinks && link.subLinks.length' class='subLinks' style='max-height: 400px; overflow: auto'>
-                            <li v-for='(subLink, n) in link.subLinks' :key='n'>
+                            <li v-for='(subLink, n) in link.subLinks' :key='n' :class='subLink.sub && subLink.sub == true?"ml-5":""'>
                                 <nuxt-link :to='subLink.to' exact>{{ subLink.label }}</nuxt-link>
+                                <v-divider v-if='subLink.sub && subLink.sub == true'></v-divider>
                             </li>
                         </ul>
                     </li>
