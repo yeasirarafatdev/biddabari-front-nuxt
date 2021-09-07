@@ -76,7 +76,7 @@
                                     v-on='on'
                                 >
                                     <v-icon class='mr-2'>mdi-account</v-icon>
-                                    {{ $auth.user.name }}
+                                    {{ truncateText($auth.user.name) }}
                                 </v-btn>
                             </template>
                             <v-list>
@@ -113,9 +113,9 @@ export default {
             type: Array,
             default: () => [],
             required: true
-        },
+        }
     },
-    data:()=>({
+    data: () => ({
         searchText: '',
         searching: false,
         searchResult: false,
@@ -140,6 +140,10 @@ export default {
         }
     },
     methods: {
+        truncateText(text) {
+            if (text.length <= 10) return text
+            else return text.substring(0, 10) + '...'
+        },
         async logout() {
             await this.$auth.logout()
         },
