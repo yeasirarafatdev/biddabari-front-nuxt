@@ -172,7 +172,7 @@ export default {
 
         opacity: 0;
         transition: all 400ms ease-in-out;
-        transform: translateX(100%);
+        transform: scale(0);
         animation-delay: 5s;
         animation: popup 0.6s ease-in-out forwards;
 
@@ -208,11 +208,11 @@ export default {
 @keyframes popup {
     0% {
         opacity: 0;
-        transform: translateX(100%);
+        transform: scale(0);
     }
     100% {
         opacity: 1;
-        transform: translateX(0px);
+        transform: scale(1);
     }
 }
 </style>
