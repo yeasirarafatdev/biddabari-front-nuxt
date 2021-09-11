@@ -62,7 +62,7 @@
                             mdi-check
                         </v-icon>
                     </v-btn>
-                    <v-btn v-if='!favorite' icon @click='toggleFavorite'>
+<!--                    <v-btn v-if='!favorite' icon @click='toggleFavorite'>
                         <v-icon>mdi-heart-outline</v-icon>
                     </v-btn>
                     <v-btn v-else icon @click='toggleFavorite'>
@@ -70,7 +70,7 @@
                     </v-btn>
                     <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
                         <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
-                    </v-btn>
+                    </v-btn>-->
                     <v-icon v-else color='green' small>mdi-check-circle</v-icon>
                 </div>
             </div>
