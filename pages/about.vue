@@ -4,28 +4,28 @@
 
             <the-breadcrum :items-push="[{text: 'About',disabled: true,href: '/about'}]" />
 
-            <div class='mt-10 mb-16 text-center'>
-                <h2 class='font-roboto-slab'>OUR STORY</h2>
-                <p class='text-14 text-muted mb-8'>It is a charity organization</p>
+            <div class='mt-10 mb-16 text-center' v-if='about && Object.keys(about).length'>
+                <h2 class='font-roboto-slab'>{{ about.our_story_title }}</h2>
+                <p class='text-14 text-muted mb-8'>{{ about.our_story_description }}</p>
 
                 <div style='height: 3px; width: 60px; background-color: #49556c; margin: auto; border-radius: 10px;'></div>
             </div>
 
-            <v-row class='my-6'>
+            <v-row class='my-6' v-if='dataCounts && Object.keys(dataCounts).length'>
                 <v-col cols='6' lg='3' md='3' sm='3' class='text-center'>
                     <h3>1,50,000</h3>
                     <p class='text-14 text-uppercase'>Profile followers</p>
                 </v-col>
-                <v-col cols='6' lg='3' md='3' sm='3' class='text-center'>
-                    <h3>70</h3>
+                <v-col v-if='teachers.length' cols='6' lg='3' md='3' sm='3' class='text-center'>
+                    <h3>{{ teachers.length }}</h3>
                     <p class='text-14 text-uppercase'>Instructors</p>
                 </v-col>
-                <v-col cols='6' lg='3' md='3' sm='3' class='text-center'>
-                    <h3>80</h3>
+                <v-col v-if='dataCounts.TotalStudentEnrolled' cols='6' lg='3' md='3' sm='3' class='text-center'>
+                    <h3>{{ dataCounts.TotalStudentEnrolled }}</h3>
                     <p class='text-14 text-uppercase'>Students Enrolled</p>
                 </v-col>
-                <v-col cols='6' lg='3' md='3' sm='3' class='text-center'>
-                    <h3>50</h3>
+                <v-col v-if='dataCounts.TotalCourses' cols='6' lg='3' md='3' sm='3' class='text-center'>
+                    <h3>{{ dataCounts.TotalCourses }}</h3>
                     <p class='text-14 text-uppercase'>Courses</p>
                 </v-col>
             </v-row>
@@ -39,17 +39,19 @@
                             <div style='height: 3px; width: 100px; background-color: #ffbf3f; margin: auto; border-radius: 10px;'></div>
                         </div>-->
 
-            <v-row class='mt-16'>
+            <v-row class='mt-16' v-if='about && Object.keys(about).length'>
                 <v-col cols='12' lg='6' md='6' sm='6'>
                     <div class='text-center'>
-                        <img :src='require("~/assets/images/biddiabari/MIsir.jpg")' alt=''
+                        <img :src='about.founder_photo' alt=''
                              style='width: 180px; height: 180px; object-fit: cover; object-position: top center; border-radius: 50%'>
+                        <div>{{ about.founder_name }}</div>
+                        <div>{{ about.founder_designation }}</div>
                     </div>
                 </v-col>
                 <v-col cols='12' lg='6' md='6' sm='6'>
                     <div class='my-10'>
                         <h4 class='border-left-yellow text-uppercase py-2 px-4 mb-2'>Who we aRe</h4>
-                        <p class='text-14'>A living guide for your Career and BCS/JOB Preparation.</p>
+                        <p class='text-14'>{{ about.founder_message }}</p>
                     </div>
                 </v-col>
             </v-row>
@@ -88,10 +90,18 @@
 export default {
     data() {
         return {
-            teachers: []
+            teachers: [],
+            dataCounts: [],
+            about: {}
         }
     },
     async fetch() {
+        const about = await this.$axios.get('api/about')
+        this.about = about.data
+
+        const dataCounts = await this.$axios.get('api/about-page-counters')
+        this.dataCounts = dataCounts.data
+
         const teachers = await this.$axios.get('api/hr?hr_type=' + 'teacher')
         this.teachers = teachers.data
     },

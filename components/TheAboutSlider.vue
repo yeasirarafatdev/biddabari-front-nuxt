@@ -5,8 +5,8 @@
                 <div class='swiper-wrapper mb-16'>
                     <div v-for='sliderContent in sliderContents' :key='sliderContent.id' class='swiper-slide'>
                         <picture>
-                            <source :srcset="require('~/assets/images/slides/'+sliderContent.bgImage)" type='image/webp' />
-                            <img :src="require('~/assets/images/slides/'+sliderContent.bgImage)" alt='' loading='lazy'
+                            <source :srcset='sliderContent.photo' type='image/webp' />
+                            <img :src='sliderContent.photo' alt='' loading='lazy'
                                  class='swiper-lazy swiper-image' style='max-height: 400px !important;' width='100'>
                         </picture>
                         <div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div>
@@ -15,6 +15,7 @@
                 </div>
             </div>
         </client-only>
+
     </div>
 </template>
 
@@ -34,11 +35,7 @@ export default {
     },
     data() {
         return {
-            sliderContents: [
-                { id: 1, bgImage: '1.jpg', title: 'Better education for a better', focusText: 'WORLD', link: '/', linkLabel: 'Buy now' },
-                { id: 2, bgImage: '2.jpg', title: 'Better education for a better', focusText: 'world', link: '/', linkLabel: 'Buy now' },
-                { id: 3, bgImage: '3.jpg', title: 'Better education for a better', focusText: 'World', link: '/', linkLabel: 'Buy now' }
-            ],
+            sliderContents:{},
             swiperOption: {
                 effect: 'fade',
                 lazy: true,
@@ -50,6 +47,7 @@ export default {
                     delay: 3000,
                     disableOnInteraction: false
                 },
+                overlay: false,
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev'
@@ -59,7 +57,13 @@ export default {
                 }
             }
         }
-    }
+    },
+    fetch() {
+        this.$axios.$get('api/about-image').then((response) => {
+            this.sliderContents = response
+        })
+    },
+    fetchOnServer: false
 }
 </script>
 

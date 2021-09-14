@@ -14,9 +14,10 @@
     border-radius: 6px;
     @include transition(200ms);
     color: $themeColorYellow !important;
+    background-color: white;
     flex: 1;
 
-    min-width: 120px;
+    min-width: 150px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -42,7 +43,7 @@
     }
 
     h3 {
-        white-space: nowrap;
+        text-align: center;
         color: #1b2437;
     }
 
