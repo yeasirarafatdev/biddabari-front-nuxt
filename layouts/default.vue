@@ -12,8 +12,7 @@
 
         <the-snack-bar />
 
-        <div v-show='notification && Object.keys(notification).length'
-             class='notification-holder'>
+        <div v-show='notification && Object.keys(notification).length' class='notification-holder'>
             <div class='notification'>
                 <div>
                     <img :src='notification.photo' alt=''>
@@ -141,7 +140,7 @@ export default {
 
 .notification-holder {
     position: fixed;
-    z-index: 100;
+    z-index: 100000;
     height: 100%;
     width: 100%;
     top: 0;

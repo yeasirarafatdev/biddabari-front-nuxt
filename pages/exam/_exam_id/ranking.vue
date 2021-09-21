@@ -20,9 +20,6 @@
                     :headers='headers'
                     :items='rankings'
                     :search='search'>
-                    <template v-slot:item.position>
-                        {{ countPosition(counter) }}
-                    </template>
                 </v-data-table>
             </v-card>
 
@@ -43,7 +40,7 @@ export default {
                     text: 'Position',
                     align: 'start',
                     filterable: true,
-                    value: 1
+                    value: this.serial
                 },
                 { text: 'Name', value: 'name' },
                 { text: 'Obtained Marks', value: 'obtained_marks' }
@@ -55,6 +52,11 @@ export default {
         this.rankings = await this.$axios.$get(URL)
     },
     fetchOnServer: false,
+    computed: {
+        serial() {
+            return 1
+        }
+    },
     head() {
         return {
             title: 'Exam Ranking',
@@ -69,12 +71,12 @@ export default {
     },
     methods: {
         countPosition(n) {
-            console.log(n , this.rankings.obtained_marks)
+            // console.log(n, this.rankings.obtained_marks)
             if (n <= this.rankings.length) {
                 this.counter = n + 1
                 return this.counter
             }
-        },
+        }
     }
 }
 </script>
