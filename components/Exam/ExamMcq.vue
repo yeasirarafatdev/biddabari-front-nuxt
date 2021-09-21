@@ -48,7 +48,7 @@
             </v-snackbar>
             <div class='d-flex justify-space-between flex-column flex-lg-row flex-md-row flex-sm-row'>
                 <div class='d-flex'>
-                    <div class='subtitle-1 font-weight-bold mr-2'>{{ index + 1 }}.</div>
+                    <!--                    <div class='subtitle-1 font-weight-bold mr-2'>{{ index + 1 }}.</div>-->
                     <div v-katex:auto class='subtitle-1 text-12 mcq-card' v-html='mcq.question'></div>
                 </div>
                 <div class='d-flex'>
@@ -62,15 +62,15 @@
                             mdi-check
                         </v-icon>
                     </v-btn>
-<!--                    <v-btn v-if="!favorite && mode==='result'" icon @click='toggleFavorite'>
-                        <v-icon>mdi-heart-outline</v-icon>
-                    </v-btn>
-                    <v-btn v-if="favorite && mode==='result'" icon @click='toggleFavorite'>
-                        <v-icon color='red'>mdi-heart</v-icon>
-                    </v-btn>-->
-<!--                    <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
-                        <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
-                    </v-btn>-->
+                    <!--                    <v-btn v-if="!favorite && mode==='result'" icon @click='toggleFavorite'>
+                                            <v-icon>mdi-heart-outline</v-icon>
+                                        </v-btn>
+                                        <v-btn v-if="favorite && mode==='result'" icon @click='toggleFavorite'>
+                                            <v-icon color='red'>mdi-heart</v-icon>
+                                        </v-btn>-->
+                    <!--                    <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
+                                            <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
+                                        </v-btn>-->
                     <v-icon v-else color='green' small>mdi-check-circle</v-icon>
                 </div>
             </div>
@@ -355,7 +355,7 @@ export default {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
-            };
+            }
             this.$axios.post(url, formData, config).then(() => {
                 this.reported = true
             }).finally(() => {

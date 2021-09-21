@@ -17,7 +17,7 @@
                     <span v-if='examReport.position'>Your Position: <strong>{{ examReport.position }}</strong> </span>
                     <span v-if='examReport.total_students'>out of <strong>{{ examReport.total_students }}</strong></span>
                 </div>
-                <nuxt-link :to='`/exams/${exam_id}/ranking`' class='mt-2'>
+                <nuxt-link :to='`/exams/ranking/${exam_id}`' class='mt-2'>
                     <v-btn color='primary' small>
                         See ranking
                     </v-btn>

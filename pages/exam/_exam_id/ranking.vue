@@ -63,6 +63,15 @@ export default {
                 }
             ]
         }
+    },
+    methods: {
+        countPosition(n) {
+            console.log(n , this.rankings.obtained_marks)
+            if (n <= this.rankings.length) {
+                this.counter = n + 1
+                return this.counter
+            }
+        },
     }
 }
 </script>
