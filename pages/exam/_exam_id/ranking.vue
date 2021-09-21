@@ -20,6 +20,9 @@
                     :headers='headers'
                     :items='rankings'
                     :search='search'>
+                    <template v-slot:item.position>
+                        {{ countPosition(counter) }}
+                    </template>
                 </v-data-table>
             </v-card>
 

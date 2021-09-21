@@ -60,9 +60,12 @@ export default {
     fetchOnServer: false,
     methods: {
         countPosition(n) {
-            this.counter = n + 1
-            return this.counter
-        }
+            console.log(n , this.rankings.obtained_marks)
+            if (n <= this.rankings.length) {
+                this.counter = n + 1
+                return this.counter
+            }
+        },
     },
     head() {
         return {
