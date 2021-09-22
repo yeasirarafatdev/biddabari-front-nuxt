@@ -18,7 +18,7 @@
                     :sort-by="['obtained_marks']"
                     :sort-desc='[true]'
                     :headers='headers'
-                    :items='rankings'
+                    :items='itemsWithSno'
                     :search='search'>
                 </v-data-table>
             </v-card>
@@ -40,7 +40,7 @@ export default {
                     text: 'Position',
                     align: 'start',
                     filterable: true,
-                    value: this.serial
+                    value: 'sno'
                 },
                 { text: 'Name', value: 'name' },
                 { text: 'Obtained Marks', value: 'obtained_marks' }
@@ -53,6 +53,9 @@ export default {
     },
     fetchOnServer: false,
     computed: {
+        itemsWithSno() {
+            return this.rankings.map((d, index) => ({ ...d, sno: index + 1 }))
+        },
         serial() {
             return 1
         }
@@ -69,14 +72,5 @@ export default {
             ]
         }
     },
-    methods: {
-        countPosition(n) {
-            // console.log(n, this.rankings.obtained_marks)
-            if (n <= this.rankings.length) {
-                this.counter = n + 1
-                return this.counter
-            }
-        }
-    }
 }
 </script>

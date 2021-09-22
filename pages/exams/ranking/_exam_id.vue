@@ -16,11 +16,8 @@
                     :sort-by="['obtained_marks']"
                     :sort-desc='[true]'
                     :headers='headers'
-                    :items='rankings'
+                    :items='itemsWithSno'
                     :search='search'>
-                    <template v-slot:item.position>
-                        {{ countPosition(counter) }}
-                    </template>
                 </v-data-table>
             </v-card>
 
@@ -42,12 +39,17 @@ export default {
                     text: 'Position',
                     align: 'start',
                     filterable: true,
-                    value: 'position'
+                    value: 'sno'
                 },
                 { text: 'Name', value: 'name' },
                 { text: 'Obtained Marks', value: 'obtained_marks' }
             ]
         }
+    },
+    computed: {
+        itemsWithSno() {
+            return this.rankings.map((d, index) => ({ ...d, sno: index + 1 }))
+        },
     },
     async fetch() {
         const config = {
@@ -58,15 +60,6 @@ export default {
         this.rankings = await this.$axios.$get(URL, config)
     },
     fetchOnServer: false,
-    methods: {
-        countPosition(n) {
-            console.log(n , this.rankings.obtained_marks)
-            if (n <= this.rankings.length) {
-                this.counter = n + 1
-                return this.counter
-            }
-        },
-    },
     head() {
         return {
             title: 'Exam Ranking',
