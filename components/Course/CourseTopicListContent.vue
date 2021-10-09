@@ -45,21 +45,9 @@
                         <v-divider></v-divider>
 
                         <v-card-actions>
-                            <v-btn
-                                color='primary'
-                                text
-                                @click='displayExamContent()'
-                            >
-                                I accept
-                            </v-btn>
+                            <v-btn color='primary' text @click='displayExamContent()'>I accept</v-btn>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                color='error'
-                                text
-                                @click='doNotDisplayExamContent()'
-                            >
-                                No
-                            </v-btn>
+                            <v-btn color='error' text @click='doNotDisplayExamContent()'>No</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>

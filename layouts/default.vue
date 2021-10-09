@@ -45,7 +45,7 @@ export default {
                 {
                     to: '#', label: 'Courses',
                     subLinks: [
-                        { to: '/courses', label: 'All Course' }
+                        // { to: '/courses', label: 'All Course' }
                     ]
                 },
                 { to: '/books', label: 'Books' },
@@ -100,7 +100,7 @@ export default {
                     _this.links[1].subLinks.push({ to: '/courses/category/' + e.id, label: e.name })
                     if (e.sub_categories) {
                         e.sub_categories.forEach((x) => {
-                            _this.links[1].subLinks.push({ to: '/courses/category/' + x.id, label: x.name, sub: true })
+                            _this.links[1].subLinks.push({ to: '/courses/category/' + x.id+'/courses', label: x.name, sub: true })
                         }, e)
                     }
                 })

@@ -1,23 +1,10 @@
 <template>
     <v-card rounded class='my-1'>
         <v-card-text class='pb-0'>
-            <v-snackbar
-                v-model='snackbar'
-                rounded='lg'
-                app
-                centered
-                :timeout='-1'
-            >
+            <v-snackbar v-model='snackbar' rounded='lg' app centered :timeout='-1'>
                 <div class='font-weight-bold text-center my-2'>Tell us what is wrong</div>
                 <v-form @submit.prevent='report'>
-                    <v-textarea
-                        v-model='comment'
-                        auto-grow
-                        autofocus
-                        outlined
-                        dense
-                        rows='2'
-                    />
+                    <v-textarea v-model='comment' auto-grow autofocus outlined dense rows='2' />
                     <v-file-input
                         v-model='photo'
                         :rules='rules'
@@ -26,23 +13,8 @@
                         label='Upload photo'
                     ></v-file-input>
                     <div class='d-flex justify-center'>
-                        <v-btn
-                            small
-                            color='red'
-                            class='mx-1'
-                            @click='snackbar = false'
-                        >
-                            Cancel
-                        </v-btn>
-                        <v-btn
-                            type='submit'
-                            small
-                            color='green'
-                            class='mx-1'
-                            :disabled='!comment && !photo'
-                        >
-                            Submit
-                        </v-btn>
+                        <v-btn small color='red' class='mx-1' @click='snackbar = false'>Cancel</v-btn>
+                        <v-btn type='submit' small color='green' class='mx-1' :disabled='!comment && !photo'>Submit</v-btn>
                     </div>
                 </v-form>
             </v-snackbar>
@@ -53,14 +25,10 @@
                 </div>
                 <div class='d-flex'>
                     <v-btn v-if='isWrongAnswer' icon>
-                        <v-icon color='red'>
-                            mdi-close
-                        </v-icon>
+                        <v-icon color='red'>mdi-close</v-icon>
                     </v-btn>
                     <v-btn v-if='isCorrectAnswer' icon>
-                        <v-icon color='green'>
-                            mdi-check
-                        </v-icon>
+                        <v-icon color='green'>mdi-check</v-icon>
                     </v-btn>
                     <!--                    <v-btn v-if="!favorite && mode==='result'" icon @click='toggleFavorite'>
                                             <v-icon>mdi-heart-outline</v-icon>
@@ -74,19 +42,8 @@
                     <v-icon v-else color='green' small>mdi-check-circle</v-icon>
                 </div>
             </div>
-            <v-img
-                v-if='mcq.question_photo'
-                style='width: 100%'
-                :src='mcq.question_photo'
-                class='mb-2'
-            ></v-img>
-            <v-radio-group
-                v-model='user_answer'
-                dense
-                :readonly='shouldBeDisabled'
-                class='mt-1'
-                column
-            >
+            <v-img v-if='mcq.question_photo' style='width: 100%' :src='mcq.question_photo' class='mb-2'></v-img>
+            <v-radio-group v-model='user_answer' dense :readonly='shouldBeDisabled' class='mt-1' column>
                 <v-radio
                     off-icon='mdi-alpha-a-circle-outline'
                     on-icon='mdi-alpha-a-circle-outline'
@@ -141,12 +98,7 @@
             </v-radio-group>
             <v-divider v-if='viewMode && (mcq.answer_description || mcq.answer_photo)' class='mb-2'></v-divider>
             <div v-if='viewMode && mcq.answer_description' v-katex:auto v-html='mcq.answer_description'></div>
-            <v-img
-                v-if='viewMode && mcq.answer_photo'
-                style='width: 100%'
-                :src='mcq.answer_photo'
-                class='mb-2'
-            ></v-img>
+            <v-img v-if='viewMode && mcq.answer_photo' style='width: 100%' :src='mcq.answer_photo' class='mb-2'></v-img>
         </v-card-text>
     </v-card>
 </template>

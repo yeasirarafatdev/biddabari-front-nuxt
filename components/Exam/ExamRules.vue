@@ -6,22 +6,19 @@
                 <div>
                     <img :src='require("~/assets/images/exam-rules/examinatio.PNG")' alt='' height='80px'>
                     <div class='d-flex align-center'>
-                        <div class='bullet mr-2'>1</div>
-                        Paper Exam
+                        <div class='bullet mr-2'>1</div>Paper Exam
                     </div>
                 </div>
                 <div>
                     <img :src='require("~/assets/images/exam-rules/take-photo.PNG")' alt='' height='80px'>
                     <div class='d-flex align-center'>
-                        <div class='bullet mr-2'>2</div>
-                        Take photo
+                        <div class='bullet mr-2'>2</div>Take photo
                     </div>
                 </div>
                 <div>
                     <img :src='require("~/assets/images/exam-rules/upload-photo.PNG")' alt='' height='80px'>
                     <div class='d-flex align-center'>
-                        <div class='bullet mr-2'>3</div>
-                        Upload photo
+                        <div class='bullet mr-2'>3</div>Upload photo
                     </div>
                 </div>
             </div>

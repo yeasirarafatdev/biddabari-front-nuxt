@@ -2,11 +2,7 @@
     <v-card id='questions' flat class='mb-10 pb-5'>
         <div v-if='!mcqs' class='d-flex justify-center align-center content-loading'>
             <v-card outlined class='d-flex justify-center align-center content-loading'>
-                <v-progress-circular
-                    :size='50'
-                    color='primary'
-                    indeterminate
-                ></v-progress-circular>
+                <v-progress-circular :size='50' color='primary' indeterminate></v-progress-circular>
             </v-card>
         </div>
         <v-card rounded='lg' elevation='1' class='sticky white'>

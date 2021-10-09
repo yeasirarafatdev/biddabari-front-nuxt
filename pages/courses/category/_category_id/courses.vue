@@ -1,28 +1,17 @@
 <template>
     <section class='vH-100 vW-100 max-width-'>
-        <the-breadcrum :items-push="[
-            {text: 'All Course',disabled: false,href: '/courses'},
-        {text: category.name,disabled: true,href: '/courses'}
-        ]" />
+        <the-breadcrum :items-push="[{text: 'All Course',disabled: false,href: '/courses'},{text: category.name,disabled: true,href: '/courses'}]" />
 
         <div class='mt-8'>
             <!--            <h1 class='my-6 text-center' v-if='category && Object.keys(category).length'>{{ category.name }}</h1>-->
             <hr class='mb-4'>
             <div v-if='$fetchState.pending'>
                 <v-sheet class='pa-3'>
-                    <v-skeleton-loader
-                        class='mx-auto'
-                        max-width='300'
-                        type='card'
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader class='mx-auto' max-width='300' type='card'></v-skeleton-loader>
                 </v-sheet>
             </div>
             <div v-else-if='$fetchState.error'>
-                <v-alert
-                    border='top'
-                    color='red lighten-2'
-                    dark
-                >
+                <v-alert border='top' color='red lighten-2' dark>
                     {{ $fetchState.error && $fetchState.error.response && $fetchState.error.response.status == 403 ? 'Access Denied!' : $fetchState.error.message }}
                 </v-alert>
             </div>
@@ -35,25 +24,16 @@
                         </h3>
                         <v-row>
                             <v-col v-for='(course, c) in category.courses' :key='c' cols='12' lg='3' md='4' sm='6' xs='12'>
-                                <lazy-slide-show-card-course
-                                    :data='course'
-                                    :show-subtitle='true'
-                                    display-name='title' />
+                                <lazy-slide-show-card-course :data='course' :show-subtitle='true' display-name='title' />
                             </v-col>
                         </v-row>
                     </div>
                 </template>
-                <!--                <template v-else>
-                                    <v-col cols='12'>
-                                        <v-alert
-                                            border='left'
-                                            color='indigo'
-                                            dark
-                                        >
-                                            No Category Found.
-                                        </v-alert>
-                                    </v-col>
-                                </template>-->
+                <template v-else>
+                    <v-col cols='12'>
+                        <v-alert border='left' color='indigo' dark>No Course Found.</v-alert>
+                    </v-col>
+                </template>
             </div>
         </div>
     </section>

@@ -1,27 +1,15 @@
 <template>
     <div id='exam-container'>
         <div v-if='loading.exam' class='text-center my-16'>
-            <v-dialog
-                v-model='loading.exam'
-                hide-overlay
-                persistent
-                width='300'
-            >
+            <v-dialog v-model='loading.exam' hide-overlay persistent width='300'>
                 <v-card color='primary' dark>
                     <v-card-text class='py-2'>
                         Preparing Exam Questions
-                        <v-progress-linear
-                            indeterminate
-                            color='white'
-                            class='mb-2'
-                        ></v-progress-linear>
+                        <v-progress-linear indeterminate color='white' class='mb-2'></v-progress-linear>
                     </v-card-text>
                 </v-card>
             </v-dialog>
-            <v-progress-circular
-                indeterminate
-                color='primary'
-            ></v-progress-circular>
+            <v-progress-circular indeterminate color='primary'></v-progress-circular>
         </div>
         <v-card v-else elevation='2' class='px-2 py-2 relative'>
             <v-card rounded elevation='2' class='sticky white'>

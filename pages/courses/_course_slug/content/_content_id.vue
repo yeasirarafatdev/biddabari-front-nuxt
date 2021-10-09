@@ -42,66 +42,59 @@
             <img :src='courseTopicContent.note.photo' alt='' width='100%'>
         </div>
         <div v-else-if='courseTopicContent.exam'>
-            <lazy-exam
-                v-if='courseTopicContent.exam && $auth.loggedIn'
-                :course-content='courseTopicContent'
-                :course-exam='courseTopicContent.exam'
-            />
-            <div v-else>
-                <v-alert
-                    v-if='!$auth.loggedIn'
-                    border='left'
-                    color='error'
-                    dark
-                >
-                    You must
-                    <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
-                    to view this content.
+            <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
+                <v-alert border='left' color='info' dark>
+                    Exam will start on {{ courseTopicContent.exam.starts_at }} !
                 </v-alert>
-            </div>
+            </template>
+            <template v-else>
+                <lazy-exam
+                    v-if='courseTopicContent.exam && $auth.loggedIn'
+                    :course-content='courseTopicContent'
+                    :course-exam='courseTopicContent.exam'
+                />
+                <div v-else>
+                    <v-alert v-if='!$auth.loggedIn' border='left' color='error' dark>
+                        You must
+                        <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
+                        to view this content.
+                    </v-alert>
+                </div>
+            </template>
         </div>
         <div v-else-if='courseTopicContent.written_exam'>
-            <lazy-exam-written
-                v-if='courseTopicContent.written_exam  && $auth.loggedIn'
-                :course-content='courseTopicContent'
-                :course-exam='courseTopicContent.written_exam'
-            />
-            <div v-else>
-                <v-alert
-                    v-if='!$auth.loggedIn'
-                    border='left'
-                    color='error lighten-2'
-                    dark
-                >
-                    You must
-                    <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
-                    to view this content.
+            <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
+                <v-alert border='left' color='info' dark>
+                    Exam will start on {{ courseTopicContent.exam.starts_at }} !
                 </v-alert>
-            </div>
+            </template>
+            <template v-else>
+                <lazy-exam-written
+                    v-if='courseTopicContent.written_exam  && $auth.loggedIn'
+                    :course-content='courseTopicContent'
+                    :course-exam='courseTopicContent.written_exam'
+                />
+                <div v-else>
+                    <v-alert v-if='!$auth.loggedIn' border='left' color='error lighten-2' dark>
+                        You must
+                        <nuxt-link to='/auth/login'><strong> Login </strong></nuxt-link>
+                        to view this content.
+                    </v-alert>
+                </div>
+            </template>
         </div>
         <div v-else>
-            <v-alert
-                v-if='!loading'
-                border='left'
-                color='indigo'
-                dark
-            >
-                Sorry! The content you are looking for does not exists.
-            </v-alert>
+            <v-alert v-if='!loading' border='left' color='indigo' dark>Sorry! The content you are looking for does not exists.</v-alert>
             <div v-else class='text-center my-14'>
-                <v-progress-circular
-                    v-if='this.$route.params.content_id'
-                    :size='50'
-                    :width='5'
-                    color='purple'
-                    indeterminate
-                ></v-progress-circular>
+                <v-progress-circular v-if='this.$route.params.content_id' :size='50' :width='5' color='purple' indeterminate />
             </div>
         </div>
     </v-col>
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
     props: {
         courseSlug: {
@@ -125,6 +118,12 @@ export default {
         this.fetchContent()
     },
     methods: {
+        isExamTime(starts_at) {
+            const now = moment(new Date()) //todays date
+            const end = moment(starts_at) // another date
+            const duration = moment.duration(end.diff(now))
+            return duration.asSeconds()
+        },
         async fetchContent() {
             if (this.$route.params.content_id) {
                 this.loading = true
