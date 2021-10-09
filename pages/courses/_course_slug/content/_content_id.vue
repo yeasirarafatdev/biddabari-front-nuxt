@@ -44,7 +44,7 @@
         <div v-else-if='courseTopicContent.exam'>
             <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
                 <v-alert border='left' color='info' dark>
-                    Exam will start on {{ courseTopicContent.exam.starts_at }} !
+                    Exam will start on {{ courseTopicContent.exam.starts_at | dateFilter }} !
                 </v-alert>
             </template>
             <template v-else>
@@ -65,7 +65,7 @@
         <div v-else-if='courseTopicContent.written_exam'>
             <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
                 <v-alert border='left' color='info' dark>
-                    Exam will start on {{ courseTopicContent.exam.starts_at }} !
+                    Exam will start on {{ courseTopicContent.exam.starts_at | dateFilter }} !
                 </v-alert>
             </template>
             <template v-else>
@@ -138,6 +138,11 @@ export default {
             if (event.attended) {
                 this.fetchContent()
             }
+        }
+    },
+    filters: {
+        dateFilter(value) {
+            return moment(value).format('MMMM-DD-YY hh:mm')
         }
     }
 }
