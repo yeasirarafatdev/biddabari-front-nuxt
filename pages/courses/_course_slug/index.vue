@@ -14,24 +14,13 @@
             <v-card :loading='$fetchState.pending' elevation='4'>
                 <!-- Loading Content -->
                 <template v-if='$fetchState.pending'>
-                    <v-sheet
-                        :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                        class='pa-3'
-                    >
-                        <v-skeleton-loader
-                            class='mx-auto'
-                            max-width='300'
-                            type='card'
-                        ></v-skeleton-loader>
+                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class='pa-3'>
+                        <v-skeleton-loader class='mx-auto' max-width='300' type='card'></v-skeleton-loader>
                     </v-sheet>
                 </template>
                 <!-- Error fetching Content -->
                 <template v-else-if='$fetchState.error'>
-                    <v-alert
-                        border='top'
-                        color='red lighten-2'
-                        dark
-                    >
+                    <v-alert border='top' color='red lighten-2' dark>
                         {{ $fetchState.error && $fetchState.error.response && $fetchState.error.response.status == 403 ? 'Access Denied!' : $fetchState.error.message }}
                     </v-alert>
                 </template>
@@ -95,18 +84,22 @@
                                         <div class='my-2 d-flex justify-space-between align-center flex-wrap'>
                                             <div title='price'>
                                                 <template v-if='!myCoursesIds.includes(courseInfo.id)'>
-                                                    <div v-if='courseInfo.price'>
-                                                        <div v-if='courseInfo.discount'>
-                                                            <strong>
-                                                                <del class='text-muted'>৳ {{ courseInfo.price }}</del>
-                                                                <br>
-                                                                <span class='color-orange'>৳ {{ courseInfo.price - courseInfo.discount }} </span>
-                                                            </strong>
-                                                            <span class='text-12'>You save ৳ {{ courseInfo.price - (courseInfo.price - courseInfo.discount) }}</span>
+                                                    <template v-if='!courseInfo.admission_status'>
+                                                    </template>
+                                                    <template v-else>
+                                                        <div v-if='courseInfo.price'>
+                                                            <div v-if='courseInfo.discount'>
+                                                                <strong>
+                                                                    <del class='text-muted'>৳ {{ courseInfo.price }}</del>
+                                                                    <br>
+                                                                    <span class='color-orange'>৳ {{ courseInfo.price - courseInfo.discount }} </span>
+                                                                </strong>
+                                                                <span class='text-12'>You save ৳ {{ courseInfo.price - (courseInfo.price - courseInfo.discount) }}</span>
+                                                            </div>
+                                                            <strong v-else class='color-orange'>৳ {{ courseInfo.price }}</strong>
                                                         </div>
-                                                        <strong v-else class='color-orange'>৳ {{ courseInfo.price }}</strong>
-                                                    </div>
-                                                    <div v-else class='color-success'><strong> Free </strong></div>
+                                                        <div v-else class='color-success'><strong> Free </strong></div>
+                                                    </template>
                                                 </template>
                                                 <template v-else>
                                                     <div class='color-success'><strong> Enrolled </strong></div>
@@ -115,18 +108,25 @@
                                         </div>
                                         <div class='my-4 text-center'>
                                             <template v-if='!myCoursesIds.length || !myCoursesIds.includes(courseInfo.id)'>
-                                                <template v-if='courseInfo.price'>
-                                                    <nuxt-link :to='"/courses/"+courseInfo.slug+"/payment"'>
-                                                        <v-btn color='primary lighten-2 mb-2' small>Buy Course</v-btn>
-                                                    </nuxt-link>
+                                                <template v-if='!courseInfo.admission_status'>
+                                                    <v-alert border='top' color='red lighten-2' dark>Admission is closed for now</v-alert>
                                                 </template>
                                                 <template v-else>
-                                                    <v-btn color='primary lighten-2 mb-2' small @click.stop.prevent='enroll(0, courseInfo)'>Enroll now</v-btn>
+                                                    <template v-if='courseInfo.price'>
+                                                        <nuxt-link :to='"/courses/"+courseInfo.slug+"/payment"'>
+                                                            <v-btn color='primary lighten-2 mb-2' small>Buy Course</v-btn>
+                                                        </nuxt-link>
+                                                    </template>
+                                                    <template v-else>
+                                                        <v-btn color='primary lighten-2 mb-2' small @click.stop.prevent='enroll(0, courseInfo)'>Enroll now</v-btn>
+                                                    </template>
                                                 </template>
                                             </template>
-                                            <nuxt-link :to='"/courses/"+courseInfo.slug+"/content"'>
-                                                <v-btn color='warning lighten-2 mb-2' small>View Course Content</v-btn>
-                                            </nuxt-link>
+                                            <template v-if='courseInfo.admission_status'>
+                                                <nuxt-link :to='"/courses/"+courseInfo.slug+"/content"'>
+                                                    <v-btn color='warning lighten-2 mb-2' small>View Course Content</v-btn>
+                                                </nuxt-link>
+                                            </template>
                                         </div>
                                     </div>
                                 </v-col>

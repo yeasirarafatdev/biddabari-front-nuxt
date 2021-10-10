@@ -27,36 +27,18 @@
         </template>
 
         <template v-else>
-            <v-alert
-                v-if='!(courseTopics && Object.keys(courseTopics).length)'
-                border='left'
-                color='warning'
-                dark
-            >
+            <v-alert v-if='!(courseTopics && Object.keys(courseTopics).length)' border='left' color='warning' dark>
                 No course topics available!
             </v-alert>
-            <v-alert
-                v-else-if='!isAccessible'
-                border='left'
-                color='info lighten-1'
-                dark
-            >
+            <v-alert v-else-if='!isAccessible' border='left' color='info lighten-1' dark>
                 You can view some of the course contents. To view all contents you need to buy the course.
             </v-alert>
-            <v-alert
-                v-if='findingViewableContent'
-                border='left'
-                color='indigo lighten-1'
-                dark
-            >
+            <v-alert v-if='findingViewableContent' border='left' color='indigo lighten-1' dark>
                 Finding viewable content ...
             </v-alert>
         </template>
 
-        <course-information-modal
-            v-if='courseTopics && Object.keys(courseTopics).length'
-            :course-info='courseInfo'
-        />
+        <course-information-modal v-if='courseTopics && Object.keys(courseTopics).length' :course-info='courseInfo' />
 
         <v-row>
             <!-- Load child route -->

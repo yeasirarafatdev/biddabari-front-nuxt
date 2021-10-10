@@ -17,10 +17,10 @@
                     <span v-if='examReport.position'>Your Position: <strong>{{ examReport.position }}</strong> </span>
                     <span v-if='examReport.total_students'>out of <strong>{{ examReport.total_students }}</strong></span>
                 </div>
-                <nuxt-link v-if='token' :to='`/exams/ranking/${exam_id}`' class='mt-2'>
+                <nuxt-link v-if='token' :to='`/exams/ranking/${examId}`' class='mt-2'>
                     <v-btn color='primary' small>See ranking</v-btn>
                 </nuxt-link>
-                <nuxt-link v-else :to='`/exam/${exam_id}/ranking`' class='mt-2'>
+                <nuxt-link v-else :to='`/exam/${examId}/ranking`' class='mt-2'>
                     <v-btn color='primary' small>See ranking</v-btn>
                 </nuxt-link>
                 <div v-if='isAnswerAvailable' class='overline mb-4 text-center' style='border-bottom: 2px solid dodgerblue;'>
@@ -38,7 +38,7 @@ export default {
         examReport: {},
         isAnswerAvailable: {},
         answerAvailableAt: {},
-        exam_id: {},
+        examId: {},
         showResult: {}
     },
     computed: {
