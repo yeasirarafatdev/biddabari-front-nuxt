@@ -122,11 +122,10 @@
                                                     </template>
                                                 </template>
                                             </template>
-                                            <template v-if='courseInfo.admission_status'>
-                                                <nuxt-link :to='"/courses/"+courseInfo.slug+"/content"'>
-                                                    <v-btn color='warning lighten-2 mb-2' small>View Course Content</v-btn>
-                                                </nuxt-link>
-                                            </template>
+
+                                            <nuxt-link :to='"/courses/"+courseInfo.slug+"/content"'>
+                                                <v-btn color='warning lighten-2 mb-2' small>View Course Content</v-btn>
+                                            </nuxt-link>
                                         </div>
                                     </div>
                                 </v-col>
