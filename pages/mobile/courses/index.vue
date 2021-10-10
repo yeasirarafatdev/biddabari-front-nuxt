@@ -78,11 +78,11 @@ export default {
         }
     },
     async fetch() {
-        const coursesUrl = 'api/courses?filter=category'
+        const coursesUrl = 'courses?filter=category'
         this.courses = await this.$axios.$get(coursesUrl)
 
         if (this.$auth.loggedIn) {
-            const myCoursesUrl = 'api/courses?filter=my-course'
+            const myCoursesUrl = 'courses?filter=my-course'
             this.myCourses = await this.$axios.$get(myCoursesUrl)
         }
     },

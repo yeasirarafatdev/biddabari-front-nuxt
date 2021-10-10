@@ -48,7 +48,7 @@ export default {
         }
     },
     async fetch() {
-        const coursesUrl = 'api/courses?filter=sub-category&id=' + this.$route.params.category_id
+        const coursesUrl = 'courses?filter=sub-category&id=' + this.$route.params.category_id
         this.category = await this.$axios.$get(coursesUrl)
     },
     fetchOnServer: false,

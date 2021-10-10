@@ -55,7 +55,7 @@ export default {
         const config = {
             headers: { Authorization: `Bearer ${this.token}` }
         }
-        const URL = `api/exam-reports?filter=web&id=${this.$route.params.exam_id}`
+        const URL = `exam-reports?filter=web&id=${this.$route.params.exam_id}`
         console.log(URL);
         this.rankings = await this.$axios.$get(URL, config)
     },

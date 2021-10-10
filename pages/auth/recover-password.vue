@@ -143,7 +143,7 @@ export default {
                 this.submittingForm = false
             } else {
                 try {
-                    await this.$axios.$post('api/login/reset', this.formData)
+                    await this.$axios.$post('login/reset', this.formData)
                         .then((response) => {
                             this.$router.push(`/auth/login`)
                             this.$notifier.showMessage({ content: 'A new password has been sent to your phone number.', color: 'success' })

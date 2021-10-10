@@ -171,8 +171,8 @@ export default {
             const config = {
                 headers: {Authorization: `Bearer ${this.token}`}
             };
-            this.examReport = await this.$axios.$post(`api/written-exam-report`, { 'written_exam_id': this.courseExam.id }, config)
-            const examUrl = `api/question?id=${this.courseExam.id}`
+            this.examReport = await this.$axios.$post(`written-exam-report`, { 'written_exam_id': this.courseExam.id }, config)
+            const examUrl = `question?id=${this.courseExam.id}`
             let examWithQuestions = {}
             await this.$axios.$get(examUrl, config).then((response) => {
                 //this.exam = response
@@ -202,7 +202,7 @@ export default {
         examCompletedSilently() {
         },
         async examCompleted(clicked = true) {
-            await this.$axios.$post(`api/written-exam-report`, {
+            await this.$axios.$post(`written-exam-report`, {
                 'written_exam_id': this.courseExam.id,
                 type: 'submit'
             }).then(() => {

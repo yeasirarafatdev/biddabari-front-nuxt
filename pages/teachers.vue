@@ -58,7 +58,7 @@ export default {
         }
     },
     async fetch() {
-        const teachers = await this.$axios.get('api/hr?hr_type=' + 'teacher')
+        const teachers = await this.$axios.get('hr?hr_type=' + 'teacher')
         this.teachers = teachers.data
     },
     fetchOnServer: true,

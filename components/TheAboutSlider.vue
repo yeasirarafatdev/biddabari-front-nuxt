@@ -59,7 +59,7 @@ export default {
         }
     },
     fetch() {
-        this.$axios.$get('api/about-image').then((response) => {
+        this.$axios.$get('about-image').then((response) => {
             this.sliderContents = response
         })
     },

@@ -48,7 +48,7 @@ export default {
         }
     },
     async fetch() {
-        const URL = `api/exam-reports?filter=web&id=${this.$route.params.exam_id}`
+        const URL = `exam-reports?filter=web&id=${this.$route.params.exam_id}`
         this.rankings = await this.$axios.$get(URL)
     },
     fetchOnServer: false,

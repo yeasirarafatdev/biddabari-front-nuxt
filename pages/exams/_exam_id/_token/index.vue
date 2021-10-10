@@ -52,11 +52,11 @@ export default {
         async fetchContent() {
             if (this.$route.params.exam_id) {
                 this.loading = true
-                // const courseTopicContentUrl = `api/contents/${this.$route.params.exam_id}`
+                // const courseTopicContentUrl = `contents/${this.$route.params.exam_id}`
                 const config = {
                     headers: {Authorization: `Bearer ${this.token}`}
                 };
-                const examUrl = `api/exams/${this.$route.params.exam_id}`
+                const examUrl = `exams/${this.$route.params.exam_id}`
                 this.exam = await this.$axios.$get(examUrl, config).finally(() => {
                     this.loading = false
                 })

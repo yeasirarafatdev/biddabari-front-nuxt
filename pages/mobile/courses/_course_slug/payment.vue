@@ -212,10 +212,10 @@ export default {
         }
     },
     async fetch() {
-        const courseUrl = `api/courses/${this.$route.params.course_slug}?filter=info`
+        const courseUrl = `courses/${this.$route.params.course_slug}?filter=info`
         this.courseInfo = await this.$axios.$get(courseUrl)
 
-        const instructionsUrl = `api/instructions`
+        const instructionsUrl = `instructions`
         this.instructions = await this.$axios.$get(instructionsUrl)
 
         if (!this.courseInfo.price) {
@@ -259,7 +259,7 @@ export default {
                     if (this.courseInfo.discount) this.formData.amount = this.courseInfo.price - this.courseInfo.discount
                     else this.formData.amount = this.courseInfo.price
 
-                    await this.$axios.$post('api/payment', this.formData)
+                    await this.$axios.$post('payment', this.formData)
                         .then((response) => {
                             this.showSuccessAlert = true
                             this.successAlertMessage = 'We have accepted your payment information. Please wait until your payment is verified. Thank you!'
@@ -288,7 +288,7 @@ export default {
                         details: this.reasonForFreeAccess,
                         course_id: this.courseInfo.id
                     }
-                    await this.$axios.$post('api/free-access', data)
+                    await this.$axios.$post('free-access', data)
                         .then((response) => {
                             this.showSuccessAlert = true
                             this.successAlertMessage = 'We have accepted your request. Please wait for the confirmation.'

@@ -96,13 +96,13 @@ export default {
         }
     },
     async fetch() {
-        const about = await this.$axios.get('api/about')
+        const about = await this.$axios.get('about')
         this.about = about.data
 
-        const dataCounts = await this.$axios.get('api/about-page-counters')
+        const dataCounts = await this.$axios.get('about-page-counters')
         this.dataCounts = dataCounts.data
 
-        const teachers = await this.$axios.get('api/hr?hr_type=' + 'teacher')
+        const teachers = await this.$axios.get('hr?hr_type=' + 'teacher')
         this.teachers = teachers.data
     },
     fetchOnServer: true,

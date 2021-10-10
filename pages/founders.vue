@@ -58,7 +58,7 @@ export default {
         }
     },
     async fetch() {
-        const founders = await this.$axios.get('api/hr?hr_type=' + 'founder')
+        const founders = await this.$axios.get('hr?hr_type=' + 'founder')
         this.founders = founders.data
     },
     fetchOnServer: true,

@@ -64,7 +64,7 @@ export default {
     methods: {
         async fetchNotice() {
             this.loading = true
-            const url = `api/notices/${this.noticeId}`
+            const url = `notices/${this.noticeId}`
             this.notice = await this.$axios.$get(url).finally(() => {
                 this.loading = false
             })

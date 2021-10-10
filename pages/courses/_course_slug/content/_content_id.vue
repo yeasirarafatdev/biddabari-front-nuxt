@@ -127,7 +127,7 @@ export default {
         async fetchContent() {
             if (this.$route.params.content_id) {
                 this.loading = true
-                const courseTopicContentUrl = `api/contents/${this.$route.params.content_id}`
+                const courseTopicContentUrl = `contents/${this.$route.params.content_id}`
                 this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl).finally(() => {
                     this.loading = false
                 })

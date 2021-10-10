@@ -23,7 +23,7 @@ export default {
     actions: {
         async fetchEnrolledCourse(context) {
             if (this.$auth.loggedIn) {
-                const myCoursesUrl = 'api/courses?filter=my-course'
+                const myCoursesUrl = 'courses?filter=my-course'
                 await this.$axios.$get(myCoursesUrl).then((response) => {
                     context.commit('setEnrolledCourses', response)
                 })

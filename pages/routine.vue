@@ -27,7 +27,7 @@ export default {
         }
     },
     async fetch() {
-        const routinesUrl = 'api/routines'
+        const routinesUrl = 'routines'
         this.routines = await this.$axios.$get(routinesUrl)
     },
     fetchOnServer: true,

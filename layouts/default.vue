@@ -67,14 +67,14 @@ export default {
     },
     async fetch() {
         if (this.$auth.loggedIn) {
-            const myCoursesUrl = 'api/courses?filter=my-course'
+            const myCoursesUrl = 'courses?filter=my-course'
             await this.$axios.$get(myCoursesUrl).then((response) => {
                 this.$store.commit('userData/setEnrolledCourses', response)
             })
             this.links[1].subLinks.push({ to: '/my-courses', label: 'My Courses' })
         }
 
-        await this.$axios.$get('api/categories').then((response) => {
+        await this.$axios.$get('categories').then((response) => {
             this.courseCategories = response
             this.generateCourseSubLinks()
         })
@@ -82,13 +82,13 @@ export default {
     fetchOnServer: false,
     mounted() {
         this.$store.dispatch('cart/getDBCart')
-        this.$axios.get('api/popup').then((response) => {
+        this.$axios.get('popup').then((response) => {
             this.notification = response.data
         })
         /* if (this.$auth.loggedIn) {
             this.$store.dispatch('userData/fetchEnrolledCourse')
         } */
-        /* this.$axios.$get('/api/user').then((resp) => {
+        /* this.$axios.$get('user').then((resp) => {
             this.$auth.setUser(resp)
         }) */
     },
@@ -107,7 +107,7 @@ export default {
             }
         },
         async closeNotification(popup_id) {
-            await this.$axios.$post('api/popup', { 'popup_id': popup_id }).then(() => {
+            await this.$axios.$post('popup', { 'popup_id': popup_id }).then(() => {
                 this.notification = {}
             })
         }

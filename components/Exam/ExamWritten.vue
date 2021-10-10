@@ -166,8 +166,8 @@ export default {
         },
         async getExamData() {
             this.loading.exam = true
-            this.examReport = await this.$axios.$post(`api/written-exam-report`, { 'written_exam_id': this.courseExam.id })
-            const examUrl = `api/question?id=${this.courseExam.id}`
+            this.examReport = await this.$axios.$post(`written-exam-report`, { 'written_exam_id': this.courseExam.id })
+            const examUrl = `question?id=${this.courseExam.id}`
             let examWithQuestions = {}
             await this.$axios.$get(examUrl).then((response) => {
                 //this.exam = response
@@ -197,7 +197,7 @@ export default {
         examCompletedSilently() {
         },
         async examCompleted(clicked = true) {
-            await this.$axios.$post(`api/written-exam-report`, {
+            await this.$axios.$post(`written-exam-report`, {
                 'written_exam_id': this.courseExam.id,
                 type: 'submit'
             }).then(() => {

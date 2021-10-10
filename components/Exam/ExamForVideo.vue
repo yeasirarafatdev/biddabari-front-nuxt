@@ -1,20 +1,11 @@
 <template>
     <div id='exam-container'>
         <div v-if='loading.exam' class='text-center my-16'>
-            <v-dialog
-                v-model='loading.exam'
-                hide-overlay
-                persistent
-                width='300'
-            >
+            <v-dialog v-model='loading.exam' hide-overlay persistent width='300'>
                 <v-card color='primary' dark>
                     <v-card-text class='py-2'>
                         Preparing Exam Questions
-                        <v-progress-linear
-                            indeterminate
-                            color='white'
-                            class='mb-2'
-                        />
+                        <v-progress-linear indeterminate color='white' class='mb-2' />
                     </v-card-text>
                 </v-card>
             </v-dialog>
@@ -77,7 +68,7 @@ export default {
     methods: {
         async getExamData() {
             this.loading.exam = true
-            const examUrl = `api/exams/${this.examId}`
+            const examUrl = `exams/${this.examId}`
             this.exam = await this.$axios.$get(examUrl).finally(() => {
                 this.loading.exam = false
             })

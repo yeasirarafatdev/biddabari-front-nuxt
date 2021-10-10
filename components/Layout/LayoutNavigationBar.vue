@@ -157,7 +157,7 @@ export default {
             this.notFound = false
             this.searchResult = true
             this.searching = true
-            await this.$axios.$get(`api/search/courses?query=${this.searchText}`)
+            await this.$axios.$get(`search/courses?query=${this.searchText}`)
                 .then((response) => {
                     this.searchedCourses = response
                     this.notFound = this.searchedCourses.length < 1

@@ -135,7 +135,7 @@ export default {
             const config = {
                 headers: { Authorization: `Bearer ${this.token}` }
             }
-            this.answers = this.$axios.get(`api/answer?id=${this.question.id}`, config)
+            this.answers = this.$axios.get(`answer?id=${this.question.id}`, config)
         },
         onFilePicked() {
             this.previewImages = []
@@ -164,7 +164,7 @@ export default {
                     formData.append('photos[]', this.photos[i])
                 }
             }
-            const url = 'api/answer'
+            const url = 'answer'
             const config = {
                 headers: {
                     Authorization: `Bearer ${this.token}`,

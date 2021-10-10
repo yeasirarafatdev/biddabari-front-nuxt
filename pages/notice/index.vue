@@ -54,7 +54,7 @@ export default {
         }
     },
     async fetch() {
-        const url = 'api/notices?filter=notice'
+        const url = 'notices?filter=notice'
         const allNotice = await this.$axios.$get(url)
         this.allNotice = allNotice.data
         this.findingFirstContent()

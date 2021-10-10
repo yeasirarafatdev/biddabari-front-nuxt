@@ -55,7 +55,7 @@ export default {
         }
     },
     async fetch() {
-        const booksUrl = 'api/books'
+        const booksUrl = 'books'
         this.books = await this.$axios.$get(booksUrl)
     },
     fetchOnServer: true,

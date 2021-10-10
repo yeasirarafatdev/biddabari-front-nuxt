@@ -2,11 +2,7 @@
     <v-card id='questions' flat class='mb-10 pb-5'>
         <div v-if='!mcqs && started' class='d-flex justify-center align-center content-loading'>
             <v-card outlined class='d-flex justify-center align-center content-loading'>
-                <v-progress-circular
-                    :size='50'
-                    color='primary'
-                    indeterminate
-                ></v-progress-circular>
+                <v-progress-circular :size='50' color='primary' indeterminate></v-progress-circular>
             </v-card>
         </div>
         <v-card v-if='!started && !loading' class='my-10 py-14'>
@@ -289,7 +285,7 @@ export default {
         },
         submitAnswer() {
             this.disabled = true
-            const link = 'api/exam-reports'
+            const link = 'exam-reports'
             const mcqs = this.mcqs
             mcqs.forEach((mcq) => {
                 if (mcq.exam_answers.length) {
@@ -324,7 +320,7 @@ export default {
         },
         submitAnswerSilently() {
             if (!this.expired && !(this.result && this.result.final_submit) && this.started) {
-                const link = '/api/exam-reports'
+                const link = 'exam-reports'
                 const mcqs = this.mcqs
                 mcqs.forEach((mcq) => {
                     if (mcq.exam_answers.length) {

@@ -227,10 +227,10 @@ export default {
         }
     },
     async fetch() {
-        const instructionsUrl = `api/instructions`
+        const instructionsUrl = `instructions`
         this.instructions = await this.$axios.$get(instructionsUrl)
 
-        const settingsUrl = `api/settings`
+        const settingsUrl = `settings`
         this.settings = await this.$axios.$get(settingsUrl)
     },
     fetchOnServer: true,
@@ -270,7 +270,7 @@ export default {
     },
     methods: {
         async getRecommendedBooks() {
-            const bookUrl = `api/books?filter=recommended`
+            const bookUrl = `books?filter=recommended`
             this.recommendedBooks = await this.$axios.$get(bookUrl)
         },
         itemTotal(item) {
@@ -291,7 +291,7 @@ export default {
             } else {
                 try {
                     this.formData.total = this.cartTotal
-                    await this.$axios.$post('api/book-orders', this.formData)
+                    await this.$axios.$post('book-orders', this.formData)
                         .then((response) => {
                             localStorage.removeItem('book_cart')
                             this.$notifier.showMessage({ content: 'Order successfully placed.', color: 'success' })

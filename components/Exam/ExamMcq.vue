@@ -287,7 +287,7 @@ export default {
             formData.append('type', 'favorite')
             formData.append('mcq_id', this.mcq.id)
             formData.append('exam_id', this.mcq.exam_id)
-            const url = 'api/mcqs'
+            const url = 'mcqs'
             this.$axios.$post(url, formData).then(() => {
                 this.favorite = !this.favorite
             })
@@ -302,7 +302,7 @@ export default {
             if (this.photo) {
                 formData.append('photo', this.photo)
             }
-            const url = 'api/mcqs'
+            const url = 'mcqs'
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'

@@ -56,7 +56,7 @@ export default {
         hrs: []
     }),
     async fetch() {
-        const hrs = await this.$axios.get('api/hr?hr_type=' + this.$route.params.hr_name)
+        const hrs = await this.$axios.get('hr?hr_type=' + this.$route.params.hr_name)
         this.hrs = hrs.data
     },
     fetchOnServer: true

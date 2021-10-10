@@ -128,7 +128,7 @@ export default {
     },
     methods: {
         getAnswers() {
-            this.answers = this.$axios.get(`api/answer?id=${this.question.id}`)
+            this.answers = this.$axios.get(`answer?id=${this.question.id}`)
         },
         onFilePicked() {
             this.previewImages = []
@@ -157,7 +157,7 @@ export default {
                     formData.append('photos[]', this.photos[i])
                 }
             }
-            const url = 'api/answer'
+            const url = 'answer'
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'

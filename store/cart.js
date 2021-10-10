@@ -73,7 +73,7 @@ export default {
             context.commit('clearCart', [])
             if (this.$auth.loggedIn) {
                 products.forEach(product => {
-                    this.$axios.$delete(`api/cart/${product.cart_id}`).then((response) => {
+                    this.$axios.$delete(`cart/${product.cart_id}`).then((response) => {
                         this.$notifier.showMessage({ content: 'Product deleted from cart.', color: 'success' })
                     }).catch(() => {
                         this.$notifier.showMessage({ content: 'Error deleting product from cart.', color: 'error' })
@@ -85,7 +85,7 @@ export default {
             context.commit('loadingCartItems', true)
             let Cart = []
             if (this.$auth.loggedIn) {
-                await this.$axios.$get('api/cart').then((response) => {
+                await this.$axios.$get('cart').then((response) => {
                     const cartItems = response
                     if (cartItems && cartItems.length) {
                         localStorage.removeItem('book_cart')
@@ -109,7 +109,7 @@ export default {
         async addDBCart(context, productObject) {
             context.commit('addToCart', productObject)
             if (this.$auth.loggedIn) {
-                await this.$axios.post('api/cart', {
+                await this.$axios.post('cart', {
                     book_id: productObject.id,
                     type: 'book',
                     direction: 'up',
@@ -122,7 +122,7 @@ export default {
         async removeItemDBCart(context, productObject) {
             context.commit('removeProduct', productObject)
             if (this.$auth.loggedIn) {
-                await this.$axios.$post('api/cart', {
+                await this.$axios.$post('cart', {
                     book_id: productObject.id,
                     type: 'book',
                     direction: 'down'
@@ -135,7 +135,7 @@ export default {
             const index = payload.index
             context.commit('removeFromCart', index)
             if (this.$auth.loggedIn) {
-                await this.$axios.$delete(`api/cart/${payload.product.cart_id}`).then((response) => {
+                await this.$axios.$delete(`cart/${payload.product.cart_id}`).then((response) => {
                     this.$notifier.showMessage({ content: 'Product deleted from cart.', color: 'success' })
                 }).catch(() => {
                     this.$notifier.showMessage({ content: 'Error deleting product from cart.', color: 'error' })

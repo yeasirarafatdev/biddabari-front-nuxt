@@ -237,7 +237,7 @@ export default {
         },
         submitAnswer() {
             this.disabled = true
-            const link = 'api/exam-reports'
+            const link = 'exam-reports'
             const mcqs = this.mcqs
             mcqs.forEach((mcq) => {
                 if (mcq.exam_answers.length) {
@@ -269,7 +269,7 @@ export default {
         },
         submitAnswerSilently() {
             if (!this.expired && !(this.result && this.result.final_submit)) {
-                const link = 'api/exam-reports'
+                const link = 'exam-reports'
                 const mcqs = this.mcqs
                 mcqs.forEach((mcq) => {
                     if (mcq.exam_answers.length) {

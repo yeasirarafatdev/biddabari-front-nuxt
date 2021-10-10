@@ -233,7 +233,7 @@ export default {
         const headers = {
             'Authorization': 'Bearer ' + token
         }
-        this.$axios.$post('api/free-access', this.formData, { headers }).then((response) => {
+        this.$axios.$post('free-access', this.formData, { headers }).then((response) => {
 
         }) */
     },
@@ -244,7 +244,7 @@ export default {
             if (!valid) {
                 this.submittingForm = false
             } else {
-                const getUserDataUrl = 'api/login/user'
+                const getUserDataUrl = 'login/user'
                 await this.$axios.$post(getUserDataUrl, this.formData)
                     .then((response) => {
                         this.showPasswordField = true
@@ -269,7 +269,7 @@ export default {
                     await this.$auth.loginWith('auth', { data: this.formData })
                         .then((response) => {
                             this.$axios.setHeader('Authorization', 'Bearer ' + response)
-                            /* this.$axios.$get('/api/user').then((resp) => {
+                            /* this.$axios.$get('user').then((resp) => {
                                 this.$auth.setUser(resp)
                             }) */
                             this.$store.dispatch('cart/getDBCart')

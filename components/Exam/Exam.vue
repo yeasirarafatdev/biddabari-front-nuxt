@@ -78,7 +78,7 @@ export default {
     methods: {
         async getExamData() {
             this.loading.exam = true
-            const examUrl = `api/exams/${this.courseExam.id}`
+            const examUrl = `exams/${this.courseExam.id}`
             this.exam = await this.$axios.$get(examUrl).finally(() => {
                 this.loading.exam = false
             })

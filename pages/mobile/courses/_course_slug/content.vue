@@ -85,14 +85,14 @@ export default {
     },
     async fetch() {
         const searchParameter = this.$route.params.course_slug;
-        const courseUrl = `api/courses/${searchParameter}?filter=info`
+        const courseUrl = `courses/${searchParameter}?filter=info`
         this.courseInfo = await this.$axios.$get(courseUrl)
 
-        const courseTopicsUrl = `api/courses/${searchParameter}?filter=topics`
+        const courseTopicsUrl = `courses/${searchParameter}?filter=topics`
         this.courseTopics = await this.$axios.$get(courseTopicsUrl)
 
         if (this.$auth.loggedIn) {
-            const myCoursesUrl = 'api/courses?filter=my-course'
+            const myCoursesUrl = 'courses?filter=my-course'
             this.myCourses = await this.$axios.$get(myCoursesUrl)
             this.checkIfCourseIsEnrolled()
         }
@@ -116,14 +116,14 @@ export default {
         this.filterFirstViewableContent()
     },
     activated() {
-        const courseUrl = `api/courses/${this.$route.params.course_slug}?filter=info`
+        const courseUrl = `courses/${this.$route.params.course_slug}?filter=info`
         this.courseInfo = this.$axios.$get(courseUrl)
 
-        const courseTopicsUrl = `api/courses/${this.$route.params.course_slug}?filter=topics`
+        const courseTopicsUrl = `courses/${this.$route.params.course_slug}?filter=topics`
         this.courseTopics = this.$axios.$get(courseTopicsUrl)
 
         if (this.$auth.loggedIn) {
-            const myCoursesUrl = 'api/courses?filter=my-course'
+            const myCoursesUrl = 'courses?filter=my-course'
             this.myCourses = this.$axios.$get(myCoursesUrl)
             this.checkIfCourseIsEnrolled()
         }

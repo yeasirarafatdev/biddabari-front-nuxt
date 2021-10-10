@@ -82,12 +82,12 @@ export default {
         }
     },
     async fetch() {
-        const subCategoryUrl = 'api/sub-categories?id=' + this.$route.params.category_id
+        const subCategoryUrl = 'sub-categories?id=' + this.$route.params.category_id
         await this.$axios.$get(subCategoryUrl).then((response) => {
             this.subCategory = response
         })
 
-        /*const coursesUrl = 'api/categories/' + this.$route.params.category_id
+        /*const coursesUrl = 'categories/' + this.$route.params.category_id
         this.category = await this.$axios.$get(coursesUrl)*/
     },
     fetchOnServer: false,

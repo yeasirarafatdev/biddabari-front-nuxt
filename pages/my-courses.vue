@@ -57,7 +57,7 @@ export default {
     },
     async fetch() {
         if (this.$auth.loggedIn) {
-            const myCoursesUrl = 'api/courses?filter=my-course'
+            const myCoursesUrl = 'courses?filter=my-course'
             this.myCourses = await this.$axios.$get(myCoursesUrl)
         }
     },

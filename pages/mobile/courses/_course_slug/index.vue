@@ -218,10 +218,10 @@ export default {
     },
     async fetch() {
         const searchParameter = this.$route.params.course_slug
-        const courseUrl = `api/courses/${searchParameter}?filter=info`
+        const courseUrl = `courses/${searchParameter}?filter=info`
         this.courseInfo = await this.$axios.$get(courseUrl)
 
-        const courseTopicsUrl = `api/courses/${searchParameter}?filter=topics`
+        const courseTopicsUrl = `courses/${searchParameter}?filter=topics`
         this.courseTopics = await this.$axios.$get(courseTopicsUrl)
         this.calculateCourseResource()
     },
@@ -256,7 +256,7 @@ export default {
             }
         },
         async getRecommendedBooks() {
-            const url = `api/courses?filter=recommended`
+            const url = `courses?filter=recommended`
             this.recommendedCourses = await this.$axios.$get(url)
         },
         calculateCourseResource() {
@@ -282,7 +282,7 @@ export default {
         },
         async enroll(amount, courseInfo) {
             if (this.$auth.loggedIn) {
-                await this.$axios.$post('api/payment', { amount, course_id: courseInfo.id }).then((response) => {
+                await this.$axios.$post('payment', { amount, course_id: courseInfo.id }).then((response) => {
                     if (this.$auth.user.id === response.user_id) {
                         this.$notifier.showMessage({ content: 'Enrolled to course successfully!', color: 'success' })
                         this.$router.push(`/courses/${courseInfo.slug}/content`)

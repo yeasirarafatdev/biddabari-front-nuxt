@@ -1,13 +1,7 @@
 <template>
     <v-card rounded class='my-1'>
         <v-card-text class='pb-0'>
-            <v-snackbar
-                v-model='snackbar'
-                rounded='lg'
-                app
-                centered
-                :timeout='-1'
-            >
+            <v-snackbar v-model='snackbar' rounded='lg' app centered :timeout='-1'>
                 <div class='font-weight-bold text-center my-2'>Tell us what is wrong</div>
                 <v-form @submit.prevent='report'>
                     <v-textarea
@@ -339,7 +333,7 @@ export default {
             formData.append('type', 'favorite')
             formData.append('mcq_id', this.mcq.id)
             formData.append('exam_id', this.mcq.exam_id)
-            const url = 'api/mcqs'
+            const url = 'mcqs'
             const config = {
                 headers: {Authorization: `Bearer ${this.token}`}
             };
@@ -357,7 +351,7 @@ export default {
             if (this.photo) {
                 formData.append('photo', this.photo)
             }
-            const url = 'api/mcqs'
+            const url = 'mcqs'
             const config = {
                 headers: {Authorization: `Bearer ${this.token}`}
             };

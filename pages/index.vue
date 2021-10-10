@@ -258,18 +258,18 @@ export default {
         }
     },
     async fetch() {
-        const booksUrl = 'api/books?filter=welcome'
+        const booksUrl = 'books?filter=welcome'
         this.books = await this.$axios.$get(booksUrl)
 
-        const coursesUrl = 'api/courses-welcome'
+        const coursesUrl = 'courses-welcome'
         this.courses = await this.$axios.$get(coursesUrl)
 
-        const categoriesUrl = 'api/categories'
+        const categoriesUrl = 'categories'
         this.categories = await this.$axios.$get(categoriesUrl)
 
-        this.testimonial = await this.$axios.$get('api/preview-reviews')
+        this.testimonial = await this.$axios.$get('preview-reviews')
 
-        const noticeUrl = 'api/notices'
+        const noticeUrl = 'notices'
         const allNotice = await this.$axios.$get(noticeUrl)
         this.allNotice = allNotice.data
     },
@@ -291,7 +291,7 @@ export default {
     },
     methods: {
         async fetchData() {
-            const hrUrl = 'api/hr'
+            const hrUrl = 'hr'
             const hr = await this.$axios.$get(hrUrl)
             this.teachers = hr.filter(obj => {
                 return obj.hr_type === 'teacher'

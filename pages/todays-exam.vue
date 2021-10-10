@@ -52,7 +52,7 @@ export default {
         }
     },
     async fetch() {
-        const examsUrl = 'api/exams?filter=today-web'
+        const examsUrl = 'exams?filter=today-web'
         this.exams = await this.$axios.$get(examsUrl)
     },
     fetchOnServer: true,

@@ -182,10 +182,10 @@ export default {
         }
     },
     async fetch() {
-        const bookUrl = `api/books/${this.$route.params.book_slug}`
+        const bookUrl = `books/${this.$route.params.book_slug}`
         this.book = await this.$axios.$get(bookUrl)
 
-        const instructionsUrl = `api/instructions`
+        const instructionsUrl = `instructions`
         this.instructions = await this.$axios.$get(instructionsUrl)
     },
     fetchOnServer: true,
@@ -228,7 +228,7 @@ export default {
             }
         },
         async getRecommendedBooks() {
-            const bookUrl = `api/books?filter=recommended`
+            const bookUrl = `books?filter=recommended`
             this.recommendedBooks = await this.$axios.$get(bookUrl)
         },
         expandDescription() {

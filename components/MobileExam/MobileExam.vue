@@ -1,12 +1,7 @@
 <template>
     <div id='exam-container'>
         <div v-if='loading.exam' class='text-center my-16'>
-            <v-dialog
-                v-model='loading.exam'
-                hide-overlay
-                persistent
-                width='300'
-            >
+            <v-dialog v-model='loading.exam' hide-overlay persistent width='300'>
                 <v-card color='primary' dark>
                     <v-card-text class='py-2'>
                         Preparing Exam Questions
@@ -89,7 +84,7 @@ export default {
             const config = {
                 headers: { Authorization: `Bearer ${this.token}` }
             }
-            const examUrl = `api/exams/${this.$route.params.exam_id}`
+            const examUrl = `exams/${this.$route.params.exam_id}`
             this.exam = await this.$axios.$get(examUrl, config).finally(() => {
                 this.loading.exam = false
             })
