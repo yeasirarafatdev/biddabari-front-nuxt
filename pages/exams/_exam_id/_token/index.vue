@@ -1,11 +1,15 @@
 <template>
     <v-col cols='12' lg='8' md='8' sm='12' xs='12'>
         <div v-if='this.$route.params.exam_id'>
-            <lazy-mobile-exam
-                v-if='exam'
-                :course-content='courseTopicContent'
-                :course-exam='exam'
-                :token='token'
+            <!--            <lazy-mobile-exam
+                            v-if='exam'
+                            :course-content='courseTopicContent'
+                            :course-exam='exam'
+                            :token='token'
+                        />-->
+            <exam v-if='courseTopicContent.exam && ($auth.loggedIn || token)'
+                  :courseContent='courseTopicContent'
+                  :courseExam='courseTopicContent.exam'
             />
         </div>
         <div v-else>
@@ -26,7 +30,10 @@
 </template>
 
 <script>
+import Exam from '~/components/Exam/Exam'
+
 export default {
+    components: { Exam },
     layout: 'mobile',
     data() {
         return {
@@ -40,9 +47,9 @@ export default {
             this.fetchContent()
         }
     },
-    computed:{
-        token(){
-            return this.$route.params.token
+    computed: {
+        token() {
+            return this.$route.params.token ?? null
         }
     },
     mounted() {
@@ -52,19 +59,19 @@ export default {
         async fetchContent() {
             if (this.$route.params.exam_id) {
                 this.loading = true
-                // const courseTopicContentUrl = `contents/${this.$route.params.exam_id}`
                 const config = {
-                    headers: {Authorization: `Bearer ${this.token}`}
-                };
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
                 const examUrl = `exams/${this.$route.params.exam_id}`
                 this.exam = await this.$axios.$get(examUrl, config).finally(() => {
                     this.loading = false
                 })
-                /*this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl, config).finally(() => {
+                const courseTopicContentUrl = `contents/${this.exam.content_id}`
+                this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl, config).finally(() => {
                     this.loading = false
-                })*/
+                })
             }
-        },
+        }
     }
 }
 </script>

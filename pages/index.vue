@@ -215,6 +215,28 @@
                 </div>
             </div>
         </section>
+
+
+        <div v-show='notification && Object.keys(notification).length' class='notification-holder'>
+            <div class='notification'>
+                <div>
+                    <img :src='notification.photo' alt=''>
+                </div>
+                <div>
+                    <a v-if='notification.link'>
+                        <div><strong>{{ notification.title }}</strong></div>
+                    </a>
+                    <div v-else><strong>{{ notification.title }}</strong></div>
+                    <div style='overflow-y: auto'>
+                        <div class='text-14' v-html='notification.body'></div>
+                    </div>
+                </div>
+                <div class='notification-close-btn' @click.stop.prevent='closeNotification(notification.id)'>
+                    <v-icon color='white'>mdi-close</v-icon>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -222,6 +244,7 @@
 export default {
     data() {
         return {
+            notification: {},
             books: [],
             courses: [],
             categories: [],
@@ -287,6 +310,9 @@ export default {
         }
     },
     mounted() {
+        this.$axios.get('popup').then((response) => {
+            this.notification = response.data
+        })
         this.fetchData()
     },
     methods: {
@@ -298,6 +324,11 @@ export default {
             })
             this.founders = hr.filter(obj => {
                 return obj.hr_type === 'founder'
+            })
+        },
+        async closeNotification(popup_id) {
+            await this.$axios.$post('popup', { 'popup_id': popup_id }).then(() => {
+                this.notification = {}
             })
         }
     }

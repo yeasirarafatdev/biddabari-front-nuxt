@@ -57,6 +57,11 @@ export default {
             videoExam: true
         }
     },
+    computed: {
+        token() {
+            return this.$route.params.token ?? null
+        }
+    },
     watch: {
         examId(val, oldVal) {
             this.getExamData()
@@ -69,7 +74,13 @@ export default {
         async getExamData() {
             this.loading.exam = true
             const examUrl = `exams/${this.examId}`
-            this.exam = await this.$axios.$get(examUrl).finally(() => {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.exam = await this.$axios.$get(examUrl, config).finally(() => {
                 this.loading.exam = false
             })
             if(this.exam && this.exam.attended){

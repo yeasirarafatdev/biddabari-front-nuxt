@@ -116,6 +116,9 @@ export default {
         }
     },
     computed: {
+        token() {
+            return this.$route.params.token ?? null
+        },
         bar() {
             if (this.strict) {
                 const duration = moment(this.exam.ends_at).diff(moment(), 'seconds')
@@ -166,10 +169,16 @@ export default {
         },
         async getExamData() {
             this.loading.exam = true
-            this.examReport = await this.$axios.$post(`written-exam-report`, { 'written_exam_id': this.courseExam.id })
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.examReport = await this.$axios.$post(`written-exam-report`, { 'written_exam_id': this.courseExam.id }, config)
             const examUrl = `question?id=${this.courseExam.id}`
             let examWithQuestions = {}
-            await this.$axios.$get(examUrl).then((response) => {
+            await this.$axios.$get(examUrl, config).then((response) => {
                 //this.exam = response
                 examWithQuestions = response
                 // https://api.cn1.nextivesolution.com/api/question?id=5
@@ -197,10 +206,16 @@ export default {
         examCompletedSilently() {
         },
         async examCompleted(clicked = true) {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
             await this.$axios.$post(`written-exam-report`, {
                 'written_exam_id': this.courseExam.id,
                 type: 'submit'
-            }).then(() => {
+            }, config).then(() => {
                 if (clicked) {
                     this.$notifier.showMessage({ content: 'Answer Submitted.', color: 'success' })
                 }

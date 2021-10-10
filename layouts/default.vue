@@ -12,25 +12,6 @@
 
         <the-snack-bar />
 
-        <div v-show='notification && Object.keys(notification).length' class='notification-holder'>
-            <div class='notification'>
-                <div>
-                    <img :src='notification.photo' alt=''>
-                </div>
-                <div>
-                    <a v-if='notification.link'>
-                        <div><strong>{{ notification.title }}</strong></div>
-                    </a>
-                    <div v-else><strong>{{ notification.title }}</strong></div>
-                    <div style='overflow-y: auto'>
-                        <div class='text-14' v-html='notification.body'></div>
-                    </div>
-                </div>
-                <div class='notification-close-btn' @click.stop.prevent='closeNotification(notification.id)'>
-                    <v-icon color='white'>mdi-close</v-icon>
-                </div>
-            </div>
-        </div>
 
         <div class='bg-bg-bg'></div>
     </v-app>
@@ -62,7 +43,6 @@ export default {
                 }
             ],
             courseCategories: {},
-            notification: {}
         }
     },
     async fetch() {
@@ -82,9 +62,6 @@ export default {
     fetchOnServer: false,
     mounted() {
         this.$store.dispatch('cart/getDBCart')
-        this.$axios.get('popup').then((response) => {
-            this.notification = response.data
-        })
         /* if (this.$auth.loggedIn) {
             this.$store.dispatch('userData/fetchEnrolledCourse')
         } */
@@ -106,11 +83,6 @@ export default {
                 })
             }
         },
-        async closeNotification(popup_id) {
-            await this.$axios.$post('popup', { 'popup_id': popup_id }).then(() => {
-                this.notification = {}
-            })
-        }
     }
 }
 </script>

@@ -41,7 +41,7 @@ export default {
             type: Object,
             required: true
         },
-        videoExam:{
+        videoExam: {
             type: Boolean,
             default: false
         }
@@ -53,6 +53,9 @@ export default {
         }
     },
     computed: {
+        token() {
+            return this.$route.params.token ?? null
+        },
         bar() {
             return this.total_tried * 100 / this.mcqs.length
         },

@@ -164,6 +164,9 @@ export default {
         }
     },
     computed: {
+        token() {
+            return this.$route.params.token ?? null
+        },
         shouldBeDisabled() {
             return !!this.user_answer
         },
@@ -334,7 +337,13 @@ export default {
             formData.append('mcq_id', this.mcq.id)
             formData.append('exam_id', this.mcq.exam_id)
             const url = 'mcqs'
-            this.$axios.$post(url, formData).then(() => {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.$axios.$post(url, formData, config).then(() => {
                 this.favorite = !this.favorite
             })
         },
@@ -349,7 +358,13 @@ export default {
                 formData.append('photo', this.photo)
             }
             const url = 'mcqs'
-            this.$axios.$post(url, formData).then(() => {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.$axios.$post(url, formData, config).then(() => {
                 this.reported = true
             }).finally(() => {
                 this.snackbar = false

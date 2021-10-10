@@ -58,11 +58,12 @@
                     </v-btn>
                 </div>
             </v-container>
-            <exam-result v-if="mode==='result' && mcqs && !!result" :answer-available-at='answerAvailableAt'
-                         :is-answer-available='isAnswerAvailable'
-                         :exam_report='result'
-                         :exam_id='exam.id'
-                         :show-result='exam.showResult'
+            <exam-result v-if="mode==='result' && mcqs && !!result"
+                         :answerAvailableAt='answerAvailableAt'
+                         :isAnswerAvailable='isAnswerAvailable'
+                         :examReport='result'
+                         :examId='exam.id'
+                         :showResult='exam.showResult'
             ></exam-result>
         </v-card>
         <v-card flat style='height: 80vh; overflow: auto;'>
@@ -82,8 +83,11 @@
 </template>
 <script>
 import moment from 'moment'
+import ExamResult from '~/components/Exam/ExamResult'
+import ExamMcq from '~/components/Exam/ExamMcq'
 
 export default {
+    components: { ExamMcq, ExamResult },
     // eslint-disable-next-line vue/require-prop-types
     props: {
         exam: {
@@ -107,7 +111,6 @@ export default {
             sections: [],
             disabled: false,
             timer: 1,
-            token: '',
             start_time: '',
             end_time: '',
             alertTime: '',
@@ -117,6 +120,9 @@ export default {
         }
     },
     computed: {
+        token() {
+            return this.$route.params.token ?? null
+        },
         answerAvailableAt() {
             return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
         },
@@ -159,6 +165,9 @@ export default {
             return obtainedMarks
         },
         isAnswerAvailable() {
+            if (this.exam.content && this.exam.content.available_at) {
+                return this.exam.content.available_at ? moment(this.exam.content.available_at).isBefore(moment()) : true
+            }
             return this.exam.ends_at ? moment(this.exam.ends_at).isBefore(moment()) : true
         },
         expired() {
@@ -253,7 +262,13 @@ export default {
                 sections: this.sections,
                 final_submit: 1
             }
-            this.$axios.$post(link, data).then(() => {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.$axios.$post(link, data, config).then(() => {
                 this.$emit('submitted')
                 this.mode = 'result'
                 this.disabled = false
@@ -284,7 +299,13 @@ export default {
                     duration: this.timer,
                     sections: this.sections
                 }
-                this.$axios.$post(link, data)
+                let config = {}
+                if (this.token) {
+                    config = {
+                        headers: { Authorization: `Bearer ${this.token}` }
+                    }
+                }
+                this.$axios.$post(link, data, config)
             }
         },
         startCallBack() {

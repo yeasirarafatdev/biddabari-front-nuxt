@@ -5,7 +5,7 @@
                 <div class='d-flex'>
                     <div class='subtitle-1 font-weight-bold mr-2'>{{ index + 1 }}.</div>
                     <div v-katex:auto class='subtitle-1 text-12 mcq-card' v-html='question.question'></div>
-					 <img v-if='question.photo' :src='question.photo' style='max-width: 100% !important; width: 100%'>
+                    <img v-if='question.photo' :src='question.photo' style='max-width: 100% !important; width: 100%'>
                 </div>
             </div>
 
@@ -17,7 +17,7 @@
             <div v-if='previewImages.length && submittedAnswer' class='mt-1'>
                 <div class='d-flex flex-wrap'>
                     <div v-for='(image, im) in previewImages' :key='im' class='formImageContainer'>
-                         <img :src='image.src' alt='image' height='50px' class='rounded' style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
+                        <img :src='image.src' alt='image' height='50px' class='rounded' style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
                         <!-- <v-icon class='imageCloseButton' color='error' @click.stop.prevent='removeImageFromCollection(im)'>
                                                     mdi-close-circle
                                                 </v-icon> -->
@@ -30,7 +30,7 @@
                 <draggable v-model='previewImages' @end='rearrange'>
                     <transition-group>
                         <div v-for='(image, im) in previewImages' :key='im' class='formImageContainer'>
-							 <img :src='image.src' alt='image' height='50px' class='rounded'
+                            <img :src='image.src' alt='image' height='50px' class='rounded'
                                  style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
                             <v-icon class='imageCloseButton' color='error' @click.stop.prevent='removeImageFromCollection(im)'
                                     v-if='!uploadingAnswer'
@@ -126,9 +126,20 @@ export default {
             this.$emit('input', this.answers)
         }
     },
+    computed: {
+        token() {
+            return this.$route.params.token ?? null
+        }
+    },
     methods: {
         getAnswers() {
-            this.answers = this.$axios.get(`answer?id=${this.question.id}`)
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.answers = this.$axios.get(`answer?id=${this.question.id}`, config)
         },
         onFilePicked() {
             this.previewImages = []
@@ -158,13 +169,24 @@ export default {
                 }
             }
             const url = 'answer'
-            const config = {
+            let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
                 onUploadProgress: function(progressEvent) {
                     this.uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100))
                 }.bind(this)
+            }
+            if (this.token) {
+                config = {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    onUploadProgress: function(progressEvent) {
+                        this.uploadPercentage = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100))
+                    }.bind(this)
+                }
             }
             this.$axios.post(url, formData, config).then(() => {
                 this.submittedAnswer = true

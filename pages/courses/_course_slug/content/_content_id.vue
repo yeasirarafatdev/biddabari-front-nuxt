@@ -48,7 +48,7 @@
                 </v-alert>
             </template>
             <template v-else>
-                <lazy-exam
+                <exam
                     v-if='courseTopicContent.exam && $auth.loggedIn'
                     :course-content='courseTopicContent'
                     :course-exam='courseTopicContent.exam'
@@ -69,7 +69,7 @@
                 </v-alert>
             </template>
             <template v-else>
-                <lazy-exam-written
+                <exam-written
                     v-if='courseTopicContent.written_exam  && $auth.loggedIn'
                     :course-content='courseTopicContent'
                     :course-exam='courseTopicContent.written_exam'
@@ -94,8 +94,11 @@
 
 <script>
 import moment from 'moment'
+import ExamWritten from '~/components/Exam/ExamWritten'
+import Exam from '~/components/Exam/Exam'
 
 export default {
+    components: { Exam, ExamWritten },
     props: {
         courseSlug: {
             type: String,
@@ -134,7 +137,6 @@ export default {
             }
         },
         reloadVideo(event) {
-            console.log(event)
             if (event.attended) {
                 this.fetchContent()
             }
@@ -142,7 +144,7 @@ export default {
     },
     filters: {
         dateFilter(value) {
-            return moment(value).format('MMMM-DD-YY hh:mm')
+            return moment(value).format('MMMM-DD-YY hh:mm a')
         }
     }
 }

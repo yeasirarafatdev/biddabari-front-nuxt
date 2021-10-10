@@ -164,6 +164,9 @@ export default {
         }
     },
     computed: {
+        token() {
+            return this.$route.params.token ?? null
+        },
         answerAvailableAt() {
             return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
         },
@@ -314,7 +317,13 @@ export default {
                 sections: this.sections,
                 final_submit: 1
             }
-            this.$axios.$post(link, data).then(() => {
+            let config = {}
+            if (this.token) {
+                config = {
+                    headers: { Authorization: `Bearer ${this.token}` }
+                }
+            }
+            this.$axios.$post(link, data, config).then(() => {
                 this.$emit('submitted')
                 this.mode = 'result'
                 this.disabled = false
@@ -345,12 +354,20 @@ export default {
                     duration: this.timer,
                     sections: this.sections
                 }
-                this.$axios.$post(link, data)
+                let config = {}
+                if (this.token) {
+                    config = {
+                        headers: { Authorization: `Bearer ${this.token}` }
+                    }
+                }
+                this.$axios.$post(link, data, config)
             }
-        },
+        }
+        ,
         startCallBack() {
 
-        },
+        }
+        ,
         endCallBack() {
             if (this.mode === 'group_exam') {
                 this.submitAnswer()
