@@ -82,7 +82,7 @@
             <exam-result v-if="mode==='result' && mcqs && !!result" :answer-available-at='answerAvailableAt'
                          :is-answer-available='isAnswerAvailable'
                          :exam-report='result'
-                         :exam_id='exam.id'
+                         :exam='exam'
                          :show-result='exam.showResult'
             />
             <v-tabs
@@ -154,7 +154,6 @@ export default {
             started: false,
             disabled: false,
             timer: 1,
-            token: '',
             start_time: '',
             end_time: '',
             alertTime: '',
@@ -263,6 +262,10 @@ export default {
         }, 1000)
     },
     methods: {
+        displayTimerNotification() {
+            this.showTimerNotification = false
+            this.$notifier.showMessage({ content: 'You Have 5 minutes to complete the exam', color: 'error' })
+        },
         loadSections() {
             if (this.exam.attended) {
                 this.selectedSectionId = this.result.sections[0]

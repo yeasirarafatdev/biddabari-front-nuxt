@@ -21,9 +21,34 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li v-if='$auth.loggedIn'>
+                    <v-menu offset-y>
+                        <template v-slot:activator='{ on, attrs }'>
+                            <v-btn
+                                dark
+                                class='btn-theme-btn'
+                                v-bind='attrs'
+                                v-on='on'
+                            >
+                                <v-icon class='mr-2'>mdi-account</v-icon>
+                                {{ truncateText($auth.user.name) }}
+                            </v-btn>
+                        </template>
+                        <v-list>
+                            <v-list-item>
+                                <nuxt-link to='/my-courses'>
+                                    <v-list-item-title>My Courses</v-list-item-title>
+                                </nuxt-link>
+                            </v-list-item>
+                            <v-list-item @click='logout()'>
+                                <v-list-item-title>Logout</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                </li>
+                <li v-else>
                     <nuxt-link to='/auth/login' exact>
-                        <v-btn dark color='blue' class='mx-auto btn-theme-btn'>
+                        <v-btn dark class='mx-auto btn-theme-btn'>
                             Login
                         </v-btn>
                     </nuxt-link>
@@ -54,6 +79,13 @@ export default {
         }
     },
     methods: {
+        async logout() {
+            await this.$auth.logout()
+        },
+        truncateText(text) {
+            if (text.length <= 10) return text
+            else return text.substring(0, 10) + '...'
+        },
         toggleSubmenu(key) {
             if (this.showSubMenuKey === key) this.showSubMenuKey = 0
             else this.showSubMenuKey = key

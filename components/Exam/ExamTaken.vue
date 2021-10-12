@@ -62,8 +62,8 @@
                          :answerAvailableAt='answerAvailableAt'
                          :isAnswerAvailable='isAnswerAvailable'
                          :examReport='result'
-                         :examId='exam.id'
-                         :showResult='exam.showResult'
+                         :exam='exam'
+                         :showResult='showResult'
             ></exam-result>
         </v-card>
         <v-card flat style='height: 80vh; overflow: auto;'>
@@ -74,7 +74,7 @@
                         :mcq='mcq'
                         :mode='mode'
                         :index='index'
-                        :is-answer-available='isAnswerAvailable'
+                        :isAnswerAvailable='isAnswerAvailable'
                     ></exam-mcq>
                 </div>
             </v-card-text>
@@ -163,6 +163,9 @@ export default {
                 }
             })
             return obtainedMarks
+        },
+        showResult() {
+            return !!(this.exam && this.exam.showResult && moment(this.exam.ends_at).isBefore(moment()))
         },
         isAnswerAvailable() {
             if (this.exam.content && this.exam.content.available_at) {

@@ -58,13 +58,7 @@
                             :disabled='uploadingAnswer'
                         >
                             <template #selection='{ text }'>
-                                <v-chip
-                                    small
-                                    label
-                                    color='primary'
-                                >
-                                    {{ text }}
-                                </v-chip>
+                                <v-chip small label color='primary'>{{ text }}</v-chip>
                             </template>
                         </v-file-input>
                         <v-btn

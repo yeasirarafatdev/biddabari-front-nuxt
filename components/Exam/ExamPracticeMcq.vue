@@ -65,7 +65,7 @@
                                         <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
                                             <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
                                         </v-btn>-->
-                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>
+<!--                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>-->
                 </div>
             </div>
             <v-img
