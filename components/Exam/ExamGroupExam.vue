@@ -9,10 +9,7 @@
             <v-card-title class='justify-center'>Select {{ exam.total_section }} Subjects</v-card-title>
             <v-card-text>
                 <v-row justify='center'>
-                    <div
-                        v-for='section in allSections' :key='section.id'
-                        class='d-flex flex-wrap'
-                    >
+                    <div v-for='section in allSections' :key='section.id' class='d-flex flex-wrap'>
                         <v-checkbox
                             v-model='sections'
                             :label='section.name'
