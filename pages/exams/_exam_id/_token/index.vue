@@ -66,10 +66,12 @@ export default {
                 this.exam = await this.$axios.$get(examUrl, config).finally(() => {
                     this.loading = false
                 })
-                const courseTopicContentUrl = `contents/${this.exam.content_id}`
-                this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl, config).finally(() => {
-                    this.loading = false
-                })
+                if (this.exam.content_id) {
+                    const courseTopicContentUrl = `contents/${this.exam.content_id}`
+                    this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl, config).finally(() => {
+                        this.loading = false
+                    })
+                }
             }
         }
     }

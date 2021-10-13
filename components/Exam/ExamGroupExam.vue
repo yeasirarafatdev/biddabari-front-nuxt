@@ -5,7 +5,7 @@
                 <v-progress-circular :size='50' color='primary' indeterminate></v-progress-circular>
             </v-card>
         </div>
-        <v-card v-if='!started && !loading' class='my-10 py-14'>
+        <v-card v-if='!started && !loading && !exam.attended' class='my-10 py-14'>
             <v-card-title class='justify-center'>Select {{ exam.total_section }} Subjects</v-card-title>
             <v-card-text>
                 <v-row justify='center'>
@@ -80,14 +80,15 @@
                 </div>
             </v-container>
             <exam-result
-                v-if="mode==='result' && mcqs && !!result" :answer-available-at='answerAvailableAt'
+                v-if="mode==='result' && mcqs && !!result"
+                :answer-available-at='answerAvailableAt'
                 :isAnswerAvailable='isAnswerAvailable'
                 :examReport='result'
                 :exam='exam'
                 :show-result='exam.showResult'
             />
             <v-tabs
-                v-if='started'
+                v-if='exam.attended || started'
                 v-model='tab'
                 centered
                 background-color='primary'
@@ -106,7 +107,7 @@
                 </v-tab>
             </v-tabs>
         </v-card>
-        <v-tabs-items v-if='started' v-model='tab'>
+        <v-tabs-items v-if='exam.attended || started' v-model='tab'>
             <v-tab-item
                 v-for='item in selectedSections'
                 :key='item.id+item.name'
@@ -119,7 +120,7 @@
                                 :mcq='mcq'
                                 :mode='mode'
                                 :index='index'
-                                :is-answer-available='isAnswerAvailable'
+                                :isAnswerAvailable='isAnswerAvailable'
                             />
                         </div>
                     </v-card-text>

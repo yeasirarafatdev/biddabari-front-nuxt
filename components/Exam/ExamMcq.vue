@@ -39,7 +39,7 @@
                     <!--                    <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
                                             <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
                                         </v-btn>-->
-<!--                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>-->
+                    <!--                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>-->
                 </div>
             </div>
             <v-img v-if='mcq.question_photo' style='width: 100%' :src='mcq.question_photo' class='mb-2'></v-img>
@@ -110,8 +110,8 @@ export default {
         return {
             comment: '',
             snackbar: false,
-            answer: this.mcq.answer,
-            user_answer: this.mcq.exam_answers.length ? this.mcq.exam_answers[0].user_answer : '',
+            answer: '',
+            user_answer: '',
             favorite: this.mcq.favorite,
             reported: false,
             rules: [
@@ -119,6 +119,10 @@ export default {
             ],
             photo: null
         }
+    },
+    mounted() {
+        this.answer = this.mcq.answer
+        this.user_answer = this.mcq.exam_answers.length ? this.mcq.exam_answers[0].user_answer : ''
     },
     computed: {
         token() {
