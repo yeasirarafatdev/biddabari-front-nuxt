@@ -42,7 +42,9 @@
             </v-snackbar>
             <div class='d-flex justify-space-between flex-column flex-lg-row flex-md-row flex-sm-row'>
                 <div class='d-flex'>
-                    <!--                    <div class='subtitle-1 font-weight-bold mr-3'>{{ index + 1 }}.</div>-->
+                    <template v-if='showQuestionNumber'>
+                        <div class='subtitle-1 font-weight-bold mr-3'>{{ index + 1 }}.</div>
+                    </template>
                     <div v-katex:auto class='subtitle-1' v-html='mcq.question'></div>
                 </div>
                 <div class='d-flex'>
@@ -56,24 +58,25 @@
                             mdi-check
                         </v-icon>
                     </v-btn>
-                    <!--                    <v-btn v-if='!favorite' icon @click='toggleFavorite'>
-                                            <v-icon>mdi-heart-outline</v-icon>
-                                        </v-btn>
-                                        <v-btn v-else icon @click='toggleFavorite'>
-                                            <v-icon color='red'>mdi-heart</v-icon>
-                                        </v-btn>
-                                        <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
-                                            <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
-                                        </v-btn>-->
-<!--                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>-->
+                    <template v-if='showFavouriteFlag'>
+                        <v-btn v-if='!favorite' icon @click='toggleFavorite'>
+                            <v-icon>mdi-heart-outline</v-icon>
+                        </v-btn>
+                        <v-btn v-else icon @click='toggleFavorite'>
+                            <v-icon color='red'>mdi-heart</v-icon>
+                        </v-btn>
+                    </template>
+                    <template v-if='showReportFlag'>
+                        <v-btn v-if='!mcq.verified' icon @click='snackbar = true'>
+                            <v-icon :color="reported ? 'red':'auto'">mdi-flag-outline</v-icon>
+                        </v-btn>
+                    </template>
+                    <!--                    <v-icon v-else color='green' small>mdi-check-circle</v-icon>-->
                 </div>
             </div>
-            <v-img
-                v-if='mcq.question_photo'
-                :src='mcq.question_photo'
-                style='width: 100%'
-                class='mb-2'
-            ></v-img>
+
+            <v-img v-if='mcq.question_photo' :src='mcq.question_photo' style='width: 100%' class='mb-2'></v-img>
+
             <v-radio-group
                 v-model='user_answer'
                 dense
@@ -135,12 +138,8 @@
             </v-radio-group>
             <v-divider v-if='viewMode && (mcq.answer_description || mcq.answer_photo)' class='mb-2'></v-divider>
             <div v-if='viewMode && mcq.answer_description' v-katex:auto v-html='mcq.answer_description'></div>
-            <v-img
-                v-if='viewMode && mcq.answer_photo'
-                style='width: 100%'
-                :src='mcq.answer_photo'
-                class='mb-2'
-            ></v-img>
+
+            <v-img v-if='viewMode && mcq.answer_photo' style='width: 100%' :src='mcq.answer_photo' class='mb-2'></v-img>
         </v-card-text>
     </v-card>
 </template>
@@ -164,6 +163,15 @@ export default {
         }
     },
     computed: {
+        showFavouriteFlag() {
+            return this.$store.state.examOptions.showFavouriteFlag
+        },
+        showReportFlag() {
+            return this.$store.state.examOptions.showReportFlag
+        },
+        showQuestionNumber() {
+            return this.$store.state.examOptions.showQuestionNumber
+        },
         token() {
             return this.$route.params.token ?? null
         },

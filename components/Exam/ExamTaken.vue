@@ -32,7 +32,6 @@
                                     <template slot='end-text' slot-scope='scope'>
                                         <span style='color: red'>{{ scope.props.endText }}</span>
                                     </template>
-
                                 </vue-countdown-timer>
                             </div>
                         </div>
@@ -58,12 +57,13 @@
                     </v-btn>
                 </div>
             </v-container>
-            <exam-result v-if="mode==='result' && mcqs && !!result"
-                         :answerAvailableAt='answerAvailableAt'
-                         :isAnswerAvailable='isAnswerAvailable'
-                         :examReport='result'
-                         :exam='exam'
-                         :showResult='showResult'
+            <exam-result
+                v-if="mode==='result' && mcqs && !!result"
+                :answerAvailableAt='answerAvailableAt'
+                :isAnswerAvailable='isAnswerAvailable'
+                :examReport='result'
+                :exam='exam'
+                :showResult='showResult'
             ></exam-result>
         </v-card>
         <v-card flat style='height: 80vh; overflow: auto;'>
