@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
     // eslint-disable-next-line vue/require-prop-types,vue/prop-name-casing
