@@ -79,11 +79,12 @@
                     </v-btn>
                 </div>
             </v-container>
-            <exam-result v-if="mode==='result' && mcqs && !!result" :answer-available-at='answerAvailableAt'
-                         :is-answer-available='isAnswerAvailable'
-                         :exam-report='result'
-                         :exam='exam'
-                         :show-result='exam.showResult'
+            <exam-result
+                v-if="mode==='result' && mcqs && !!result" :answer-available-at='answerAvailableAt'
+                :isAnswerAvailable='isAnswerAvailable'
+                :examReport='result'
+                :exam='exam'
+                :show-result='exam.showResult'
             />
             <v-tabs
                 v-if='started'
@@ -164,7 +165,7 @@ export default {
     },
     computed: {
         token() {
-            return this.$route.params.token ?? null
+            return this.$route.params.token || null
         },
         answerAvailableAt() {
             return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
