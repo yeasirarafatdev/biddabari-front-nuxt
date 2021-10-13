@@ -12,7 +12,6 @@
             <v-progress-circular indeterminate color='primary' />
         </div>
         <v-card v-else elevation='2' class='px-2 py-2 relative'>
-
             <!-- Normal MCQ Exam Component -->
             <exam-taken
                 v-if="exam && exam.mode === 'exam'"
@@ -22,10 +21,11 @@
             />
 
             <!-- Group Exam Component -->
-            <exam-group-exam v-if="exam && exam.mode === 'group_exam'"
-                             :key='exam.id'
-                             :exam='exam'
-                             @submitted='getExamData()'
+            <exam-group-exam
+                v-if="exam && exam.mode === 'group_exam'"
+                :key='exam.id'
+                :exam='exam'
+                @submitted='getExamData()'
             />
 
             <!--Practice Exam Component -->
@@ -43,6 +43,7 @@
 import ExamTaken from '~/components/Exam/ExamTaken'
 import ExamGroupExam from '~/components/Exam/ExamGroupExam'
 import ExamPracticeExam from '~/components/Exam/ExamPracticeExam'
+
 export default {
     components: { ExamPracticeExam, ExamGroupExam, ExamTaken },
     props: {
