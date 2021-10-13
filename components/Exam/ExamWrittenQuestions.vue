@@ -126,14 +126,16 @@ export default {
         }
     },
     methods: {
-        getAnswers() {
+        async getAnswers() {
             let config = {}
             if (this.token) {
                 config = {
                     headers: { Authorization: `Bearer ${this.token}` }
                 }
             }
-            this.answers = this.$axios.get(`answer?id=${this.question.id}`, config)
+            await this.$axios.get(`answer?id=${this.question.id}`, config).then((resp) => {
+                this.answers = resp
+            })
         },
         onFilePicked() {
             this.previewImages = []
@@ -152,7 +154,7 @@ export default {
             const oldIndex = ee.oldIndex
             // console.log(this.previewImages, oldIndex, newIndex)
         },
-        submitAnswer() {
+        async submitAnswer() {
             this.snackbar = false
             this.uploadingAnswer = true
             const formData = new FormData()
@@ -182,7 +184,7 @@ export default {
                     }.bind(this)
                 }
             }
-            this.$axios.post(url, formData, config).then(() => {
+            await this.$axios.post(url, formData, config).then(() => {
                 this.submittedAnswer = true
                 this.$notifier.showMessage({ content: 'Answer submitted!', color: 'success' })
                 this.uploadingAnswer = false

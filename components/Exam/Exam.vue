@@ -83,7 +83,9 @@ export default {
                     headers: { Authorization: `Bearer ${this.token}` }
                 }
             }
-            this.exam = await this.$axios.$get(examUrl, config).finally(() => {
+            await this.$axios.$get(examUrl, config).then((response) => {
+                this.exam = response
+            }).finally(() => {
                 this.loading.exam = false
             })
         }

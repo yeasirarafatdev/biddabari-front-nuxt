@@ -247,7 +247,7 @@ export default {
                 }
             }
         },
-        submitAnswer() {
+        async submitAnswer() {
             this.disabled = true
             const link = 'exam-reports'
             const mcqs = this.mcqs
@@ -271,7 +271,7 @@ export default {
                     headers: { Authorization: `Bearer ${this.token}` }
                 }
             }
-            this.$axios.$post(link, data, config).then(() => {
+            await this.$axios.$post(link, data, config).then(() => {
                 this.$emit('submitted')
                 this.mode = 'result'
                 this.disabled = false
@@ -285,7 +285,7 @@ export default {
                 this.disabled = false
             })
         },
-        submitAnswerSilently() {
+        async submitAnswerSilently() {
             if (!this.expired && !(this.result && this.result.final_submit)) {
                 const link = 'exam-reports'
                 const mcqs = this.mcqs
@@ -308,7 +308,7 @@ export default {
                         headers: { Authorization: `Bearer ${this.token}` }
                     }
                 }
-                this.$axios.$post(link, data, config)
+                await this.$axios.$post(link, data, config)
             }
         },
         startCallBack() {

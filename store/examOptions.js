@@ -1,9 +1,9 @@
 export default {
     namespaced: true,
     state: () => ({
-        showQuestionNumber: true,
-        showReportFlag: true,
-        showFavouriteFlag: true,
+        showQuestionNumber: false,
+        showFavouriteFlag: false,
+        showReportFlag: false
     }),
     getters: {},
     mutations: {},

@@ -304,7 +304,7 @@ export default {
                 }
             }
         },
-        toggleFavorite() {
+        async toggleFavorite() {
             const formData = new FormData()
             formData.append('type', 'favorite')
             formData.append('mcq_id', this.mcq.id)
@@ -316,11 +316,11 @@ export default {
                     headers: { Authorization: `Bearer ${this.token}` }
                 }
             }
-            this.$axios.$post(url, formData, config).then(() => {
+            await this.$axios.$post(url, formData, config).then(() => {
                 this.favorite = !this.favorite
             })
         },
-        report() {
+        async report() {
             this.snackbar = false
             const formData = new FormData()
             formData.append('type', 'report')
@@ -344,7 +344,7 @@ export default {
                     }
                 }
             }
-            this.$axios.post(url, formData, config).then(() => {
+            await this.$axios.post(url, formData, config).then(() => {
                 this.reported = true
             }).finally(() => {
                 this.snackbar = false

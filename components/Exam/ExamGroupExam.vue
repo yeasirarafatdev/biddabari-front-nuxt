@@ -85,7 +85,7 @@
                 :show-result='exam.showResult'
             />
             <v-tabs
-                v-if='exam.attended || started'
+                v-if='started'
                 v-model='tab'
                 centered
                 background-color='primary'
@@ -93,25 +93,21 @@
                 dark
                 next-icon='mdi-arrow-right-bold-box-outline'
                 prev-icon='mdi-arrow-left-bold-box-outline'
-                show-arrows
-            >
+                show-arrows>
                 <v-tabs-slider color='green'></v-tabs-slider>
-                <v-tab
-                    v-for='item in selectedSections'
-                    :key='item.id'
-                >
+                <v-tab v-for='item in selectedSections' :key='item.id'>
                     {{ item.name }}
                 </v-tab>
             </v-tabs>
         </v-card>
-        <v-tabs-items v-if='exam.attended || started' v-model='tab'>
+        <v-tabs-items v-if='started' v-model='tab'>
             <v-tab-item
                 v-for='item in selectedSections'
-                :key='item.id+item.name'
-            >
+                :key='item.id+item.name'>
                 <v-card flat style='height: 80vh; overflow: auto;'>
                     <v-card-text>
-                        <div v-for='(mcq,index) in item.mcqs' :key='mcq.id'>
+                        <div
+                            v-for='(mcq,index) in item.mcqs' :key='mcq.id'>
                             <exam-mcq
                                 v-model='mcq.user_answer'
                                 :mcq='mcq'
@@ -267,6 +263,7 @@ export default {
         },
         loadSections() {
             if (this.exam.attended) {
+                this.started = true
                 this.selectedSectionId = this.result.sections[0]
                 this.sections = this.result.sections
                 this.initialize()
@@ -325,7 +322,7 @@ export default {
                     headers: { Authorization: `Bearer ${this.token}` }
                 }
             }
-            this.$axios.$post(link, data, config).then(() => {
+            this.$axios.$post(link, data, config).then((response) => {
                 this.$emit('submitted')
                 this.mode = 'result'
                 this.disabled = false
@@ -339,7 +336,7 @@ export default {
                 this.disabled = false
             })
         },
-        submitAnswerSilently() {
+        async submitAnswerSilently() {
             if (!this.expired && !(this.result && this.result.final_submit) && this.started) {
                 const link = 'exam-reports'
                 const mcqs = this.mcqs
@@ -362,7 +359,7 @@ export default {
                         headers: { Authorization: `Bearer ${this.token}` }
                     }
                 }
-                this.$axios.$post(link, data, config)
+                await this.$axios.$post(link, data, config)
             }
         }
         ,
