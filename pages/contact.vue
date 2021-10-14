@@ -4,98 +4,10 @@
         <the-breadcrum :items-push="[{text: 'Contact',disabled: true,href: '/contact'}]" />
 
         <v-row class='my-10'>
+
+
             <v-col cols='12' lg='6' md='6' sm='6' xs='12'>
-                <h3 class='font-roboto-slab text-uppercase'>SEND A MESSAGE</h3>
-                <p class='text-14 text-muted'>Your email address will not be published. Required fields are marked.</p>
-                <div style='height: 2px; width: 50px; background-color: #49556c; border-radius: 10px;'></div>
-
-                <validation-observer
-                    ref='observer'>
-                    <form>
-                        <template v-if='formErrors && Object.keys(formErrors).length'>
-                            <template v-for='(error, err) in formErrors'>
-                                <v-alert :key='err' type='error'>
-                                    {{ error }}
-                                </v-alert>
-                            </template>
-                        </template>
-                        <v-row class='mt-4'>
-                            <v-col cols='12' lg='6' md='6'>
-                                <validation-provider
-                                    v-slot='{ errors }'
-                                    name='name'
-                                    rules='required'
-                                >
-                                    <v-text-field
-                                        v-model='contactForm.name'
-                                        label='Name'
-                                        :error-messages='errors'
-                                        :disabled='submittingForm'
-                                        required
-                                        small
-                                        class='my-0 py-0'
-                                    ></v-text-field>
-                                </validation-provider>
-                            </v-col>
-                            <v-col cols='12' lg='6' md='6'>
-                                <validation-provider
-                                    v-slot='{ errors }'
-                                    name='Email'
-                                    rules='required|email'
-                                >
-                                    <v-text-field
-                                        v-model='contactForm.email'
-                                        label='Email'
-                                        :error-messages='errors'
-                                        :disabled='submittingForm'
-                                        required
-                                        small
-                                        class='my-0 py-0'
-                                    ></v-text-field>
-                                </validation-provider>
-                            </v-col>
-                            <v-col cols='12'>
-                                <validation-provider
-                                    v-slot='{ errors }'
-                                    name='Subject'
-                                    rules='required'
-                                >
-                                    <v-text-field
-                                        v-model='contactForm.subject'
-                                        label='Subject'
-                                        :error-messages='errors'
-                                        :disabled='submittingForm'
-                                        required
-                                        small
-                                        class='my-0 py-0'
-                                    ></v-text-field>
-                                </validation-provider>
-                            </v-col>
-                            <v-col cols='12'>
-                                <validation-provider
-                                    v-slot='{ errors }'
-                                    name='Message'
-                                    rules='required'
-                                >
-                                    <v-textarea
-                                        v-model='contactForm.message'
-                                        label='Message'
-                                        required
-                                        :error-messages='errors'
-                                        :disabled='submittingForm'
-                                        small
-                                        class='my-0 py-0'
-                                    ></v-textarea>
-                                </validation-provider>
-                            </v-col>
-                            <v-col cols='12'>
-                                <v-btn color='error lighten-1' @click.stop.prevent='formSubmit()'>Submit</v-btn>
-                            </v-col>
-                        </v-row>
-
-                    </form>
-                </validation-observer>
-
+                <contact-us></contact-us>
             </v-col>
 
             <v-col cols='12' lg='6' md='6' sm='6' xs='12'>
@@ -154,6 +66,7 @@
 <script>
 import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import ContactUs from '~/components/_Addons/ContactUs/ContactUs'
 
 setInteractionMode('eager')
 
@@ -188,6 +101,7 @@ extend('email', {
 
 export default {
     components: {
+        ContactUs,
         ValidationProvider,
         ValidationObserver
     },

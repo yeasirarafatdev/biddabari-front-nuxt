@@ -10,7 +10,8 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div>You need to attend an exam to continue watching this video. Please
+                        <div>
+                            You need to attend an exam to continue watching this video. Please
                             <nuxt-link to='/auth/login'>Login</nuxt-link>
                             first.
                         </div>
