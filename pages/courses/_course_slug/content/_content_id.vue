@@ -1,6 +1,8 @@
 <template>
     <v-col cols='12' lg='8' md='8' sm='12' xs='12'>
+        <!-- IF Content is Video -->
         <div v-if='courseTopicContent.video'>
+            <!-- IF Video has Exam -->
             <template v-if='courseTopicContent.video.exam_id && !courseTopicContent.video.passed_exam'>
                 <div class='text-center'>
                     <div v-if='$auth.loggedIn'>
@@ -30,18 +32,20 @@
                 />
             </template>
         </div>
+        <!-- IF Content is PDF -->
         <div v-else-if='courseTopicContent.pdf'>
             <iframe height='100%' width='100%' :src='courseTopicContent.pdf.link'
                     style='height: 400vh; max-height: 100vh'>
             </iframe>
         </div>
+        <!-- IF Content is NOTE -->
         <div v-else-if='courseTopicContent.note'>
-            <!-- Incomplete -->
             <h3>{{ courseTopicContent.note.title }}</h3>
             <div v-html='courseTopicContent.note.body' />
             <a v-if='courseTopicContent.note.source' :href='courseTopicContent.note.source' target='_blank'>Source</a>
             <img :src='courseTopicContent.note.photo' alt='' width='100%'>
         </div>
+        <!-- IF Content is Exam -->
         <div v-else-if='courseTopicContent.exam'>
             <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
                 <v-alert border='left' color='info' dark>
@@ -63,6 +67,7 @@
                 </div>
             </template>
         </div>
+        <!-- IF Content is Written Exam -->
         <div v-else-if='courseTopicContent.written_exam'>
             <template v-if='isExamTime(courseTopicContent.exam.starts_at) > 0'>
                 <v-alert border='left' color='info' dark>

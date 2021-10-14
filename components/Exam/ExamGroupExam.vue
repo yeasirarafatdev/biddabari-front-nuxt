@@ -16,7 +16,7 @@
                             color='primary'
                             class='mx-4'
                             :value='section.id'
-                            :disabled='!!section.required || (sections.length>=exam.total_section && !sections.includes(section.id))'
+                            :disabled='(section.mcq && !section.mcq.length) || (!!section.required || (sections.length>=exam.total_section && !sections.includes(section.id)))'
                         ></v-checkbox>
                     </div>
                     <v-col cols='12' class='text-center'>

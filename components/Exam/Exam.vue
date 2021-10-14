@@ -12,29 +12,35 @@
             <v-progress-circular indeterminate color='primary' />
         </div>
         <v-card v-else elevation='2' class='px-2 py-2 relative'>
-            <!-- Normal MCQ Exam Component -->
-            <exam-taken
-                v-if="exam && exam.mode === 'exam'"
-                :key='exam.id'
-                :exam='exam'
-                @submitted='getExamData()'
-            />
-
-            <!-- Group Exam Component -->
-            <exam-group-exam
-                v-if="exam && exam.mode === 'group_exam'"
-                :key='exam.id'
-                :exam='exam'
-                @submitted='getExamData()'
-            />
-
-            <!--Practice Exam Component -->
-            <exam-practice-exam
-                v-if="exam && exam.mode === 'practice'"
-                :key='exam.id'
-                :exam='exam'
-            />
-
+            <template v-if='Object.keys(exam).length && (exam.mcqs && exam.mcqs.length)'>
+                <!-- Normal MCQ Exam Component -->
+                <exam-taken
+                    v-if="exam && exam.mode === 'exam'"
+                    :key='exam.id'
+                    :exam='exam'
+                    @submitted='getExamData()'
+                />
+                <!--Practice Exam Component -->
+                <exam-practice-exam
+                    v-if="exam && exam.mode === 'practice'"
+                    :key='exam.id'
+                    :exam='exam'
+                />
+            </template>
+            <template v-else-if="Object.keys(exam).length && (exam.sections && exam.sections.length) && exam.mode === 'group_exam'">
+                <!-- Group Exam Component -->
+                <exam-group-exam
+                    v-if="exam && exam.mode === 'group_exam'"
+                    :key='exam.id'
+                    :exam='exam'
+                    @submitted='getExamData()'
+                />
+            </template>
+            <template v-else>
+                <v-alert border='left' color='error lighten-2' dark>
+                    There is no questions available for this exam. Please Check After some Time.
+                </v-alert>
+            </template>
         </v-card>
     </div>
 </template>
