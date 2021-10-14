@@ -66,7 +66,7 @@
 <script>
 import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
-import ContactUs from '~/components/_Addons/ContactUs/ContactUs'
+import ContactUs from '~/_Addons/ContactUs/Components/ContactUs'
 
 setInteractionMode('eager')
 
