@@ -7,10 +7,17 @@
                             :course-exam='exam'
                             :token='token'
                         />-->
-            <exam v-if='courseTopicContent.exam && ($auth.loggedIn || token)'
-                  :courseContent='courseTopicContent'
-                  :courseExam='courseTopicContent.exam'
-            />
+            <template v-if='$auth.loggedIn || token'>
+                <exam v-if='courseTopicContent.exam'
+                      :courseContent='courseTopicContent'
+                      :courseExam='courseTopicContent.exam'
+                />
+                <exam-for-video
+                    v-else-if='courseTopicContent.video && !courseTopicContent.video.passed_exam'
+                    :courseContent='courseTopicContent'
+                    :examId='courseTopicContent.video.exam_id'
+                />
+            </template>
         </div>
         <div v-else>
             <v-alert v-if='!loading' border='left' color='indigo' dark>
@@ -31,9 +38,10 @@
 
 <script>
 import Exam from '~/components/Exam/Exam'
+import ExamForVideo from '~/components/Exam/ExamForVideo'
 
 export default {
-    components: { Exam },
+    components: { ExamForVideo, Exam },
     layout: 'mobile',
     data() {
         return {
@@ -67,12 +75,27 @@ export default {
                     this.loading = false
                 })
                 if (this.exam.content_id) {
-                    const courseTopicContentUrl = `contents/${this.exam.content_id}`
-                    this.courseTopicContent = await this.$axios.$get(courseTopicContentUrl, config).finally(() => {
+                    await this.loadCourseTopicContent(this.exam.content_id, config)
+                }
+                if (this.exam.video_id) {
+                    const videoUrl = `videos/${this.exam.video_id}`
+                    await this.$axios.$get(videoUrl, config).then((response) => {
+                        this.loadCourseTopicContent(response.content_id, config)
+                        // this.courseTopicContent = response
+                    }).finally(() => {
                         this.loading = false
                     })
                 }
             }
+        },
+        async loadCourseTopicContent(content_id, config) {
+            const courseTopicContentUrl = `contents/${content_id}`
+            await this.$axios.$get(courseTopicContentUrl, config).then((response) => {
+                this.courseTopicContent = response
+                console.log(this.courseTopicContent)
+            }).finally(() => {
+                this.loading = false
+            })
         }
     }
 }

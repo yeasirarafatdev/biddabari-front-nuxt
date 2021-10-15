@@ -26,8 +26,8 @@
             <template v-if='courseTopicContent.video.exam_id && $auth.loggedIn'>
                 <exam-for-video
                     v-if='proceedToExam || courseTopicContent.video.passed_exam'
-                    :course-content='courseTopicContent'
-                    :exam-id='courseTopicContent.video.exam_id'
+                    :courseContent='courseTopicContent'
+                    :examId='courseTopicContent.video.exam_id'
                     @examCompleted='reloadVideo($event)'
                 />
             </template>

@@ -13,10 +13,10 @@
                         <v-checkbox
                             v-model='sections'
                             :label='section.name'
-                            color='primary'
+                            :color='(section.mcqs && !section.mcqs.length) ? "error": "primary"'
                             class='mx-4'
                             :value='section.id'
-                            :disabled='(section.mcq && !section.mcq.length) || (!!section.required || (sections.length>=exam.total_section && !sections.includes(section.id)))'
+                            :disabled='(section.mcqs && !section.mcqs.length) || (!!section.required || (sections.length>=exam.total_section && !sections.includes(section.id)))'
                         ></v-checkbox>
                     </div>
                     <v-col cols='12' class='text-center'>
@@ -24,6 +24,12 @@
                             Load Questions
                         </v-btn>
                     </v-col>
+
+
+                    <v-alert>
+                        {{ checkQuestionsInSections() }}
+                    </v-alert>
+
                 </v-row>
             </v-card-text>
         </v-card>
@@ -160,6 +166,16 @@ export default {
     computed: {
         token() {
             return this.$route.params.token || null
+        },
+        checkQuestionsInSections() {
+            const sections = this.sections
+            let message = ''
+            let items = ''
+            sections.forEach(obj => {
+                if (obj.mcqs && obj.mcqs.length) {
+                    items = items + ' '+obj.name
+                }
+            })
         },
         answerAvailableAt() {
             return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
