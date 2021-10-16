@@ -12,6 +12,7 @@
                       :courseContent='courseTopicContent'
                       :courseExam='courseTopicContent.exam'
                 />
+                <!--                    v-else-if='courseTopicContent.video && !courseTopicContent.video.passed_exam'-->
                 <exam-for-video
                     v-else-if='courseTopicContent.video && !courseTopicContent.video.passed_exam'
                     :courseContent='courseTopicContent'
