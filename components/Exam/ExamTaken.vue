@@ -5,80 +5,87 @@
                 <v-progress-circular :size='50' color='primary' indeterminate></v-progress-circular>
             </v-card>
         </div>
-        <v-card rounded='lg' elevation='1' class='sticky white'>
-            <v-container v-if="mode === 'exam'">
-                <div class='pa-4 mx-2 d-flex justify-space-between' style='border: 2px solid dodgerblue;border-radius: 20px'>
-                    <div style='width: 100%' class='mr-4'>
-                        <div class='d-flex justify-space-between'>
-                            <div>{{ total_tried }}/{{ mcqs.length }}</div>
-                            <div class='d-flex'>
-                                <v-icon class='mx-2 mb-1' color='blue'>mdi-clock-outline</v-icon>
-                                <vue-countdown-timer
-                                    :start-time='start_time'
-                                    :end-time='end_time'
-                                    :interval='1000'
-                                    :end-text="'Time over!'"
-                                    :hour-txt="' :'"
-                                    :minutes-txt="' :'"
-                                    :seconds-txt="' :'"
-                                    @start_callback='startCallBack()'
-                                    @end_callback='endCallBack()'>
-                                    <template slot='countdown' slot-scope='scope'>
-                                        <span>{{ scope.props.hours }}</span><b>{{ scope.props.hourTxt }}</b>
-                                        <span>{{ scope.props.minutes }}</span><b>{{ scope.props.minutesTxt }}</b>
-                                        <span>{{ scope.props.seconds }}</span>
-                                    </template>
+        <template v-if='strict && canGiveExam < 0'>
+            <v-alert color='info'>
+                Please attend this exam between <strong>{{ startsAt }}</strong> to <strong>{{ endsAt }}</strong>
+            </v-alert>
+        </template>
+        <template v-else>
+            <v-card rounded='lg' elevation='1' class='sticky white'>
+                <v-container v-if="mode === 'exam'">
+                    <div class='pa-4 mx-2 d-flex justify-space-between' style='border: 2px solid dodgerblue;border-radius: 20px'>
+                        <div style='width: 100%' class='mr-4'>
+                            <div class='d-flex justify-space-between'>
+                                <div>{{ total_tried }}/{{ mcqs.length }}</div>
+                                <div class='d-flex'>
+                                    <v-icon class='mx-2 mb-1' color='blue'>mdi-clock-outline</v-icon>
+                                    <vue-countdown-timer
+                                        :start-time='start_time'
+                                        :end-time='end_time'
+                                        :interval='1000'
+                                        :end-text="'Time over!'"
+                                        :hour-txt="' :'"
+                                        :minutes-txt="' :'"
+                                        :seconds-txt="' :'"
+                                        @start_callback='startCallBack()'
+                                        @end_callback='endCallBack()'>
+                                        <template slot='countdown' slot-scope='scope'>
+                                            <span>{{ scope.props.hours }}</span><b>{{ scope.props.hourTxt }}</b>
+                                            <span>{{ scope.props.minutes }}</span><b>{{ scope.props.minutesTxt }}</b>
+                                            <span>{{ scope.props.seconds }}</span>
+                                        </template>
 
-                                    <template slot='end-text' slot-scope='scope'>
-                                        <span style='color: red'>{{ scope.props.endText }}</span>
-                                    </template>
-                                </vue-countdown-timer>
+                                        <template slot='end-text' slot-scope='scope'>
+                                            <span style='color: red'>{{ scope.props.endText }}</span>
+                                        </template>
+                                    </vue-countdown-timer>
+                                </div>
+                            </div>
+                            <v-progress-linear height='5' rounded :value='bar'></v-progress-linear>
+
+                            <div v-if='timerMessage' class='text-center' style='color: red; margin-top: 6px;'>
+                                {{ timerMessage }}
                             </div>
                         </div>
-                        <v-progress-linear height='5' rounded :value='bar'></v-progress-linear>
-
-                        <div v-if='timerMessage' class='text-center' style='color: red; margin-top: 6px;'>
-                            {{ timerMessage }}
-                        </div>
+                        <v-btn
+                            v-if="mode === 'exam'"
+                            max-width='200'
+                            :loading='disabled'
+                            :disabled='disabled'
+                            shaped
+                            text
+                            color='success'
+                            class='font-weight-bold'
+                            style='border: 2px solid limegreen'
+                            @click='submitAnswer'
+                        >
+                            Submit
+                        </v-btn>
                     </div>
-                    <v-btn
-                        v-if="mode === 'exam'"
-                        max-width='200'
-                        :loading='disabled'
-                        :disabled='disabled'
-                        shaped
-                        text
-                        color='success'
-                        class='font-weight-bold'
-                        style='border: 2px solid limegreen'
-                        @click='submitAnswer'
-                    >
-                        Submit
-                    </v-btn>
-                </div>
-            </v-container>
-            <exam-result
-                v-if="mode==='result' && mcqs && !!result"
-                :answerAvailableAt='answerAvailableAt'
-                :isAnswerAvailable='isAnswerAvailable'
-                :examReport='result'
-                :exam='exam'
-                :showResult='showResult'
-            ></exam-result>
-        </v-card>
-        <v-card flat style='height: 80vh; overflow: auto;'>
-            <v-card-text>
-                <div v-for='(mcq,index) in mcqs' :key='mcq.id'>
-                    <exam-mcq
-                        v-model='mcq.user_answer'
-                        :mcq='mcq'
-                        :mode='mode'
-                        :index='index'
-                        :isAnswerAvailable='isAnswerAvailable'
-                    ></exam-mcq>
-                </div>
-            </v-card-text>
-        </v-card>
+                </v-container>
+                <exam-result
+                    v-if="mode==='result' && mcqs && !!result"
+                    :answerAvailableAt='answerAvailableAt'
+                    :isAnswerAvailable='isAnswerAvailable'
+                    :examReport='result'
+                    :exam='exam'
+                    :showResult='showResult'
+                ></exam-result>
+            </v-card>
+            <v-card flat style='height: 80vh; overflow: auto;'>
+                <v-card-text>
+                    <div v-for='(mcq,index) in mcqs' :key='mcq.id'>
+                        <exam-mcq
+                            v-model='mcq.user_answer'
+                            :mcq='mcq'
+                            :mode='mode'
+                            :index='index'
+                            :isAnswerAvailable='isAnswerAvailable'
+                        ></exam-mcq>
+                    </div>
+                </v-card-text>
+            </v-card>
+        </template>
     </v-card>
 </template>
 <script>
@@ -116,10 +123,15 @@ export default {
             alertTime: '',
             timerMessage: '',
             currentTime: moment(),
-            showTimerNotification: true
+            showTimerNotification: true,
+            startsAt: moment(this.exam.starts_at).format('Do, MMM, YY - h:mm:ss a'),
+            endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
         }
     },
     computed: {
+        canGiveExam() {
+            return moment().diff(this.exam.starts_at, 'minutes')
+        },
         token() {
             return this.$route.params.token ?? null
         },
@@ -233,16 +245,20 @@ export default {
         initialize() {
             this.disabled = false
             this.start_time = moment()
-            this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
+            this.end_time = this.strict ? moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
-            if (this.expired || finalSubmit) {
+            const time_over = this.end_time ? moment(this.end_time).isBefore(moment()) : false
+            //console.log(time_over)
+            if (this.expired || finalSubmit || time_over) {
                 this.mode = 'result'
             } else {
                 this.mode = 'exam'
             }
+            /*if (this.strict && this.canGiveExam > 0) {
+            }*/
             if (!this.videoExam) {
-                if (this.exam.mode === 'exam' && !this.expired && !finalSubmit) {
+                if (this.exam.mode === 'exam' && !this.expired && !finalSubmit && !time_over) {
                     this.submitAnswerSilently()
                 }
             }

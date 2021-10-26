@@ -29,7 +29,7 @@
                 <div class='orange--text' v-if='!uploadingAnswer'>Drag to rearrange image</div>
                 <draggable v-model='previewImages' @end='rearrange'>
                     <transition-group>
-                        <div v-for='(image, im) in previewImages' :key='im' class='formImageContainer'>
+                        <div v-for='(image, im) in previewImages' class='formImageContainer'>
                             <img :src='image.src' alt='image' height='50px' class='rounded'
                                  style='margin: 2px 6px 2px 0; max-width: 100% !important; width: 100%'>
                             <v-icon class='imageCloseButton' color='error' @click.stop.prevent='removeImageFromCollection(im)'

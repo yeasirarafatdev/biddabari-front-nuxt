@@ -14,7 +14,7 @@
 
 
                 <template v-if='showResult'>
-                    <nuxt-link v-if='token' :to='`/exams/ranking/${exam.id}`' class='mt-2'>
+                    <nuxt-link v-if='token' :to='`/exams/ranking/${exam.id}/${token}`' class='mt-2'>
                         <v-btn color='primary' small>See ranking</v-btn>
                     </nuxt-link>
                     <nuxt-link v-else :to='`/exam/${exam.id}/ranking`' class='mt-2'>

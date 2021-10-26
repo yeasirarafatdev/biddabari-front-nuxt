@@ -93,7 +93,7 @@ export default {
             const courseTopicContentUrl = `contents/${content_id}`
             await this.$axios.$get(courseTopicContentUrl, config).then((response) => {
                 this.courseTopicContent = response
-                console.log(this.courseTopicContent)
+                // console.log(this.courseTopicContent)
             }).finally(() => {
                 this.loading = false
             })
