@@ -64,7 +64,7 @@
                         <!-- v-video-embed ... Enables to change video URL on click of a button -->
                         <!-- Tutorial:  -->
                         <!-- https://codingshiksha.com/vue/vue-js-iframe-embed-component-for-youtubedailymotionvimeo-videos-using-v-video-embed-library-in-javascript-full-project-for-beginners/ -->
-                        <video-embed css='embed-responsive-16by9' src='https://youtu.be/ZRgZUqDEEeA'></video-embed>
+                        <video-embed css='embed-responsive-16by9' src='https://www.youtube.com/watch?v=BplXBSUPt-o'></video-embed>
                     </v-col>
                     <v-col cols='12' sm='6'>
                         <div class='text-14 line-height-24 text-muted'>
