@@ -51,15 +51,13 @@ export default {
         CommentForm,
         PostComment
     },
-    computed: {
-        ...mapGetters({
-            user: 'auth/user'
-        })
-    },
     props: ['comment'],
-    data: () => ({
-        reply: false
-    }),
+    data() {
+        return {
+            user: this.$auth.user,
+            reply: false
+        }
+    },
     methods: {
         newCommentAdd(event) {
             this.$emit('newCommentAdded', event)

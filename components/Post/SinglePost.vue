@@ -24,14 +24,14 @@
                             </v-btn>
                         </template>
                         <v-list>
-                            <v-list-item v-if="user.id === post.user.id">
+                            <v-list-item v-if="$auth.user.id === post.user.id">
                                 <v-list-item-title>
                                     <v-btn @click="editItem(post, index)" small color="warning">
                                         <v-icon>mdi-grease-pencil</v-icon>
                                     </v-btn>
                                 </v-list-item-title>
                             </v-list-item>
-                            <v-list-item v-if="user.id === post.user.id || (user.role === 'admin' && post.user.role!='admin')">
+                            <v-list-item v-if="$auth.user.id === post.user.id || ($auth.user.role === 'admin' && post.user.role!='admin')">
                                 <v-list-item-title>
                                     <v-btn @click="deleteItem(post)" small color="error">
                                         <v-icon>mdi-trash-can-outline</v-icon>
@@ -177,7 +177,7 @@ export default {
         },
         async loadComments(post) {
             this.loadingComments = true
-            await axios.get(`/admin/community-comment?community_post_id=${post.id}`)
+            await this.$axios.get(`/admin/community-comment?community_post_id=${post.id}`)
                 .then((response) => {
                     if (response.data && response.data.data) {
                         this.allComments = response.data.data

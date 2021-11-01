@@ -10,14 +10,14 @@
             <div v-if='settings.nagad'><strong style='white-space: nowrap'><span class='orange--text'>Nagad:</span> {{ settings.nagad }}</strong></div>
             <div v-if='settings.rocket'><strong style='white-space: nowrap'><span class='orange--text'>Rocket:</span> {{ settings.rocket }}</strong></div>
         </div>
-<!--        <div class='text-center'>
+        <div class='text-center'>
             <img :src='require("~/assets/images/payment.jpg")' alt='' width='100%' style='max-width: 500px'>
-        </div>-->
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props:['instructions', 'settings']
+    props: ['instructions', 'settings']
 }
 </script>

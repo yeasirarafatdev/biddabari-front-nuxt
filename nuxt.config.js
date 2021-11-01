@@ -44,6 +44,7 @@ export default {
         { src: '~/plugins/countdown.js', mode: 'client' },
         { src: '~/plugins/filters.js', mode: 'client' },
         { src: '~/plugins/katex.js', mode: 'client' },
+        { src: '~/plugins/mixin/mixin.js', mode: 'client' },
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components

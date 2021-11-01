@@ -40,7 +40,8 @@ export default {
                         { to: '/founders', label: 'Founders' },
                         { to: '/contact', label: 'Contact' }
                     ]
-                }
+                },
+                // { to: '/community', label: 'Community' },
             ],
             courseCategories: {},
         }
