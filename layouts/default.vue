@@ -60,7 +60,6 @@ export default {
             this.generateCourseSubLinks()
         })
     },
-    fetchOnServer: false,
     mounted() {
         this.$store.dispatch('cart/getDBCart')
         /* if (this.$auth.loggedIn) {
