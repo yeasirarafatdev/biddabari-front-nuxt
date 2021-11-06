@@ -137,6 +137,7 @@ export default {
         },
         answerAvailableAt() {
             return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
+            //return moment(this.exam.ends_at).format('D MMM [at] hh:mm a')
         },
         selectedSections() {
             return this.sections.length ? this.exam.sections.filter(section => this.sections.includes(section.id)) : []
@@ -180,9 +181,10 @@ export default {
             return !!(this.exam && this.exam.showResult && moment(this.exam.ends_at).isBefore(moment()))
         },
         isAnswerAvailable() {
-            if (this.exam.content && this.exam.content.available_at) {
+            /*if (this.exam.content && this.exam.content.available_at) {
+                console.log(this.exam.content.available_at)
                 return this.exam.content.available_at ? moment(this.exam.content.available_at).isBefore(moment()) : true
-            }
+            }*/
             return this.exam.ends_at ? moment(this.exam.ends_at).isBefore(moment()) : true
         },
         expired() {
@@ -221,11 +223,13 @@ export default {
             deep: true
         },
         currentTime(newVal) {
-            if (moment(newVal).isAfter(this.alertTime) && moment(newVal).isBefore(this.end_time)) {
-                let left = moment(this.end_time).subtract(newVal).format('mm:ss')
-                this.timerMessage = 'You have  ' + left + ' minutes left to complete the exam.'
-                if (this.showTimerNotification) {
-                    this.displayTimerNotification()
+            if (!this.exam.attended) {
+                if (moment(newVal).isAfter(this.alertTime) && moment(newVal).isBefore(this.end_time)) {
+                    let left = moment(this.end_time).subtract(newVal).format('mm:ss')
+                    this.timerMessage = 'You have  ' + left + ' minutes left to complete the exam.'
+                    if (this.showTimerNotification) {
+                        this.displayTimerNotification()
+                    }
                 }
             }
         }
@@ -246,6 +250,7 @@ export default {
             this.disabled = false
             this.start_time = moment()
             this.end_time = this.strict ? moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
+            // this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
             const time_over = this.end_time ? moment(this.end_time).isBefore(moment()) : false

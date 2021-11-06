@@ -27,7 +27,7 @@
 
 
                     <v-alert>
-                        {{ checkQuestionsInSections() }}
+                        {{ checkQuestionsInSections }}
                     </v-alert>
 
                 </v-row>
@@ -112,8 +112,7 @@
                 :key='item.id+item.name'>
                 <v-card flat style='height: 80vh; overflow: auto;'>
                     <v-card-text>
-                        <div
-                            v-for='(mcq,index) in item.mcqs' :key='mcq.id'>
+                        <div v-for='(mcq,index) in item.mcqs' :key='mcq.id'>
                             <exam-mcq
                                 v-model='mcq.user_answer'
                                 :mcq='mcq'
