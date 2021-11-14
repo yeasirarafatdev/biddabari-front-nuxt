@@ -46,7 +46,7 @@ export default {
     computed: {
         token() {
             return this.$route.params.token ?? null
-        },
+        }
     },
     methods: {
         retry() {
@@ -55,6 +55,6 @@ export default {
         practice() {
             this.$emit('practice')
         }
-    }
+    },
 }
 </script>

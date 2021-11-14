@@ -11,6 +11,11 @@
             </v-alert>
         </template>
         <template v-else>
+            <template v-if='expired'>
+                <v-alert color='info'>
+                    Exam Time over! <strong>{{ startsAt }}</strong> to <strong>{{ endsAt }}</strong>
+                </v-alert>
+            </template>
             <v-card rounded='lg' elevation='1' class='sticky white'>
                 <v-container v-if="mode === 'exam'">
                     <div class='pa-4 mx-2 d-flex justify-space-between' style='border: 2px solid dodgerblue;border-radius: 20px'>
@@ -124,12 +129,13 @@ export default {
             timerMessage: '',
             currentTime: moment(),
             showTimerNotification: true,
-            startsAt: moment(this.exam.starts_at).format('Do, MMM, YY - h:mm:ss a'),
+            startsAt: moment(this.exam.starts_at).format('Do, MMM, YYYY - h:mm:ss a'),
             endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
         }
     },
     computed: {
         canGiveExam() {
+            // console.log(moment().diff(this.exam.starts_at, 'minutes'))
             return moment().diff(this.exam.starts_at, 'minutes')
         },
         token() {
@@ -253,13 +259,14 @@ export default {
             // this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
-            const time_over = this.end_time ? moment(this.end_time).isBefore(moment()) : false
-            //console.log(time_over)
+            //const time_over = this.end_time ? moment(this.end_time).isBefore(moment()) : false
+            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
             if (this.expired || finalSubmit || time_over) {
                 this.mode = 'result'
             } else {
                 this.mode = 'exam'
             }
+            //console.log(this.mode, this.expired, finalSubmit, time_over, this.end_time)
             /*if (this.strict && this.canGiveExam > 0) {
             }*/
             if (!this.videoExam) {
