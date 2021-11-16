@@ -11,11 +11,6 @@
             </v-alert>
         </template>
         <template v-else>
-            <template v-if='expired'>
-                <v-alert color='info'>
-                    Exam Time over! <strong>{{ startsAt }}</strong> to <strong>{{ endsAt }}</strong>
-                </v-alert>
-            </template>
             <v-card rounded='lg' elevation='1' class='sticky white'>
                 <v-container v-if="mode === 'exam'">
                     <div class='pa-4 mx-2 d-flex justify-space-between' style='border: 2px solid dodgerblue;border-radius: 20px'>
@@ -260,7 +255,8 @@ export default {
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
             //const time_over = this.end_time ? moment(this.end_time).isBefore(moment()) : false
-            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            //const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            const time_over = false
             if (this.expired || finalSubmit || time_over) {
                 this.mode = 'result'
             } else {

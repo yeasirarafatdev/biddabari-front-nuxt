@@ -5,6 +5,11 @@
                 <v-progress-circular :size='50' color='primary' indeterminate></v-progress-circular>
             </v-card>
         </div>
+        <template v-if='mode === "result"'>
+            <v-alert color='info'>
+                Exam Time over! <strong>{{ startsAt }}</strong> to <strong>{{ endsAt }}</strong>
+            </v-alert>
+        </template>
         <v-card v-if='!started && !loading && !exam.attended' class='my-10 py-14'>
             <v-card-title class='justify-center'>Select {{ exam.total_section }} Subjects</v-card-title>
             <v-card-text>
@@ -24,7 +29,6 @@
                             Load Questions
                         </v-btn>
                     </v-col>
-
 
                     <v-alert>
                         {{ checkQuestionsInSections }}
@@ -159,7 +163,9 @@ export default {
             alertTime: '',
             timerMessage: '',
             currentTime: moment(),
-            showTimerNotification: true
+            showTimerNotification: true,
+            startsAt: moment(this.exam.starts_at).format('Do, MMM, YYYY - h:mm:ss a'),
+            endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
         }
     },
     computed: {
@@ -172,7 +178,7 @@ export default {
             let items = ''
             sections.forEach(obj => {
                 if (obj.mcqs && obj.mcqs.length) {
-                    items = items + ' '+obj.name
+                    items = items + ' ' + obj.name
                 }
             })
         },
@@ -277,6 +283,10 @@ export default {
             this.$notifier.showMessage({ content: 'You Have 5 minutes to complete the exam', color: 'error' })
         },
         loadSections() {
+            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            if (this.expired || time_over) {
+                this.mode = 'result'
+            }
             if (this.exam.attended) {
                 this.started = true
                 this.selectedSectionId = this.result.sections[0]
@@ -302,7 +312,8 @@ export default {
             this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
-            if (this.expired || finalSubmit) {
+            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            if (this.expired || finalSubmit || time_over) {
                 this.mode = 'result'
             } else {
                 this.mode = 'group_exam'
