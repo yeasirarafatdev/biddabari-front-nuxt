@@ -165,8 +165,8 @@ export default {
             currentTime: moment(),
             showTimerNotification: true,
             startsAt: moment(this.exam.starts_at).format('Do, MMM, YYYY - h:mm:ss a'),
-            endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
-            answerAvailableAt: moment(this.exam.ends_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
+            endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a'),
+            answerAvailableAt: moment(this.exam.ends_at).add(this.exam.duration, 'minutes').format('h:mm:ss a'),
         }
     },
     computed: {
