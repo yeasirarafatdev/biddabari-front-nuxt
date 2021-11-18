@@ -312,7 +312,8 @@ export default {
             this.end_time = this.strict ? moment(this.exam.ends_at).toDate() : this.exam.result ? moment(this.exam.result.entered_at).add(this.exam.duration, 'm') : moment().add(this.exam.duration, 'm')
             this.alertTime = moment(this.end_time).subtract(5, 'minutes')
             const finalSubmit = this.result ? this.result.final_submit : 0
-            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            // const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            const time_over = moment(moment(this.exam.ends_at)).isBefore(moment())
             if (this.expired || finalSubmit || time_over) {
                 this.mode = 'result'
             } else {
