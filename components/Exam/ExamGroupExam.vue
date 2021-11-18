@@ -7,7 +7,7 @@
         </div>
         <template v-if='mode === "result"'>
             <v-alert color='info'>
-                Exam Time over! <strong>{{ startsAt }}</strong> to <strong>{{ endsAt }}</strong>
+                Exam Time over! <strong>{{ startsAt }}</strong> to <strong>{{ strict ? endsAt : answerAvailableAt }}</strong>
             </v-alert>
         </template>
         <v-card v-if='!started && !loading && !exam.attended' class='my-10 py-14'>
@@ -166,6 +166,7 @@ export default {
             showTimerNotification: true,
             startsAt: moment(this.exam.starts_at).format('Do, MMM, YYYY - h:mm:ss a'),
             endsAt: moment(this.exam.starts_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
+            answerAvailableAt: moment(this.exam.ends_at).add(this.exam.duration, 'minutes').format('h:mm:ss a')
         }
     },
     computed: {
@@ -283,7 +284,7 @@ export default {
             this.$notifier.showMessage({ content: 'You Have 5 minutes to complete the exam', color: 'error' })
         },
         loadSections() {
-            const time_over = moment(moment(this.exam.starts_at).add(this.exam.duration, 'minutes').toDate()).isBefore(moment())
+            const time_over = moment(moment(this.exam.ends_at)).isBefore(moment())
             if (this.expired || time_over) {
                 this.mode = 'result'
             }
