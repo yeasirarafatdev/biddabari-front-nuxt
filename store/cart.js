@@ -15,11 +15,9 @@ export default {
         },
         addToCart(state, product) {
             const productIndex = state.book_cart.findIndex(item => item.id === product.id)
-            if (productIndex !== -1) {
-                state.book_cart[productIndex].quantity++
-            } else {
-                state.book_cart.push(product)
-            }
+            if (productIndex !== -1) state.book_cart[productIndex].quantity++
+            else state.book_cart.push(product)
+
             localStorage.removeItem('book_cart')
             const thisCart = JSON.stringify(state.book_cart)
             localStorage.setItem('book_cart', thisCart)
@@ -38,9 +36,8 @@ export default {
         updateCart(state, cart) {
             state.book_cart = cart
 
-            if (!state.book_cart.length) {
-                localStorage.removeItem('book_cart')
-            } else {
+            if (!state.book_cart.length) localStorage.removeItem('book_cart')
+            else {
                 const thisCart = JSON.stringify(state.book_cart)
                 localStorage.setItem('book_cart', thisCart)
             }
@@ -55,10 +52,10 @@ export default {
             localStorage.setItem('book_cart', thisCart)
             // }
         },
-        loadingCartItems(state, payload){
+        loadingCartItems(state, payload) {
             state.loadingCartItems = payload
         },
-        clearCart(state, payload){
+        clearCart(state, payload) {
             state.book_cart = payload
         }
     },
@@ -122,13 +119,10 @@ export default {
         async removeItemDBCart(context, productObject) {
             context.commit('removeProduct', productObject)
             if (this.$auth.loggedIn) {
-                await this.$axios.$post('cart', {
-                    book_id: productObject.id,
-                    type: 'book',
-                    direction: 'down'
-                }).catch(() => {
-                    this.$notifier.showMessage({ content: 'Error removing product from cart.', color: 'error' })
-                })
+                await this.$axios.$post('cart', { book_id: productObject.id, type: 'book', direction: 'down' })
+                    .catch(() => {
+                        this.$notifier.showMessage({ content: 'Error removing product from cart.', color: 'error' })
+                    })
             }
         },
         async deleteDBCart(context, payload) {
