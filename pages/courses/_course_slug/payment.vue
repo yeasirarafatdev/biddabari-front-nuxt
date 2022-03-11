@@ -6,30 +6,58 @@
             v-if='courseInfo && Object.keys(courseInfo).length'
             :items-push="[{text: 'Courses',disabled: false,href: '/courses'},
             {text: courseInfo.title ,disabled: false,href: `/courses/${courseInfo.id}`},
-            {text: 'Buy course' ,disabled: true,href: '/'}]" />
+            {text: 'Buy course' ,disabled: true,href: '/'}]"/>
 
         <div class='mt-2'>
             <v-card class='px-4'>
                 <v-row>
-                    <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='5' lg='5' md='5' sm='6' xs='12'>
-                        <lazy-slide-show-card-course :data='courseInfo' :show-subtitle='true' display-name='title' />
+                    <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='5' lg='5' md='5' sm='6'
+                           xs='12'>
+                        <lazy-slide-show-card-course :data='courseInfo' :show-subtitle='true' display-name='title'/>
+                        <v-btn @click="paymentOption='online'" class="my-1" color="primary" outlined
+                               :block="$vuetify.breakpoint.mdAndDown">Online Payment
+                        </v-btn>
+                        <v-btn @click="paymentOption='manual'" class="my-1" color="primary" outlined
+                               :block="$vuetify.breakpoint.mdAndDown">Manual Payment
+                        </v-btn>
                     </v-col>
-                    <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='7' lg='7' md='7' sm='6' xs='12'>
 
-                        <payment-instructions :settings='settings' :instructions='instructions' />
+                    <v-col v-if="paymentOption === 'online'" cols="12" lg="7" sm="6">
+                        <div class="text-h6 mb-2">Pay using card or mobile banking</div>
+                        <v-img src="https://nextivesolution.sgp1.cdn.digitaloceanspaces.com/sslcommerz.png"
+                               alt="ssl-commerz"/>
+
+                        <v-checkbox v-model="agreed" label="I agree to the terms and conditions">
+                            <template #label>
+                                I agree to the
+                                <nuxt-link class="ml-1" to="/terms-and-conditions">
+                                    terms and conditions
+                                </nuxt-link>
+                            </template>
+                        </v-checkbox>
+
+                        <v-btn :disabled="!agreed" @click="showAlert" color="primary" class="mt-2">Pay now</v-btn>
+                    </v-col>
+
+                    <v-col v-if="paymentOption === 'manual' && courseInfo && Object.keys(courseInfo).length" cols='12'
+                           xl='7' lg='7' md='7' sm='6' xs='12'>
+
+                        <payment-instructions :settings='settings' :instructions='instructions'/>
 
                         <div class='d-flex flex-wrap justify-space-between align-center py-2'>
                             <div>Price</div>
                             <strong> ৳ {{ courseInfo.price }}</strong>
                         </div>
-                        <div v-if='courseInfo.discount' class='d-flex flex-wrap justify-space-between align-center py-2'>
+                        <div v-if='courseInfo.discount'
+                             class='d-flex flex-wrap justify-space-between align-center py-2'>
                             <div>Discount</div>
                             <strong class='orange--text'> ৳ {{ courseInfo.discount }}</strong>
                         </div>
                         <v-divider class=' px-2'></v-divider>
                         <div class='d-flex flex-wrap justify-space-between align-center py-2'>
                             <strong>Payable</strong>
-                            <strong v-if='courseInfo.discount' class='orange--text'> ৳ {{ courseInfo.price - courseInfo.discount }}</strong>
+                            <strong v-if='courseInfo.discount' class='orange--text'> ৳
+                                {{ courseInfo.price - courseInfo.discount }}</strong>
                             <strong v-else class='orange--text'> ৳ {{ courseInfo.price }}</strong>
                         </div>
 
@@ -112,8 +140,8 @@
 
 <script>
 
-import { required, digits, max, regex } from 'vee-validate/dist/rules'
-import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import {required, digits, max, regex} from 'vee-validate/dist/rules'
+import {extend, ValidationObserver, ValidationProvider, setInteractionMode} from 'vee-validate'
 
 setInteractionMode('eager')
 
@@ -148,6 +176,8 @@ export default {
     },
     data() {
         return {
+            paymentOption: 'manual',
+            agreed: false,
             instructions: [],
             settings: [],
             courseInfo: '',
@@ -207,6 +237,9 @@ export default {
     },
     watch: {},
     methods: {
+        showAlert() {
+            alert('This feature is coming soon')
+        },
         async placeOrder() {
             this.submittingForm = true
             const valid = await this.$refs.observer.validate()
@@ -222,10 +255,10 @@ export default {
                         .then((response) => {
                             this.showSuccessAlert = true
                             this.successAlertMessage = 'We have accepted your payment information. Please wait until your payment is verified. Thank you!'
-                            this.$notifier.showMessage({ content: 'Order successfully placed.', color: 'success' })
+                            this.$notifier.showMessage({content: 'Order successfully placed.', color: 'success'})
                         })
                         .catch(() => {
-                            this.$notifier.showMessage({ content: 'Failed to place your order!', color: 'error' })
+                            this.$notifier.showMessage({content: 'Failed to place your order!', color: 'error'})
                         })
                         .finally(() => {
                             this.submittingForm = false
