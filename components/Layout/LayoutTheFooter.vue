@@ -68,6 +68,9 @@
                             <li>
                                 <nuxt-link to='/terms-and-conditions'>Terms & Conditions</nuxt-link>
                             </li>
+                            <li>
+                                <nuxt-link to='/refund-policy'>Refund Policy</nuxt-link>
+                            </li>
                         </ul>
                     </v-col>
                 </v-row>
