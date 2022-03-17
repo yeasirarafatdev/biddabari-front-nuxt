@@ -238,7 +238,9 @@ export default {
     watch: {},
     methods: {
         showAlert() {
-            alert('This feature is coming soon')
+            if (this.$auth.loggedIn) {
+                location.href = process.env.API_URL + '/pay/confirm?user=' + this.$auth.user.id + '&course=' + this.courseInfo.id
+            }
         },
         async placeOrder() {
             this.submittingForm = true
