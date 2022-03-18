@@ -14,7 +14,7 @@
                     <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='5' lg='5' md='5' sm='6'
                            xs='12'>
                         <lazy-slide-show-card-course :data='courseInfo' :show-subtitle='true' display-name='title'/>
-                        <v-btn @click="paymentOption='online'" class="my-1" color="primary" outlined
+                        <v-btn disabled @click="paymentOption='online'" class="my-1" color="primary" outlined
                                :block="$vuetify.breakpoint.mdAndDown">Online Payment
                         </v-btn>
                         <v-btn @click="paymentOption='manual'" class="my-1" color="primary" outlined
