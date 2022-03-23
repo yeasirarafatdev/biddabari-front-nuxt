@@ -41,7 +41,7 @@
                             <v-icon color='warning lighten-1' class='pr-4'>mdi-map-marker</v-icon>
                             <div>
                                 <strong>Address</strong>
-                                <div class='text-muted text-14'>House# 347/1 (4B), Free School Street, Hatirpool, Dhaka 1205</div>
+                                <div class='text-muted text-14'>43 BC DAD STREET, LALBAG, DHAKA-1211</div>
                             </div>
                         </div>
                     </v-col>
