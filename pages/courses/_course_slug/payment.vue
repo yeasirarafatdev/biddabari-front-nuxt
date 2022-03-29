@@ -14,7 +14,7 @@
                     <v-col v-if='courseInfo && Object.keys(courseInfo).length' cols='12' xl='5' lg='5' md='5' sm='6'
                            xs='12'>
                         <lazy-slide-show-card-course :data='courseInfo' :show-subtitle='true' display-name='title'/>
-                        <v-btn disabled @click="paymentOption='online'" class="my-1" color="primary" outlined
+                        <v-btn @click="paymentOption='online'" class="my-1" color="primary" outlined
                                :block="$vuetify.breakpoint.mdAndDown">Online Payment
                         </v-btn>
                         <v-btn @click="paymentOption='manual'" class="my-1" color="primary" outlined
@@ -40,7 +40,24 @@
                             </template>
                         </v-checkbox>
 
-                        <v-btn :disabled="!agreed" @click="showAlert" color="primary" class="mt-2">Pay now</v-btn>
+                        <!--                        <v-btn :disabled="!agreed" @click="showAlert" color="primary" class="mt-2">Pay now</v-btn>-->
+
+                        <button
+                            :disabled="!agreed"
+                            id="sslczPayBtn"
+                            class="btn btn-primary btn-lg btn-block"
+                            :postdata="obj"
+                            order="#"
+                            :endpoint="apiUrl"> Pay Now
+                        </button>
+<!--                        <button
+                            id='sslczPayBtn'
+                            class='btn btn-primary btn-lg btn-block'
+                            order='#'
+                            :postdata='obj'
+                            :endpoint='apiUrl'
+                        > Pay Now
+                        </button>-->
                     </v-col>
 
                     <v-col v-if="paymentOption === 'manual' && courseInfo && Object.keys(courseInfo).length" cols='12'
@@ -180,6 +197,14 @@ export default {
     },
     data() {
         return {
+            apiUrl: process.env.API_URL + '/initiate',
+            obj: {
+                cus_name: 'Customer Name',
+                cus_phone: '01500000000',
+                cus_email: 'example@email.com',
+                product_name: 'Product Name',
+                total_amount: ''
+            },
             paymentOption: 'manual',
             agreed: false,
             instructions: [],
@@ -226,7 +251,6 @@ export default {
             this.$router.back()
         }
     },
-    fetchOnServer: true,
     head() {
         return {
             title: 'Payment',
@@ -236,11 +260,71 @@ export default {
                     name: 'description',
                     content: 'Biddabari'
                 }
+            ],
+            script: [
+                {
+                    hid: 'stripe',
+                    src: 'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+                    integrity: 'sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo',
+                    crossorigin: 'anonymous',
+                    defer: false
+                },
+                {
+                    hid: 'stripe',
+                    src: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
+                    integrity: 'sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1',
+                    crossorigin: 'anonymous',
+                    defer: false
+                },
+                {
+                    hid: 'stripe',
+                    src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
+                    integrity: 'sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM',
+                    crossorigin: 'anonymous',
+                    defer: false
+                }
             ]
         }
     },
+    beforeMount() {
+        (function (window, document) {
+            const loader = function () {
+                const script = document.createElement('script')
+                const tag = document.getElementsByTagName('script')[0]
+                // script.src = 'https://seamless-epay.sslcommerz.com/embed.min.js?' + Math.random().toString(36).substring(7) // USE THIS FOR LIVE
+                script.src = 'https://sandbox.sslcommerz.com/embed.min.js?' + Math.random().toString(36).substring(7) // USE THIS FOR SANDBOX
+                tag.parentNode.insertBefore(script, tag)
+            }
+            window.addEventListener ? window.addEventListener('load', loader, false) : window.attachEvent('onload', loader)
+        })(window, document)
+    },
+    mounted() {
+        this.loadSSLBtn()
+    },
+    fetchOnServer: true,
     watch: {},
     methods: {
+        loadSSLBtn() {
+            if (process.client) {
+                const obj = {}
+                obj.cus_name = this.cus_name
+                obj.cus_phone = this.cus_phone
+                obj.cus_email = this.cus_email
+                obj.value_a = this.user_id
+                obj.value_b = this.courseInfo.id
+                obj.product_name = this.courseInfo.title
+                obj.total_amount = this.calculatedDiscountPrice()
+                $('#sslczPayBtn').prop('postdata', obj)
+            }
+        },
+        calculatedDiscountPrice() {
+            let price = this.courseInfo?.price
+            if (this.courseInfo.discount || this.courseInfo.discount_type === 'tk')
+                price = this.courseInfo.price - this.courseInfo.discount
+            if (this.courseInfo.discount_type === '%')
+                price = (this.courseInfo.price * this.courseInfo.discount) / 100
+            return price
+        },
         showAlert() {
             if (this.$auth.loggedIn) {
                 location.href = process.env.API_URL + '/pay/confirm?user=' + this.$auth.user.id + '&course=' + this.courseInfo.id

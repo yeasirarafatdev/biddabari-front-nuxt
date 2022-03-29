@@ -71,9 +71,9 @@ export default {
             if (this.$auth.loggedIn) {
                 products.forEach(product => {
                     this.$axios.$delete(`cart/${product.cart_id}`).then((response) => {
-                        this.$notifier.showMessage({ content: 'Product deleted from cart.', color: 'success' })
+                        this.$notifier.showMessage({content: 'Product deleted from cart.', color: 'success'})
                     }).catch(() => {
-                        this.$notifier.showMessage({ content: 'Error deleting product from cart.', color: 'error' })
+                        this.$notifier.showMessage({content: 'Error deleting product from cart.', color: 'error'})
                     })
                 })
             }
@@ -112,16 +112,16 @@ export default {
                     direction: 'up',
                     quantity: productObject.quantity
                 }).catch(() => {
-                    this.$notifier.showMessage({ content: 'Error adding product to cart.', color: 'error' })
+                    this.$notifier.showMessage({content: 'Error adding product to cart.', color: 'error'})
                 })
             }
         },
         async removeItemDBCart(context, productObject) {
             context.commit('removeProduct', productObject)
             if (this.$auth.loggedIn) {
-                await this.$axios.$post('cart', { book_id: productObject.id, type: 'book', direction: 'down' })
+                await this.$axios.$post('cart', {book_id: productObject.id, type: 'book', direction: 'down'})
                     .catch(() => {
-                        this.$notifier.showMessage({ content: 'Error removing product from cart.', color: 'error' })
+                        this.$notifier.showMessage({content: 'Error removing product from cart.', color: 'error'})
                     })
             }
         },
@@ -130,9 +130,9 @@ export default {
             context.commit('removeFromCart', index)
             if (this.$auth.loggedIn) {
                 await this.$axios.$delete(`cart/${payload.product.cart_id}`).then((response) => {
-                    this.$notifier.showMessage({ content: 'Product deleted from cart.', color: 'success' })
+                    this.$notifier.showMessage({content: 'Product deleted from cart.', color: 'success'})
                 }).catch(() => {
-                    this.$notifier.showMessage({ content: 'Error deleting product from cart.', color: 'error' })
+                    this.$notifier.showMessage({content: 'Error deleting product from cart.', color: 'error'})
                 })
             }
         }

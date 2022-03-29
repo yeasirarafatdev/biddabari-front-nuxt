@@ -4,9 +4,9 @@ const BaseStateUrl = 'admin/community-category/';
 
 export default {
     namespaced: true,
-    state: {
+    state:  () => ({
         categories: []
-    },
+    }),
     getters: {
         categories(state) {
             return state.categories;

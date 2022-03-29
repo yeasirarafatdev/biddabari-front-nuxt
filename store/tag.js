@@ -4,9 +4,9 @@ const BaseStateUrl = 'admin/community-tag/';
 
 export default {
     namespaced: true,
-    state: {
+    state: () => ({
         tags: []
-    },
+    }),
     getters: {
         tags(state) {
             return state.tags;

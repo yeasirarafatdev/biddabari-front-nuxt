@@ -1,9 +1,9 @@
 const BaseStateUrl = 'admin/community-post/';
 export default {
     namespaced: true,
-    state: {
+    state:  () => ({
         posts: [],
-    },
+    }),
     getters: {
         posts(state) {
             return state.posts;

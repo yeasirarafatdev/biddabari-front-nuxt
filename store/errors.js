@@ -1,8 +1,8 @@
 export default {
     namespaced: true,
-    state: {
+    state:  () => ({
         errors: [],
-    },
+    }),
     getters: {
         errors(state) {
             return state.errors;
