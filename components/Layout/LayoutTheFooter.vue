@@ -17,12 +17,12 @@
                                     01963-929200/01/02
                                 </a>
                             </li>
-<!--                            <li>
-                                <a href='mailto:bcff2020@gmail.com' target='_blank'>
-                                    <v-icon small color='black'>mdi-email-outline</v-icon>
-                                    bcff2020@gmail.com
-                                </a>
-                            </li>-->
+                            <!--                            <li>
+                                                            <a href='mailto:bcff2020@gmail.com' target='_blank'>
+                                                                <v-icon small color='black'>mdi-email-outline</v-icon>
+                                                                bcff2020@gmail.com
+                                                            </a>
+                                                        </li>-->
                             <li>
                                 <a href='mailto:bcff2020@gmail.com' target='_blank'>
                                     <v-icon small color='black'>mdi-google-maps</v-icon>
@@ -31,7 +31,7 @@
                             </li>
                         </ul>
 
-                        <layout-social-icons />
+                        <layout-social-icons/>
 
                     </v-col>
                     <v-col cols='12' xs='6' sm='6' md='3'>
@@ -74,6 +74,10 @@
                         </ul>
                     </v-col>
                 </v-row>
+                <div class="my-2">
+                    <v-img src="https://nextivesolution.sgp1.cdn.digitaloceanspaces.com/sslcommerz.png"
+                           alt="ssl-commerz"/>
+                </div>
                 <hr>
                 <p class='text-muted text-12 mt-4'>
                     &copy; Biddabari {{ new Date().getFullYear() }} | Developed by Nextive Solution
