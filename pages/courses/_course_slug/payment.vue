@@ -34,6 +34,9 @@
                                 <nuxt-link class="ml-1" to="/terms-and-conditions">
                                     terms and conditions
                                 </nuxt-link>
+                                <nuxt-link class="mx-1" to="/privacy-and-policy">
+                                    privacy policy
+                                </nuxt-link>
                                 <span class="mx-1">&</span>
                                 <nuxt-link to="/refund-policy">
                                     refund policy
